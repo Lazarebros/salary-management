@@ -8,7 +8,8 @@
 	<name>salary-management-web Maven Webapp</name>
 
 	<properties>
-		<hospital.management.version>1.0.0-SNAPSHOT</hospital.management.version>
+		<salary.management.version>1.0.0-SNAPSHOT</salary.management.version>
+		<user.management.version>1.0.0-SNAPSHOT</user.management.version>
 		<jsf.version>2.2.14</jsf.version>
 		<primefaces.version>6.1</primefaces.version>
 		<spring.version>4.3.8.RELEASE</spring.version>
@@ -19,7 +20,13 @@
 		<dependency>
 			<groupId>com.d2l2c</groupId>
 			<artifactId>salary-management-data</artifactId>
-			<version>${hospital.management.version}</version>
+			<version>${salary.management.version}</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>com.d2l2c</groupId>
+  			<artifactId>user-management</artifactId>
+			<version>${user.management.version}</version>
 		</dependency>
 		
 		<dependency>
@@ -88,7 +95,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>hospital-management-web</finalName>
+		<finalName>salary-management-web</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -101,4 +108,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>

@@ -1,0 +1,113 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 0px;
+  background-color: #eee;
+}
+
+.project-name {
+  padding-top: 10px;
+   padding-left: 20px;
+  font-size: 30px;
+  color: #fff;
+}
+
+.navbar-user-info-container {
+	position: absolute;
+	padding-top: 18px;
+	width: 400px;
+	right: 1px;
+}
+
+.navbar-user-info {
+	float: left;
+  	font-size: 14px;
+  	color: #fff;
+}
+
+.user-info {
+	float: right;
+}
+
+.navbar-logout {
+	float: right;
+	width: 60px;
+	padding-right: 10px;
+  	font-size: 14px;
+  	color: #fff;
+}
+
+.container-welcome {
+	padding-top: 100px;
+}
+
+.form-welcome {
+  	max-width: 600px;
+	padding-left: 100px;
+  	margin: 0 auto;
+}
+
+.btn-block-sized {
+	max-width: 300px;
+}
+
+.container-main {
+	padding-top: 50px;
+	padding-left: 50px;
+	padding-right: 50px;
+	width: 100%;
+}
+
+.container-main-back {
+}
+
+.container-main-datatable {
+	float: left;
+	width: 100%;
+/*   	padding-top: 0px; */
+}
+
+.container-main-form {
+	float: right;
+	width: 400px;
+	padding-top: 50px;
+}
+
+.container-chart {
+	padding-top: 600px;
+	width: 100%;
+/* 	right: 1px; */
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+.footer {
+  	position: relative;
+	bottom: 0;
+  	width: 100%;
+  	/* Set the fixed height of the footer here */
+  	height: 60px;
+  	background-color: #f5f5f5;
+}
+
+.container-footer {
+/* 	padding-top: 40px; */
+/*   margin: auto; */
+}
+
+.container-footer-space {
+	padding-top: 100px;
+}
+
+.footer > .container-footer {
+  text-align: center;
+  font-size: 80%;
+  color: grey;
+}
+
+.ui-selectonemenu {
+    padding-right: 0 !important;
+}
+
+.ui-selectonemenu label {
+    width: auto !important;
+}

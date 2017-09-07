@@ -12,6 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.joda.time.DateTime;
 
 /**
  * @author dayanlazare
@@ -122,11 +125,19 @@ public class Paycheck {
 		}
 	}
 
-	@Override
-	public String toString() {
-		return "Paycheck [id=" + id + ", companyName=" + companyName + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", numberOfHours=" + numberOfHours + ", hourlyRate=" + hourlyRate + ", grossAmount="
-				+ grossAmount + ", netPay=" + netPay + ", reimbursement=" + reimbursement + "]";
+	@Transient
+	public int getYear() {
+		return (new DateTime(startDate)).getYear();
+	}
+
+	@Transient
+	public int getMonth() {
+		return (new DateTime(startDate)).getMonthOfYear();
+	}
+
+	@Transient
+	public int getBiWeekly() {
+		return ((new DateTime(startDate)).getDayOfMonth() < 15) ? 1 : 2;
 	}
 	
 }

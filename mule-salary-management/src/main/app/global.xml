@@ -12,6 +12,14 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 
 	<file:connector name="File" moveToDirectory="${paycheck.file.archive}" streaming="true" validateConnections="true" doc:name="File" />
 	
-	<db:mysql-config name="MySQL_Configuration" host="localhost" port="3306" user="root" password="root" database="salary_management" doc:name="MySQL Configuration"/>
+	<db:mysql-config 
+		name="MySQL_Configuration"
+		driverClassName="${salary.db.driverClassName}" 
+		host="${salary.db.host}" 
+		port="${salary.db.port}" 
+		database="${salary.db.database}" 
+		user="${salary.db.user}" 
+		password="${salary.db.password}" 
+		doc:name="MySQL Configuration"/>
 
 </mule>
