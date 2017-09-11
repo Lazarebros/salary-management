@@ -31,9 +31,13 @@ public class PaycheckView {
 
 	public PaycheckView() {
 	}
+	
+	public List<Paycheck> getPaychecks() {
+		return paychecks;
+	}
 
-	public String getCompanyName() {
-		return paychecks.get(0).getCompanyName();
+	public String getCompanyCode() {
+		return paychecks.get(0).getCompanyCode();
 	}
 
 	public BigDecimal getGrossAmount() {

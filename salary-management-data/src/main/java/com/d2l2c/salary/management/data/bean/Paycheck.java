@@ -12,20 +12,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.joda.time.DateTime;
 
 /**
  * @author dayanlazare
  *
  */
 @Entity
-@Table(name = "paycheck")
+@Table(name = "paychecks")
 public class Paycheck {
 
 	private Long id;
-	private String companyName;
+	private String companyCode;
+	private int year;
+	private int month;
+	private int biWeek;
 	private Date startDate;
 	private Date endDate;
 	private Long numberOfHours;
@@ -49,13 +49,40 @@ public class Paycheck {
 		this.id = id;
 	}
 
-	@Column(name = "company_name")
-	public String getCompanyName() {
-		return companyName;
+	@Column(name = "company_code")
+	public String getCompanyCode() {
+		return companyCode;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+	@Column(name = "year")
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	@Column(name = "month")
+	public int getMonth() {
+		return month;
+	}
+
+	public void setMonth(int month) {
+		this.month = month;
+	}
+
+	@Column(name = "bi_week")
+	public int getBiWeek() {
+		return biWeek;
+	}
+
+	public void setBiWeek(int biWeek) {
+		this.biWeek = biWeek;
 	}
 
 	@Column(name = "start_date")
@@ -94,7 +121,7 @@ public class Paycheck {
 		this.hourlyRate = rate;
 	}
 
-	@Column(name = "gross_amout")
+	@Column(name = "gross_amount")
 	public BigDecimal getGrossAmount() {
 		return grossAmount;
 	}
@@ -123,21 +150,6 @@ public class Paycheck {
 		} else {
 			this.reimbursement = this.reimbursement.add(reimbursement);
 		}
-	}
-
-	@Transient
-	public int getYear() {
-		return (new DateTime(startDate)).getYear();
-	}
-
-	@Transient
-	public int getMonth() {
-		return (new DateTime(startDate)).getMonthOfYear();
-	}
-
-	@Transient
-	public int getBiWeekly() {
-		return ((new DateTime(startDate)).getDayOfMonth() < 15) ? 1 : 2;
 	}
 	
 }

@@ -62,6 +62,21 @@ public class PaycheckDaoImpl implements PaycheckDao {
 	}
 
 	@Override
+	public List<Paycheck> getPaychecks(String companyCode) throws Exception {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Paycheck> criteria = builder.createQuery(Paycheck.class);
+		Root<Paycheck> paycheckRoot = criteria.from(Paycheck.class);
+		criteria.select(paycheckRoot);
+		criteria.where(builder.equal(paycheckRoot.get("companyCode"), companyCode));
+		
+		List<Order> orderList = new ArrayList<Order>();
+		orderList.add(builder.asc(paycheckRoot.get("id")));
+		criteria.orderBy(orderList);
+		
+		return em.createQuery(criteria).getResultList();
+	}
+
+	@Override
 	public Paycheck getPaycheck(Long id) throws Exception {
 		Paycheck paycheck = null;
 

@@ -9,36 +9,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.d2l2c.salary.management.data.bean.Company;
 import com.d2l2c.salary.management.data.bean.Paycheck;
+import com.d2l2c.salary.management.data.dao.CompanyDao;
 import com.d2l2c.salary.management.data.dao.PaycheckDao;
-import com.d2l2c.salary.management.data.service.PaycheckService;
+import com.d2l2c.salary.management.data.service.SalaryService;
 
 /**
  * @author dayanlazare
  *
  */
-@Service("paycheckService")
-public class PaycheckServiceImpl implements PaycheckService {
+@Service("salaryService")
+public class SalaryServiceImpl implements SalaryService {
 
 	@Autowired
 	private PaycheckDao paycheckDao;
 
-	@Transactional("salaryTransactionManager")
+	@Autowired
+	private CompanyDao companyDao;
+
 	@Override
-	public void save(Paycheck paycheck) throws Exception {
-		paycheckDao.save(paycheck);
+	public List<Company> getCompanies() throws Exception {
+		return companyDao.getCompanies();
 	}
 
 	@Transactional("salaryTransactionManager")
 	@Override
-	public List<Paycheck> getPaychecks() throws Exception {
-		return paycheckDao.getPaychecks();
+	public List<Paycheck> getPaychecks(String companyCode) throws Exception {
+		return paycheckDao.getPaychecks(companyCode);
 	}
-
-	@Transactional("salaryTransactionManager")
-	@Override
-	public Paycheck getPaycheck(Long id) throws Exception {
-		return paycheckDao.getPaycheck(id);
-	}
-
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import org.joda.time.DateTime;
 
@@ -21,7 +21,7 @@ import com.d2l2c.salary.management.web.util.SalaryWebUtil;
  * @author dayanlazare
  *
  */
-@RequestScoped
+@SessionScoped
 @ManagedBean(name = "paycheckBean", eager = true)
 public class PaycheckBean implements Serializable {
 

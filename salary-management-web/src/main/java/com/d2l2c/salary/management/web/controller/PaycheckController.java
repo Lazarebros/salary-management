@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.d2l2c.salary.management.data.bean.Paycheck;
-import com.d2l2c.salary.management.data.service.PaycheckService;
+import com.d2l2c.salary.management.data.service.SalaryService;
 import com.d2l2c.salary.management.web.ui.bean.ChartView;
 import com.d2l2c.salary.management.web.ui.bean.PaycheckBean;
 
@@ -26,8 +26,8 @@ public class PaycheckController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PaycheckController.class);
 
-	@ManagedProperty(value = "#{paycheckService}")
-	PaycheckService paycheckService;
+	@ManagedProperty(value = "#{salaryService}")
+	SalaryService salaryService;
 
 	@ManagedProperty(value = "#{paycheckBean}")
 	private PaycheckBean paycheckBean;
@@ -35,8 +35,8 @@ public class PaycheckController {
 	@ManagedProperty(value = "#{chartView}")
 	private ChartView chartView;
 
-	public void setPaycheckService(PaycheckService paycheckService) {
-		this.paycheckService = paycheckService;
+	public void setSalaryService(SalaryService salaryService) {
+		this.salaryService = salaryService;
 	}
 
 	public void setPaycheckBean(PaycheckBean paycheckBean) {
@@ -52,11 +52,7 @@ public class PaycheckController {
 		String message = null;
 		try {
 			this.retreivePaychecks();
-			if (!paycheckBean.getPaycheckViews().isEmpty()) {
-				page = "paychecks";
-			} else {
-				message = "No Paychecks Found!!";
-			}
+			page = "paychecks";
 		} catch (Exception e) {
 			message = "Something went wrong...";
 			LOGGER.error(e.getMessage(), e);
@@ -68,7 +64,8 @@ public class PaycheckController {
 	}
 	
 	private void retreivePaychecks() throws Exception {
-		List<Paycheck> paycheckList = paycheckService.getPaychecks();
+		paycheckBean.getPaycheckViewMap().clear();
+		List<Paycheck> paycheckList = salaryService.getPaychecks("MS3");
 		for (Paycheck paycheck : paycheckList) {
 			paycheckBean.addPaycheck(paycheck);
 		}

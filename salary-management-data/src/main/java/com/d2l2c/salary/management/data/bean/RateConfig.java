@@ -12,10 +12,19 @@ import java.util.Date;
  */
 public class RateConfig {
 
+	private Long id;
 	private Date startDate;
 	private Date endDate;
 	private BigDecimal hourly;
-	private Long weeklyExpectedNumberOfHours;
+	private BigDecimal expectedNetPay;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Date getStartDate() {
 		return startDate;
@@ -41,12 +50,12 @@ public class RateConfig {
 		this.hourly = hourly;
 	}
 
-	public Long getWeeklyExpectedNumberOfHours() {
-		return weeklyExpectedNumberOfHours;
+	public BigDecimal getExpectedNetPay() {
+		return expectedNetPay;
 	}
 
-	public void setWeeklyExpectedNumberOfHours(Long weeklyExpectedNumberOfHours) {
-		this.weeklyExpectedNumberOfHours = weeklyExpectedNumberOfHours;
+	public void setExpectedNetPay(BigDecimal expectedNetPay) {
+		this.expectedNetPay = expectedNetPay;
 	}
 
 }

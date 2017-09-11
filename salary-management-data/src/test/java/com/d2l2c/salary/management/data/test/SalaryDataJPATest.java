@@ -21,8 +21,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.d2l2c.salary.management.data.bean.Company;
 import com.d2l2c.salary.management.data.bean.Paycheck;
-import com.d2l2c.salary.management.data.service.PaycheckService;
+import com.d2l2c.salary.management.data.service.SalaryService;
 import com.d2l2c.salary.management.data.spring.config.SalaryJPAConfig;
 
 /**
@@ -36,18 +37,40 @@ public class SalaryDataJPATest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SalaryDataJPATest.class);
 
 	@Autowired
-	private PaycheckService paycheckService;
+	private SalaryService salaryService;
 
 	@Transactional("salaryTransactionManager")
 	@Test
-	public void listUsersTest() {
+	public void listCompaniesTest() {
+		Iterable<Company> companies;
+		try {
+			companies = salaryService.getCompanies();
+			assertThat(companies, is(not(Optional.empty())));
+			companies.forEach(company -> {
+				try {
+					assertNotNull(company.getCode());
+				} catch (Exception e) {
+					LOGGER.error(e.getMessage());
+					fail();
+				}
+			});
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			fail();
+		}
+	}
+
+	@Transactional("salaryTransactionManager")
+	@Test
+	public void listPaychecksTest() {
+		String companyCode = "MS3";
 		Iterable<Paycheck> paychecks;
 		try {
-			paychecks = paycheckService.getPaychecks();
+			paychecks = salaryService.getPaychecks(companyCode);
 			assertThat(paychecks, is(not(Optional.empty())));
 			paychecks.forEach(paycheck -> {
 				try {
-					assertNotNull(paycheck.getCompanyName());
+					assertNotNull(paycheck.getCompanyCode());
 				} catch (Exception e) {
 					LOGGER.error(e.getMessage());
 					fail();

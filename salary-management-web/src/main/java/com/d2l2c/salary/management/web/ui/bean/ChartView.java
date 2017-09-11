@@ -117,8 +117,9 @@ public class ChartView implements Serializable {
 
 	public void setPaycheckViewMap(Map<String, PaycheckView> paycheckViewMap) {
 		this.paycheckViewMap = paycheckViewMap;
-		
-		this.createAnimatedModels();
+		if(!paycheckViewMap.isEmpty()) {
+			this.createAnimatedModels();
+		}
 	}
 	
 	private int getMaxRealNet() {
