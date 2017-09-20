@@ -13,10 +13,13 @@
 	    	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	    
 	        <h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
-	        <h:outputStylesheet name="css/main.css" />
 	    </f:facet>
     </h:head>
    	<h:body>
+   		<f:facet name="last">
+	    	<h:outputStylesheet name="css/paychecks.css" />
+	    </f:facet>
+	        
         <ui:include src="../common/commonHeader.xhtml" />
         <ui:include src="paychecksContent.xhtml" />
         <ui:include src="../common/commonFooter.xhtml" />

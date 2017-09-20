@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,17 +24,17 @@ import javax.persistence.Table;
 public class Paycheck {
 
 	private Long id;
-	private String companyCode;
 	private int year;
 	private int month;
 	private int biWeek;
 	private Date startDate;
 	private Date endDate;
 	private Long numberOfHours;
-	private BigDecimal hourlyRate;
 	private BigDecimal grossAmount;
 	private BigDecimal netPay;
 	private BigDecimal reimbursement;
+
+	private Company company;
 
 	public Paycheck() {
 		super();
@@ -47,15 +49,6 @@ public class Paycheck {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	@Column(name = "company_code")
-	public String getCompanyCode() {
-		return companyCode;
-	}
-
-	public void setCompanyCode(String companyCode) {
-		this.companyCode = companyCode;
 	}
 
 	@Column(name = "year")
@@ -111,15 +104,6 @@ public class Paycheck {
 	public void setNumberOfHours(Long numberOfHours) {
 		this.numberOfHours = numberOfHours;
 	}
-	
-	@Column(name = "hourly_rate")
-	public BigDecimal getHourlyRate() {
-		return hourlyRate;
-	}
-
-	public void setHourlyRate(BigDecimal rate) {
-		this.hourlyRate = rate;
-	}
 
 	@Column(name = "gross_amount")
 	public BigDecimal getGrossAmount() {
@@ -145,11 +129,21 @@ public class Paycheck {
 	}
 
 	public void setReimbursement(BigDecimal reimbursement) {
-		if(this.reimbursement == null) {
+		if (this.reimbursement == null) {
 			this.reimbursement = reimbursement;
 		} else {
 			this.reimbursement = this.reimbursement.add(reimbursement);
 		}
 	}
-	
+
+	@ManyToOne
+    @JoinColumn(name="company_id", nullable=false)
+    public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
 }

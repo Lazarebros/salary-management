@@ -61,7 +61,7 @@ public class CompanyDaoImpl implements CompanyDao {
 		CriteriaQuery<Company> criteria = builder.createQuery(Company.class);
 		Root<Company> companyRoot = criteria.from(Company.class);
 		criteria.select(companyRoot);
-		criteria.where(builder.equal(companyRoot.get("companyCode"), companyCode));
+		criteria.where(builder.equal(companyRoot.get("code"), companyCode));
 		List<Company> companyList = em.createQuery(criteria).getResultList();
 		if (!companyList.isEmpty()) {
 			company = companyList.get(0);

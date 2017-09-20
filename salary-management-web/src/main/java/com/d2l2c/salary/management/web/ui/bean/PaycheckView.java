@@ -37,7 +37,7 @@ public class PaycheckView {
 	}
 
 	public String getCompanyCode() {
-		return paychecks.get(0).getCompanyCode();
+		return paychecks.get(0).getCompany().getCode();
 	}
 
 	public BigDecimal getGrossAmount() {

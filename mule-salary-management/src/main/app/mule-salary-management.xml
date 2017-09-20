@@ -18,7 +18,6 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
 		<logger message="Process Finished!!!!!!!" level="INFO" doc:name="Logger"/>
     </flow>
     
-    
     <flow name="mule-salary-management-import-flow" processingStrategy="synchronous">
         <file:inbound-endpoint path="${paycheck.file.input}" connector-ref="File" comparator="com.d2l2c.mule.salary.management.comparator.FilenameComparator" responseTimeout="10000" doc:name="File">
         	<file:filename-wildcard-filter pattern="*.pdf" />
@@ -28,48 +27,78 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         <custom-transformer class="com.d2l2c.mule.salary.management.transformer.ExtractFileContentTransformer" doc:name="Java"/>
         <custom-transformer class="com.d2l2c.mule.salary.management.transformer.ContentToPaycheckTransformer" doc:name="Java"/>
         
-        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
-        <flow-ref name="mule-salary-management-insert-flow" doc:name="Flow Reference"/>
+        <flow-ref name="mule-salary-management-select-company-flow" doc:name="mule-salary-management-select-company-flow Reference"/>
+        <flow-ref name="mule-salary-management-insert-paycheck-flow" doc:name="mule-salary-management-insert-paycheck-flow"/>
     </flow>
     
-    <sub-flow name="mule-salary-management-insert-flow">
+    <flow name="mule-salary-management-select-company-flow">
+        <db:select config-ref="MySQL_Configuration" target="#[flowVars.companySelectResultSet]" doc:name="Database">
+            <db:parameterized-query><![CDATA[SELECT company_id FROM companies WHERE code = :companyCode]]></db:parameterized-query>
+            <db:in-param name="companyCode" value="#[payload.companyCode]" />
+        </db:select>
+		<set-variable variableName="companyId" value="#[flowVars.companySelectResultSet.get(0).company_id]" doc:name="Variable" />
+        <choice>
+        	<when expression="#[flowVars.?companyId == empty]">
+<!--         		<flow-ref name="mule-salary-management-insert-flow" doc:name="mule-salary-management-insert-flow"/> -->
+        		<logger message="No Company for Company Code: #[payload.companyCode]" level="INFO" doc:name="Logger"/>
+        	</when>
+        	<otherwise>
+		        <logger message="Company Id: #[flowVars.companyId] for Company Code: #[payload.companyCode]" level="INFO" doc:name="Logger"/>
+        	</otherwise>
+        </choice>
+    </flow>
+    
+    <flow name="mule-salary-management-insert-company-flow">
+        <db:select config-ref="MySQL_Configuration" target="#[flowVars.companyInsertResultSet]" doc:name="Database">
+            <db:parameterized-query><![CDATA[
+            	INSERT INTO companies (
+	            	code,
+	            	name) 
+	            VALUES (
+            		:code,
+            		:name)
+            	]]>
+            </db:parameterized-query>
+            <db:in-param name="code" value="#[payload.companyCode]" />
+            <db:in-param name="name" value="Needs to be updated" />
+        </db:select>
+    </flow>
+    
+    <sub-flow name="mule-salary-management-insert-paycheck-flow">
         <logger message="Inserting into Database..." level="INFO" doc:name="Logger"/>
         <db:insert config-ref="MySQL_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	INSERT INTO paychecks (
-	            	company_code,
+	            	company_id,
 	            	year,
 	            	month,
 	            	bi_week,
 	            	start_date, 
 	            	end_date, 
 	            	number_of_hours, 
-	            	hourly_rate, 
 	            	gross_amount, 
 	            	net_pay, 
 	            	reimbursement) 
 	            VALUES (
-            		:companyCode,
+            		:companyId,
             		:year,
             		:month,
             		:bi_week,
             		:startDate,
             		:endDate, 
 					:numberOfHours, 
-					:hourlyRate, 
 					:grossAmount, 
 					:netPay, 
 					:reimbursement)
 				]]>
 			</db:parameterized-query>
-			<db:in-param name="companyCode" value="#[payload.companyCode]" />
+			<db:in-param name="companyId" value="#[flowVars.companyId]" />
 			<db:in-param name="year" value="#[payload.year]" />
 			<db:in-param name="month" value="#[payload.month]" />
 			<db:in-param name="bi_week" value="#[payload.biWeek]" />
 			<db:in-param name="startDate" value="#[payload.startDate]" />
 			<db:in-param name="endDate" value="#[payload.endDate]" />
 			<db:in-param name="numberOfHours" value="#[payload.numberOfHours]" />
-			<db:in-param name="hourlyRate" value="#[payload.hourlyRate]" />
 			<db:in-param name="grossAmount" value="#[payload.grossAmount]" />
 			<db:in-param name="netPay" value="#[payload.netPay]" />
 			<db:in-param name="reimbursement" value="#[payload.reimbursement]" />

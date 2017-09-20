@@ -19,7 +19,7 @@ public interface PaycheckDao extends JpaRepository<Paycheck, Integer> {
 	
 	public List<Paycheck> getPaychecks() throws Exception;
 	
-	public List<Paycheck> getPaychecks(String companyCode) throws Exception;
+	public List<Paycheck> getPaychecks(List<String> companyCodes) throws Exception;
 	
 	public Paycheck getPaycheck(Long id) throws Exception;
 	

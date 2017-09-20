@@ -1,8 +1,11 @@
 --
 -- Table structure for tables
 --
+DROP TABLE IF EXISTS `companies`;
+DROP TABLE IF EXISTS `paychecks`;
+DROP TABLE IF EXISTS `rates`;
 
-CREATE TABLE `companies` (
+CREATE TABLE IF NOT EXISTS `companies` (
   `company_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(32) NOT NULL,
   `name` varchar(64) NOT NULL,
@@ -10,7 +13,7 @@ CREATE TABLE `companies` (
 );
 ALTER TABLE `companies` ADD UNIQUE KEY `UC_Companies_Code` (`code`) USING BTREE;
 
-CREATE TABLE `rates` (
+CREATE TABLE IF NOT EXISTS `rates` (
   `rate_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `company_id` bigint(20) NOT NULL,
   `hourly` decimal(19,2) DEFAULT 0.00,
@@ -23,7 +26,7 @@ CREATE TABLE `rates` (
 );
 ALTER TABLE `rates` ADD UNIQUE KEY `UC_Rates` (`start_date`, `end_date`, `hourly`) USING BTREE;
 
-CREATE TABLE `paychecks` (
+CREATE TABLE IF NOT EXISTS `paychecks` (
   `paycheck_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `company_id` bigint(20) NOT NULL,
   `year` int(20) NOT NULL,
@@ -39,10 +42,3 @@ CREATE TABLE `paychecks` (
   CONSTRAINT `fk_paycheck_company_id` FOREIGN KEY (`company_id`) references companies(`company_id`)
 );
 ALTER TABLE `paychecks` ADD UNIQUE KEY `UC_Paychecks` (`company_id`,`start_date`,`end_date`) USING BTREE;
-
-INSERT INTO `companies` (`code`, `name`) VALUES ('MMI', 'Mitchell Martin INC');
-INSERT INTO `companies` (`code`, `name`) VALUES ('MS3', 'Mountain State Software Solutions LLC');
-
-INSERT INTO rates (rate_id, company_id, hourly, start_date, end_date, expected_gross, expected_net_pay) VALUES (1, 1, 81.00, '2015-01-01', NULL, 6390.00, 4415.00);
-INSERT INTO rates (rate_id, company_id, hourly, start_date, end_date, expected_gross, expected_net_pay) VALUES (2, 2, 100.00, '2015-01-01', NULL, 8000.00, 5600.00);
-

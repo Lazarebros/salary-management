@@ -3,7 +3,6 @@
  */
 package com.d2l2c.salary.management.data.bean;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,8 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * @author dayanlazare
@@ -26,9 +25,9 @@ public class Company {
 	protected Long id;
 	protected String code;
 	protected String name;
-	private BigDecimal expectedNetPay;
 
 	private Set<Paycheck> paychecks = new HashSet<Paycheck>();
+	private Set<Rate> rates = new HashSet<Rate>();
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,22 +58,22 @@ public class Company {
 		this.name = name;
 	}
 
-	@Column(name = "expected_net_pay")
-	public BigDecimal getExpectedNetPay() {
-		return expectedNetPay;
-	}
-
-	public void setExpectedNetPay(BigDecimal expectedNetPay) {
-		this.expectedNetPay = expectedNetPay;
-	}
-
-	@Transient
+	@OneToMany(mappedBy = "company")
 	public Set<Paycheck> getPaychecks() {
 		return paychecks;
 	}
 
 	public void setPaychecks(Set<Paycheck> paychecks) {
 		this.paychecks = paychecks;
+	}
+
+	@OneToMany(mappedBy = "company")
+	public Set<Rate> getRates() {
+		return rates;
+	}
+
+	public void setRates(Set<Rate> rates) {
+		this.rates = rates;
 	}
 
 }

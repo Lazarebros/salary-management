@@ -1,5 +1,6 @@
 package com.d2l2c.salary.management.web.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -65,7 +66,8 @@ public class PaycheckController {
 	
 	private void retreivePaychecks() throws Exception {
 		paycheckBean.getPaycheckViewMap().clear();
-		List<Paycheck> paycheckList = salaryService.getPaychecks("MS3");
+		List<String> companyCodes = Arrays.asList("MS3", "MMI");
+		List<Paycheck> paycheckList = salaryService.getPaychecks(companyCodes);
 		for (Paycheck paycheck : paycheckList) {
 			paycheckBean.addPaycheck(paycheck);
 		}

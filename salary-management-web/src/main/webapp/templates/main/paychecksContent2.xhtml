@@ -1,0 +1,85 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:p="http://primefaces.org/ui">
+ 
+    <ui:composition>
+        <div class="container-main">
+        	<div class="container-main-back">
+	        	<h:form>
+					<h:commandButton action="welcome?faces-redirect = true" value="Back To Welcome Page" />
+				</h:form>
+			</div>
+			<div class="container-main-datatable">
+	        	<h1>Paychecks</h1>
+	        	<br/>
+	        	<div class="tbl-header">
+			      	<table>
+			        	<thead>
+				        	<tr>
+					            <th>Company</th>
+					            <th>Year</th>
+					            <th>Month</th>
+					            <th>Gross Amount</th>
+					            <th>Gross Remain</th>
+					            <th>Reimbursement</th>
+					            <th>Net Pay</th>
+					            <th>Real Net</th>
+					            <th>Net Remain</th>
+				          	</tr>
+			        	</thead>
+			      	</table>
+			    </div>
+				<div style="overflow: auto; border: 1px solid #ccc; height: 500px"> 
+					<h:dataTable value="#{paycheckBean.paycheckViews}" var="paycheckView" scrollable="true" scrollHeight="400" emptyMessage="No paychecks found">
+						
+						<h:column headerText="Company">
+						    <h:outputText value="#{paycheckView.companyCode}" />
+						</h:column>
+						<h:column headerText="Year">
+						    <h:outputText value="#{paycheckView.year}" />
+					   	</h:column>
+						<h:column headerText="Month">
+						    <h:outputText value="#{paycheckView.month}" />
+					   	</h:column>
+						<h:column headerText="Gross Amount">
+						    <h:outputText value="#{paycheckView.grossAmount}" />
+					   	</h:column>
+						<h:column headerText="Gross Remain">
+						    <h:outputText value="#{paycheckView.grossRemain}" />
+					   	</h:column>
+						<h:column headerText="Reimb.">
+						    <h:outputText value="#{paycheckView.reimbursement}" />
+					   	</h:column>
+						<h:column headerText="Net Pay">
+						    <h:outputText value="#{paycheckView.netPay}" />
+					   	</h:column>
+						<h:column headerText="Real Net">
+						    <h:outputText value="#{paycheckView.realNetPay}" />
+					   	</h:column>
+						<h:column headerText="Net Remain">
+						    <h:outputText value="#{paycheckView.netPayRemain}" />
+					   	</h:column>
+					</h:dataTable>
+				</div>
+				<div class="tbl-header">
+			      	<table>
+			        	<thead>
+				        	<tr>
+					            <th>Total: #{paycheckBean.paycheckViews.size()}</th>
+				          	</tr>
+			        	</thead>
+			      	</table>
+			    </div>
+			</div>
+			<br/>
+			<div class="container-chart">
+				<h:panelGrid columns="2" columnClasses="left,right" rendered="#{paycheckBean.paycheckViews.size() &gt; 0}">
+				    <p:chart type="line" model="#{chartView.animatedModel1}" style="width:400px;" />
+				    <p:chart type="bar" model="#{chartView.animatedModel2}" style="width:450px;" />
+				</h:panelGrid>
+			</div>
+		</div>
+    </ui:composition>
+</html>

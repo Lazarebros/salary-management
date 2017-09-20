@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.data.domain.Example;
@@ -62,18 +63,29 @@ public class PaycheckDaoImpl implements PaycheckDao {
 	}
 
 	@Override
-	public List<Paycheck> getPaychecks(String companyCode) throws Exception {
-		CriteriaBuilder builder = em.getCriteriaBuilder();
-		CriteriaQuery<Paycheck> criteria = builder.createQuery(Paycheck.class);
-		Root<Paycheck> paycheckRoot = criteria.from(Paycheck.class);
-		criteria.select(paycheckRoot);
-		criteria.where(builder.equal(paycheckRoot.get("companyCode"), companyCode));
+	public List<Paycheck> getPaychecks(List<String> companyCodes) throws Exception {
+		final CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+
+		final CriteriaQuery<Paycheck> criteriaQuery = criteriaBuilder.createQuery(Paycheck.class);
+
+		final Root<Paycheck> paycheckRoot = criteriaQuery.from(Paycheck.class);
+
+		List<Predicate> criteriaList = new ArrayList<Predicate>();
+
+		for(String companyCode : companyCodes) {
+			Predicate predicate = criteriaBuilder.equal(paycheckRoot.get("company").get("code"), companyCode);
+			criteriaList.add(predicate);
+		}
 		
+		criteriaQuery.select(paycheckRoot);
+		
+		criteriaQuery.where(criteriaBuilder.or(criteriaList.toArray(new Predicate[0])));
+
 		List<Order> orderList = new ArrayList<Order>();
-		orderList.add(builder.asc(paycheckRoot.get("id")));
-		criteria.orderBy(orderList);
-		
-		return em.createQuery(criteria).getResultList();
+		orderList.add(criteriaBuilder.asc(paycheckRoot.get("id")));
+		criteriaQuery.orderBy(orderList);
+
+		return em.createQuery(criteriaQuery).getResultList();
 	}
 
 	@Override
