@@ -19,9 +19,13 @@
    		<f:facet name="last">
 	    	<h:outputStylesheet name="css/paychecks.css" />
 	    </f:facet>
-	        
-        <ui:include src="../common/commonHeader.xhtml" />
-        <ui:include src="paychecksContent.xhtml" />
-        <ui:include src="../common/commonFooter.xhtml" />
+	    
+	    <h:outputScript library="js" name="echarts.js" target="head" />
+	    
+	    <ui:include src="../common/commonHeader.xhtml" />
+	    <div class="section">
+	        <ui:include src="paychecksContent.xhtml" />
+	    </div>
+	    <ui:include src="../common/commonFooter.xhtml" />
     </h:body>
 </html>

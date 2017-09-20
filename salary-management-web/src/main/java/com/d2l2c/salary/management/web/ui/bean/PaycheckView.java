@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.d2l2c.common.util.date.DateUtil;
 import com.d2l2c.salary.management.data.bean.Paycheck;
 
 /**
@@ -70,6 +71,10 @@ public class PaycheckView {
 
 	public int getMonth() {
 		return startDate.getMonthOfYear();
+	}
+
+	public String getMonthName() {
+		return DateUtil.getMonth(startDate.getMonthOfYear());
 	}
 
 	public BigDecimal getGrossRemain() {

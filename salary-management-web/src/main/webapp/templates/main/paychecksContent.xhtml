@@ -12,9 +12,9 @@
 				</h:form>
 			</div>
 			<div class="container-main-datatable">
-	        	<h2>Paychecks</h2>
+	        	<h1>Paychecks</h1>
 	        	<br/>
-				<p:dataTable value="#{paycheckBean.paycheckViews}" var="paycheckView" styleClass="table table-striped" scrollable="true" scrollHeight="400" emptyMessage="No paychecks found">
+				<p:dataTable value="#{paycheckBean.paycheckViews}" var="paycheckView" scrollable="true" scrollHeight="400" emptyMessage="No paychecks found">
 					<p:column style="width:30px">
 			            <p:rowToggler />
 			        </p:column>
@@ -25,7 +25,7 @@
 					    <h:outputText value="#{paycheckView.year}" />
 				   	</p:column>
 					<p:column headerText="Month">
-					    <h:outputText value="#{paycheckView.month}" />
+					    <h:outputText value="#{paycheckView.monthName}" />
 				   	</p:column>
 					<p:column headerText="Gross Amount">
 					    <h:outputText value="#{paycheckView.grossAmount}" />
@@ -72,12 +72,18 @@
 				</p:dataTable>
 			</div>
 			<br/>
-			<div class="container-chart">
-				<h:panelGrid columns="2" columnClasses="left,right" rendered="#{paycheckBean.paycheckViews.size() &gt; 0}">
-				    <p:chart type="line" model="#{chartView.animatedModel1}" style="width:400px;" />
-				    <p:chart type="bar" model="#{chartView.animatedModel2}" style="width:450px;" />
-				</h:panelGrid>
-			</div>
+			<div id="main_chart" class="container-chart"></div>
+			
+			<script type="text/javascript">
+		        // based on prepared DOM, initialize echarts instance
+		        var myChart = echarts.init(document.getElementById('main_chart'));
+		        
+		        var chart = #{eChartView.chart}
+		
+		        // use configuration item and data specified to show chart
+		        myChart.setOption(chart);
+		    </script>
+
 		</div>
     </ui:composition>
 </html>

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.d2l2c.salary.management.data.bean.Paycheck;
 import com.d2l2c.salary.management.data.service.SalaryService;
 import com.d2l2c.salary.management.web.ui.bean.ChartView;
+import com.d2l2c.salary.management.web.ui.bean.EChartView;
 import com.d2l2c.salary.management.web.ui.bean.PaycheckBean;
 
 /**
@@ -35,6 +36,9 @@ public class PaycheckController {
 	
 	@ManagedProperty(value = "#{chartView}")
 	private ChartView chartView;
+	
+	@ManagedProperty(value = "#{eChartView}")
+	private EChartView eChartView;
 
 	public void setSalaryService(SalaryService salaryService) {
 		this.salaryService = salaryService;
@@ -46,6 +50,14 @@ public class PaycheckController {
 	
 	public void setChartView(ChartView chartView) {
 		this.chartView = chartView;
+	}
+	
+	public EChartView geteChartView() {
+		return eChartView;
+	}
+
+	public void seteChartView(EChartView eChartView) {
+		this.eChartView = eChartView;
 	}
 
 	public String showPaychecks() {

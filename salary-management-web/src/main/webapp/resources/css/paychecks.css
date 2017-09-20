@@ -1,113 +1,19 @@
 body {
 	padding-top: 40px;
 	padding-bottom: 0px;
-	background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-	background: linear-gradient(to right, #25c481, #25b7c4);
-	font-family: 'Roboto', sans-serif;
+	background: -webkit-linear-gradient(left, #d7b49c, #9ba1a2);
+	background: linear-gradient(to right, #d7b49c, #9ba1a2);
 }
-
-/* section { */
-/* 	margin: 50px; */
-/* } */
-
-/* h1 { */
-/* 	font-size: 30px; */
-/* 	color: #fff; */
-/* 	text-transform: uppercase; */
-/* 	font-weight: 300; */
-/* 	text-align: center; */
-/* 	margin-bottom: 15px; */
-/* } */
-
-/* table { */
-/* 	width: 100%; */
-/* 	table-layout: fixed; */
-/* } */
-
-/* .tbl-header { */
-/* 	background-color: rgba(255, 255, 255, 0.3); */
-/* } */
-
-/* .tbl-content { */
-/* 	height: 300px; */
-/* 	overflow-x: auto; */
-/* 	margin-top: 0px; */
-/* 	border: 1px solid rgba(255, 255, 255, 0.3); */
-/* } */
-
-/* th { */
-/* 	padding: 20px 15px; */
-/* 	text-align: left; */
-/* 	font-weight: 500; */
-/* 	font-size: 12px; */
-/* 	color: #fff; */
-/* 	text-transform: uppercase; */
-/* } */
-
-/* td { */
-/* 	padding: 15px; */
-/* 	text-align: left; */
-/* 	vertical-align: middle; */
-/* 	font-weight: 300; */
-/* 	font-size: 12px; */
-/* 	color: #fff; */
-/* 	border-bottom: solid 1px rgba(255, 255, 255, 0.1); */
-/* } */
-
-/* /* demo styles */ */
-/* @import */
-/* 	url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700); */
-
-/* /* follow me template */ */
-/* .made-with-love { */
-/* 	margin-top: 40px; */
-/* 	padding: 10px; */
-/* 	clear: left; */
-/* 	text-align: center; */
-/* 	font-size: 10px; */
-/* 	font-family: arial; */
-/* 	color: #fff; */
-/* } */
-
-/* .made-with-love i { */
-/* 	font-style: normal; */
-/* 	color: #F50057; */
-/* 	font-size: 14px; */
-/* 	position: relative; */
-/* 	top: 2px; */
-/* } */
-
-/* .made-with-love a { */
-/* 	color: #fff; */
-/* 	text-decoration: none; */
-/* } */
-
-/* .made-with-love a:hover { */
-/* 	text-decoration: underline; */
-/* } */
-
-/* /* for custom scrollbar for webkit browser*/ */
-/* ::-webkit-scrollbar { */
-/* 	width: 6px; */
-/* } */
-
-/* ::-webkit-scrollbar-track { */
-/* 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-/* } */
-
-/* ::-webkit-scrollbar-thumb { */
-/* 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-/* } */
-
-
-
-
 
 .project-name {
 	padding-top: 10px;
 	padding-left: 20px;
 	font-size: 30px;
 	color: #fff;
+}
+
+.section {
+	margin: 50px;
 }
 
 .navbar-user-info-container {
@@ -149,21 +55,24 @@ body {
 	max-width: 300px;
 }
 
-.container-main {
-	padding-top: 50px;
-	padding-left: 50px;
-	padding-right: 50px;
-	width: 100%;
+h1 {
+	font-size: 30px;
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: 300;
+	text-align: center;
+	margin-bottom: 15px;
 }
 
-.container-main-back {
-	
+.container-main {
+	padding-top: 50px;
+	width: 100%;
+	height: 100%;
 }
 
 .container-main-datatable {
-	float: left;
+/* 	float: left; */
 	width: 100%;
-	/*   	padding-top: 0px; */
 }
 
 .container-main-form {
@@ -173,9 +82,10 @@ body {
 }
 
 .container-chart {
-	padding-top: 600px;
-	width: 100%;
-	/* 	right: 1px; */
+/* 	padding-top: 40px; */
+/* 	width: 100%; */
+	width: 600px;
+	height:400px;
 }
 
 /* Sticky footer styles
@@ -196,7 +106,7 @@ body {
 }
 
 .container-footer-space {
-	padding-top: 100px;
+/* 	padding-top: 100px; */
 }
 
 .footer>.container-footer {
@@ -209,18 +119,48 @@ body {
 	padding-right: 0 !important;
 }
 
-.ui-selectonemenu label {
-	width: auto !important;
+.ui-datatable .ui-datatable-data tr, 
+.ui-datatable .ui-datatable-data td,
+.ui-datatable .ui-datatable-data-empty tr, 
+.ui-datatable .ui-datatable-data-empty td {
+	border-style: none;
 }
 
-	
-.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
-    border-style: none;
+.row-background {
+	background: -webkit-linear-gradient(left, #d7b49c, #9ba1a2);
+	background: linear-gradient(to right, #d7b49c, #9ba1a2);
 }
 
-.ui-datatable.borderless .ui-datatable-data tr,
-.ui-datatable.borderless .ui-datatable-data-empty tr,
-.ui-datatable.borderless .ui-datatable-data td,
-.ui-datatable.borderless .ui-datatable-data-empty td {
-    border-style: none;
+.ui-datatable-header {
+	text-align: left;
+	background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+	background: linear-gradient(to right, #25c481, #25b7c4);
 }
+
+.ui-datatable thead th, .ui-datatable tfoot td {
+	text-align: left;
+}
+
+.ui-widget-header .ui-state-default{
+	background: #a9bdbf;
+	border-style: none;
+}
+
+.ui-datatable-footer {
+	background: #a9bdbf;
+	border-style: none;
+}
+
+.ui-widget-header tr .ui-state-default tr {
+	border-style: none;
+}
+
+.ui-datatable-odd {
+	background: none repeat scroll 0 0 #b6b7b780;
+}
+
+.ui-datatable-even {
+	background: none repeat scroll 0 0 #bfc7c8;
+}
+
+
