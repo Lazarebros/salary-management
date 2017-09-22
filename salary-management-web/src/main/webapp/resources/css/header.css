@@ -1,65 +1,84 @@
-.navbar {
-	overflow: hidden;
-	background-color: #323d4b;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	padding-top: 15px;
-	padding-bottom: 15px;
-	border: 0;
-	border-radius: 0;
-	margin-bottom: 0;
-	font-size: 12px;
-	letter-spacing: 5px;
+nav.navbar-findcond {
+	background: #323d4b;
+	border-color: #ccc;
+	box-shadow: 0 0 2px 0 #ccc;
 }
 
-.navbar a {
-	float: left;
-	display: block;
-	color: #f2f2f2;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-	font-size: 17px;
+nav.navbar-findcond p {
+	color: #fff;
 }
 
-.project-name {
-	padding-left: 20px;
-	font-size: 24px;
+nav.navbar-findcond a {
+	color: #fff;
 }
 
-.btn-dropdown-menu {
-	background: none;
+nav.navbar-findcond ul.navbar-nav a {
+	color: #fff;
+	border-style: solid;
+	border-width: 0 0 2px 0;
 	border: none;
 }
 
-.btn-dropdown-menu:hover {
-	background-color: #1abc9c;
+nav.navbar-findcond ul.navbar-nav a:hover, nav.navbar-findcond ul.navbar-nav a:visited,
+	nav.navbar-findcond ul.navbar-nav a:focus, nav.navbar-findcond ul.navbar-nav a:active
+	{
+	background: #f14444;
 }
 
-.btn-primary.focus, .btn-primary:focus {
-    color: #fff;
-    background-color: #1abc9c;
-    border-color: #122b40;
+nav.navbar-findcond ul.navbar-nav a:hover {
+	border-color: #f14444;
 }
 
-.dropdown {
-	float: right;
-	padding-top: 20px;
-	padding-right: 10px;
+nav.navbar-findcond li.divider {
+	background: #ccc;
 }
 
-.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
-    color: #262626;
-    text-decoration: none;
-    background-color: #f5f5f5;
+nav.navbar-findcond button.navbar-toggle {
+	background: #f14444;
+	border-radius: 2px;
 }
-.dropdown-menu > li > a {
-    display: block;
-    padding: 3px 20px;
-    clear: both;
-    font-weight: 400;
-    line-height: 1.42857143;
-    color: #333;
-    white-space: nowrap;
+
+nav.navbar-findcond button.navbar-toggle:hover {
+	background: #999;
+}
+
+nav.navbar-findcond button.navbar-toggle > span.icon-bar {
+	background: #fff;
+}
+
+nav.navbar-findcond ul.dropdown-menu {
+	border: 0;
+	background: #fff;
+	border-radius: 4px;
+	margin: 4px 0;
+	box-shadow: 0 0 4px 0 #ccc;
+}
+
+nav.navbar-findcond ul.dropdown-menu > li > a {
+	color: #444;
+}
+
+nav.navbar-findcond ul.dropdown-menu > li > a:hover {
+	background: #f14444;
+	color: #fff;
+}
+
+nav.navbar-findcond span.badge {
+	background: #f14444;
+	font-weight: normal;
+	font-size: 11px;
+	margin: 0 4px;
+}
+
+nav.navbar-findcond span.badge.new {
+	background: rgba(255, 0, 0, 0.8);
+	color: #fff;
+}
+
+.navbar-home {
+	padding-left: 100px;
+}
+
+.dropdown-toggle:active, .open .dropdown-toggle {
+	background: #f14444 !important;
 }
