@@ -43,7 +43,7 @@ public class LoginController {
 				loginBean.setValid(true);
 				loginBean.setFirstname(user.getFirstname());
 				loginBean.setLastname(user.getLastname());
-				page = "welcome";
+				page = "home";
 			} else {
 				message = "Username or password is incorrect!";
 			}

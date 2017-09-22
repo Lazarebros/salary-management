@@ -12,18 +12,18 @@
 	        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 	    	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	    
-	        <h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
+	        <h:outputStylesheet name="bootstrap-3.3.7/css/bootstrap.min.css" />
 	        <h:outputStylesheet name="css/header.css" />
 	        <h:outputStylesheet name="css/main.css" />
-	        <h:outputStylesheet name="css/welcome.css" />
+	        <h:outputStylesheet name="css/home.css" />
 	        
 	        <h:outputScript library="js" name="jquery.min.js" target="head" />
-	        <h:outputScript library="js" name="bootstrap.min.js" target="head" />
+	        <h:outputScript name="bootstrap-3.3.7/js/bootstrap.min.js" target="head" />
 	    </f:facet>
     </h:head>
-   	<h:body>
+   	<h:body data-spy="scroll" data-target="#myScrollspy" data-offset="15">
         <ui:include src="../common/commonHeader.xhtml" />
-        <ui:include src="welcomeContent.xhtml" />
+        <ui:include src="homeContent.xhtml" />
         <ui:include src="../common/commonFooter.xhtml" />
     </h:body>
 </html>
