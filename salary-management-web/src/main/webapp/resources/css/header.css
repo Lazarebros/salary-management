@@ -1,0 +1,65 @@
+.navbar {
+	overflow: hidden;
+	background-color: #323d4b;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border: 0;
+	border-radius: 0;
+	margin-bottom: 0;
+	font-size: 12px;
+	letter-spacing: 5px;
+}
+
+.navbar a {
+	float: left;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+.project-name {
+	padding-left: 20px;
+	font-size: 24px;
+}
+
+.btn-dropdown-menu {
+	background: none;
+	border: none;
+}
+
+.btn-dropdown-menu:hover {
+	background-color: #1abc9c;
+}
+
+.btn-primary.focus, .btn-primary:focus {
+    color: #fff;
+    background-color: #1abc9c;
+    border-color: #122b40;
+}
+
+.dropdown {
+	float: right;
+	padding-top: 20px;
+	padding-right: 10px;
+}
+
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+    color: #262626;
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+.dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}

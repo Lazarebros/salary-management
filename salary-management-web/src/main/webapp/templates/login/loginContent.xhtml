@@ -5,23 +5,32 @@
    xmlns:p="http://primefaces.org/ui">
  
     <ui:composition>
-        <div class="container-login">
-			<h:form class="form-login">
-				<h:message for="username" errorClass="errorMessage"  style="color:red" />
-				<br/>
-				<h:message for="password" errorClass="errorMessage"  style="color:red" />
-				
-				<h2 class="form-login-heading">Please log in</h2>
-				<h:outputText value="Username" class="sr-only" />
-				<p:inputText id="username" value="#{loginBean.username}" required="true" requiredMessage="Please enter your username" placeholder="User name" class="form-control" />
-	
-				<h:outputText value="Password" class="sr-only" />
-				<p:password id="password" value="#{loginBean.password}" required="true" requiredMessage="Please enter your password" placeholder="Password" class="form-control" />
-	
-				<h:commandButton value="Login" action="#{loginController.login}" class="btn btn-lg btn-primary btn-block" />
-				
-				<h:messages styleClass="errorMessage"  style="color:red" globalOnly="true" />
-			</h:form>
+        <div class="container">
+			<div class="page-login">
+		    	<div class="page-body">
+		    		<div class="login-head">
+		    			 <p class="white-text">Welcome</p>
+		    		</div>
+		    		<div class="login-body">
+		    			<h:form class="login-form center">
+		    				<p><h:message for="username" errorClass="errorMessage" style="color:grey" /></p>
+							<p><h:message for="password" errorClass="errorMessage" style="color:grey" /></p>
+		    				<div class="form-group">
+		    					<p:inputText id="username" value="#{loginBean.username}" required="true" autocomplete="off" requiredMessage="Please enter your username" placeholder="User name" class="form-control placeholder-no-fix" />
+		    				</div>
+		    				<div class="form-group">
+		    					<p:password class="form-control placeholder-no-fix" id="password" value="#{loginBean.password}" required="true" requiredMessage="Please enter your password" placeholder="Password" />
+		    				</div>
+		    				<div class="form-actions">
+		    					<h:commandButton value="Login" action="#{loginController.login}" class="btn btn-success uppercase" />
+		    				</div>
+		    			</h:form>
+		    		</div>
+		    		<div class="login-bottom">
+						<h:messages styleClass="errorMessage"  style="color:grey;text-align:center;" globalOnly="true" />
+		    		</div>
+		    	</div>
+		    </div>
 		</div>
     </ui:composition>
 </html>

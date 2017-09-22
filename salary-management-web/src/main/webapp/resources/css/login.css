@@ -1,38 +1,117 @@
-.container-login {
-	padding-top: 100px;
+.container {
+	padding-top: 80px;
 }
 
-.form-login {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
+.page-login {
+	margin: 90px auto 30px auto;
+	width: 450px;
 }
-.form-login .form-login-heading,
-.form-login .checkbox {
-  margin-bottom: 10px;
+
+.page-login .page-body {
+	width: 100%;
+	margin-top: 50px;
+	background-color: #3a4554;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-ms-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
 }
-.form-login .checkbox {
-  font-weight: normal;
+
+.login-head {
+	display: block;
+	background-color: #323d4b;
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-size: 22px;
+	font-weight: 400;
 }
-.form-login .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
+
+.login-body {
+	display: block;
+	margin: 35px;
+	overflow: hidden;
 }
-.form-login .form-control:focus {
-  z-index: 2;
+
+.login-avatar {
+	margin-top: 15px;
+	height: 110px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
 }
-.form-login input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+
+.login-form {
+/* 	padding-left: 40px; */
 }
-.form-login input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+
+.login-form .form-group {
+	margin-top: 20px;
+}
+
+.login-form .form-group .form-control {
+	background-color: #303a48;
+	border: none;
+	width: 220px;
+	height: 40px;
+	color: #fff;
+	border-radius: 2;
+}
+
+.login-form .form-group .form-control::-moz-placeholder {
+	color: #fff;
+	opacity: 1;
+}
+
+.login-form .form-group .form-control:-ms-input-placeholder {
+	color: #fff;
+}
+
+.login-form .form-group .form-control::-webkit-input-placeholder {
+	color: #fff;
+}
+
+.login-form .form-group .form-control:focus {
+	background-color: #2b3542;
+}
+
+.login-form .form-actions {
+	margin-top: 20px;
+}
+
+.login-form .form-actions .btn-success {
+	background-color: #e76070;
+	width: 220px;
+	font-weight: 600;
+	padding: 10px;
+	border: none;
+	border-radius: 0;
+}
+
+.login-form .form-actions .btn-success:hover {
+	background-color: #d75464 !important;
+}
+
+.login-bottom {
+	display: block;
+	background-color: #323d4b;
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.login-bottom a {
+	font-size: 14px;
+	font-weight: 400;
+	color: #638cac;
+}
+
+.login-bottom a:hover {
+	color: #7ba2c0;
+}
+
+.center {
+/* 	text-align: center; */
+	margin-left: 20%;
 }
