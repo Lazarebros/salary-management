@@ -14,9 +14,8 @@ import org.slf4j.LoggerFactory;
 
 import com.d2l2c.salary.management.data.bean.Paycheck;
 import com.d2l2c.salary.management.data.service.SalaryService;
-import com.d2l2c.salary.management.web.ui.bean.ChartView;
-import com.d2l2c.salary.management.web.ui.bean.EChartView;
-import com.d2l2c.salary.management.web.ui.bean.PaycheckBean;
+import com.d2l2c.salary.management.web.ui.bean.EChartBean;
+import com.d2l2c.salary.management.web.ui.view.PaycheckView;
 
 /**
  * @author dayanlazare
@@ -31,33 +30,26 @@ public class PaycheckController {
 	@ManagedProperty(value = "#{salaryService}")
 	SalaryService salaryService;
 
-	@ManagedProperty(value = "#{paycheckBean}")
-	private PaycheckBean paycheckBean;
+	@ManagedProperty(value = "#{paycheckView}")
+	private PaycheckView paycheckView;
 	
-	@ManagedProperty(value = "#{chartView}")
-	private ChartView chartView;
-	
-	@ManagedProperty(value = "#{eChartView}")
-	private EChartView eChartView;
+	@ManagedProperty(value = "#{eChartBean}")
+	private EChartBean eChartBean;
 
 	public void setSalaryService(SalaryService salaryService) {
 		this.salaryService = salaryService;
 	}
 
-	public void setPaycheckBean(PaycheckBean paycheckBean) {
-		this.paycheckBean = paycheckBean;
+	public void setPaycheckView(PaycheckView paycheckBean) {
+		this.paycheckView = paycheckBean;
 	}
 	
-	public void setChartView(ChartView chartView) {
-		this.chartView = chartView;
-	}
-	
-	public EChartView geteChartView() {
-		return eChartView;
+	public EChartBean geteChartBean() {
+		return eChartBean;
 	}
 
-	public void seteChartView(EChartView eChartView) {
-		this.eChartView = eChartView;
+	public void seteChartBean(EChartBean eChartBean) {
+		this.eChartBean = eChartBean;
 	}
 
 	public String showPaychecks() {
@@ -77,13 +69,13 @@ public class PaycheckController {
 	}
 	
 	private void retreivePaychecks() throws Exception {
-		paycheckBean.getPaycheckViewMap().clear();
+		paycheckView.getPaycheckBeanMap().clear();
 		List<String> companyCodes = Arrays.asList("MS3", "MMI");
 		List<Paycheck> paycheckList = salaryService.getPaychecks(companyCodes);
 		for (Paycheck paycheck : paycheckList) {
-			paycheckBean.addPaycheck(paycheck);
+			paycheckView.addPaycheck(paycheck);
 		}
-		this.chartView.setPaycheckViewMap(paycheckBean.getPaycheckViewMap());
+//		this.chartView.setPaycheckViewMap(paycheckView.getPaycheckViewMap());
 	}
 
 }

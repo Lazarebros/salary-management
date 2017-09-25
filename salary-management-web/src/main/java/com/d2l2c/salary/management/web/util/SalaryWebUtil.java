@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.d2l2c.salary.management.web.ui.bean.PaycheckView;
+import com.d2l2c.salary.management.web.ui.bean.PaycheckBean;
 
 /**
  * @author dayanlazare
@@ -15,10 +15,10 @@ import com.d2l2c.salary.management.web.ui.bean.PaycheckView;
  */
 public class SalaryWebUtil {
 
-	public static void sortPaycheckViews(List<PaycheckView> paycheckViews) {
-		Comparator<PaycheckView> comparator = new Comparator<PaycheckView>() {
+	public static void sortPaycheckViews(List<PaycheckBean> paycheckViews) {
+		Comparator<PaycheckBean> comparator = new Comparator<PaycheckBean>() {
 			@Override
-			public int compare(PaycheckView p1, PaycheckView p2) {
+			public int compare(PaycheckBean p1, PaycheckBean p2) {
 				int result = compareInt(p1.getYear(), p2.getYear());
 				if(result == 0) {
 					result = compareInt(p1.getMonth(), p2.getMonth());

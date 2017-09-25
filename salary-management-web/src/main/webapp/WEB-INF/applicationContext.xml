@@ -10,5 +10,7 @@
     <import resource="classpath:/user-applicationContext.xml"/>
     <import resource="classpath:/salary-data-applicationContext.xml"/>
     <context:component-scan base-package="com.d2l2c.salary.management.web.data.bean,com.d2l2c.salary.management.web.controler" />
+    
+    <context:annotation-config />
 
 </beans>

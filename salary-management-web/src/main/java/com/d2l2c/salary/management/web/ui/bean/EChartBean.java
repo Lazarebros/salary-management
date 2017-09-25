@@ -26,17 +26,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @SessionScoped
 @ManagedBean
-public class EChartView implements Serializable {
+public class EChartBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	
-	private Map<String, PaycheckView> paycheckViewMap = new HashMap<String, PaycheckView>();
+	private Map<String, PaycheckBean> paycheckViewMap = new HashMap<String, PaycheckBean>();
 	
 	private Chart lineChart;
 	
-	public EChartView() {
+	public EChartBean() {
 		this.createCharts();
 	}
 	
@@ -72,7 +72,7 @@ public class EChartView implements Serializable {
 		
 	}
 
-	public void setPaycheckViewMap(Map<String, PaycheckView> paycheckViewMap) {
+	public void setPaycheckViewMap(Map<String, PaycheckBean> paycheckViewMap) {
 		if(!paycheckViewMap.isEmpty()) {
 			this.paycheckViewMap = paycheckViewMap;
 			this.createCharts();

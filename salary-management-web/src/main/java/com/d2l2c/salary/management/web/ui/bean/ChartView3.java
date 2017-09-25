@@ -28,14 +28,14 @@ import com.d2l2c.salary.management.web.util.SalaryWebUtil;
  */
 @SessionScoped
 @ManagedBean
-public class ChartView implements Serializable {
+public class ChartView3 implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private LineChartModel animatedModel1;
 	private BarChartModel animatedModel2;
 	
-	private Map<String, PaycheckView> paycheckViewMap = new HashMap<String, PaycheckView>();
+	private Map<String, PaycheckBean> paycheckViewMap = new HashMap<String, PaycheckBean>();
 
 	public LineChartModel getAnimatedModel1() {
 		return animatedModel1;
@@ -69,10 +69,10 @@ public class ChartView implements Serializable {
 		LineChartModel model = new LineChartModel();
 		Map<Integer, LineChartSeries> chartSeriesMap = new HashMap<Integer, LineChartSeries>();
 		
-		List<PaycheckView> paycheckViews = new ArrayList<PaycheckView>(paycheckViewMap.values());
+		List<PaycheckBean> paycheckViews = new ArrayList<PaycheckBean>(paycheckViewMap.values());
 		SalaryWebUtil.sortPaycheckViews(paycheckViews);
 		
-		for(PaycheckView paycheckView : paycheckViews) {
+		for(PaycheckBean paycheckView : paycheckViews) {
 			int year = paycheckView.getYear();
 			LineChartSeries lineChartSeries = null;
 			if(chartSeriesMap.containsKey(year)) {
@@ -94,10 +94,10 @@ public class ChartView implements Serializable {
 		BarChartModel model = new BarChartModel();
 		Map<Integer, ChartSeries> chartSeriesMap = new HashMap<Integer, ChartSeries>();
 		
-		List<PaycheckView> paycheckViews = new ArrayList<PaycheckView>(paycheckViewMap.values());
+		List<PaycheckBean> paycheckViews = new ArrayList<PaycheckBean>(paycheckViewMap.values());
 		SalaryWebUtil.sortPaycheckViews(paycheckViews);
 		
-		for(PaycheckView paycheckView : paycheckViews) {
+		for(PaycheckBean paycheckView : paycheckViews) {
 			int year = paycheckView.getYear();
 			ChartSeries chartSeries = null;
 			if(chartSeriesMap.containsKey(year)) {
@@ -115,7 +115,7 @@ public class ChartView implements Serializable {
 		return model;
 	}
 
-	public void setPaycheckViewMap(Map<String, PaycheckView> paycheckViewMap) {
+	public void setPaycheckViewMap(Map<String, PaycheckBean> paycheckViewMap) {
 		this.paycheckViewMap = paycheckViewMap;
 		if(!paycheckViewMap.isEmpty()) {
 			this.createAnimatedModels();
@@ -123,7 +123,7 @@ public class ChartView implements Serializable {
 	}
 	
 	private int getMaxRealNet() {
-		Optional<PaycheckView> max1 = paycheckViewMap.values().stream().max(Comparator.comparingInt(i -> i.getRealNetPay().intValue()));
+		Optional<PaycheckBean> max1 = paycheckViewMap.values().stream().max(Comparator.comparingInt(i -> i.getRealNetPay().intValue()));
 		return max1.get().getRealNetPay().intValue() + 1000;
 	}
 
