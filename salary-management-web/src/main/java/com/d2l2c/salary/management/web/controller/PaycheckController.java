@@ -3,14 +3,9 @@ package com.d2l2c.salary.management.web.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.d2l2c.salary.management.data.bean.Paycheck;
 import com.d2l2c.salary.management.data.service.SalaryService;
@@ -21,19 +16,15 @@ import com.d2l2c.salary.management.web.ui.view.PaycheckView;
  * @author dayanlazare
  *
  */
-@ManagedBean
-@RequestScoped
 public class PaycheckController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PaycheckController.class);
 
-	@ManagedProperty(value = "#{salaryService}")
+	@Autowired
 	SalaryService salaryService;
 
-	@ManagedProperty(value = "#{paycheckView}")
 	private PaycheckView paycheckView;
 	
-	@ManagedProperty(value = "#{eChartBean}")
 	private EChartBean eChartBean;
 
 	public void setSalaryService(SalaryService salaryService) {
@@ -63,7 +54,8 @@ public class PaycheckController {
 			LOGGER.error(e.getMessage(), e);
 		}
 		if(message != null) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+			LOGGER.error(message);
+//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
 		}
 		return page;
 	}

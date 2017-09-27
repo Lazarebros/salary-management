@@ -10,9 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
 import com.d2l2c.common.util.chart.Axis;
 import com.d2l2c.common.util.chart.Chart;
 import com.d2l2c.common.util.chart.Legend;
@@ -24,8 +21,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * @author dayanlazare
  */
-@SessionScoped
-@ManagedBean
 public class EChartBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;

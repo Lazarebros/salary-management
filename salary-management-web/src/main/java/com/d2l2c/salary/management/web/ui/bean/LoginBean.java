@@ -3,15 +3,10 @@
  */
 package com.d2l2c.salary.management.web.ui.bean;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
 /**
  * @author dayanlazare
  *
  */
-@ManagedBean(name = "loginBean", eager = true)
-@SessionScoped
 public class LoginBean {
 
 	private String username;

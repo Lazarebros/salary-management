@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
 import org.joda.time.DateTime;
 
 import com.d2l2c.salary.management.data.bean.Paycheck;
@@ -22,8 +19,6 @@ import com.d2l2c.salary.management.web.util.SalaryWebUtil;
  * @author dayanlazare
  *
  */
-@SessionScoped
-@ManagedBean(name = "paycheckView", eager = true)
 public class PaycheckView implements Serializable {
 
 	private static final long serialVersionUID = 1L;

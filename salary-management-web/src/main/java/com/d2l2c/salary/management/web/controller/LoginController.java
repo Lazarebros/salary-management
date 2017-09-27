@@ -1,11 +1,10 @@
 package com.d2l2c.salary.management.web.controller;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.d2l2c.salary.management.web.ui.bean.LoginBean;
 import com.d2l2c.salary.management.web.util.SessionUtils;
@@ -16,18 +15,17 @@ import com.d2l2c.user.management.service.UserService;
  * @author dayanlazare
  *
  */
-@ManagedBean
-@RequestScoped
 public class LoginController {
 
-	@ManagedProperty(value = "#{userService}")
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+
+	@Autowired
 	UserService userService;
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 
-	@ManagedProperty(value = "#{loginBean}")
 	private LoginBean loginBean;
 
 	public void setLoginBean(LoginBean loginBean) {
@@ -51,7 +49,8 @@ public class LoginController {
 			message = "Something went wrong...";
 		}
 		if(message != null) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+			LOGGER.error(message);
+//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
 		}
 		return page;
 	}

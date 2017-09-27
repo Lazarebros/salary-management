@@ -2,14 +2,13 @@ package com.d2l2c.salary.management.web.controller;
 
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.d2l2c.salary.management.data.bean.Company;
 import com.d2l2c.salary.management.data.service.SalaryService;
@@ -19,32 +18,24 @@ import com.d2l2c.salary.management.web.ui.view.HomeView;
  * @author dayanlazare
  *
  */
-@ManagedBean
-@RequestScoped
+@Controller
 public class HomeController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
-	@ManagedProperty(value = "#{salaryService}")
+	@Autowired
 	SalaryService salaryService;
 
-	@ManagedProperty(value = "#{homeView}")
 	private HomeView homeView;
-
-	public void initView() {
-		this.initCompanies();
-	}
 
 	public void setSalaryService(SalaryService salaryService) {
 		this.salaryService = salaryService;
 	}
-	
-	public HomeView getHomeView() {
-		return homeView;
-	}
 
-	public void setHomeView(HomeView homeView) {
-		this.homeView = homeView;
+	@RequestMapping(value = { "/" ,"/home" }, method = RequestMethod.GET)
+	public String homePage(ModelMap model) {
+//		this.initCompanies();
+		return "home";
 	}
 
 	private void initCompanies() {
@@ -53,7 +44,6 @@ public class HomeController {
 			this.homeView.setCompanies(companies);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Something went wrong..."));
 		}
 	}
 
