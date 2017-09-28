@@ -47,9 +47,4 @@ public class HomeController {
 		}
 	}
 
-	public String filterCompany(Long id) {
-		System.out.println("THIS IS IT!! " + id);
-		return null;
-	}
-
 }
