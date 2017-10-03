@@ -12,7 +12,7 @@
 			</button>
 			<p class="navbar-brand">Salary Management</p>
 		</div>
-		<c:if test="${loginBean.valid}">
+		<c:if test="${loggedinuser != null}">
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="home">Home</a></li>
@@ -24,10 +24,10 @@
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">User: ${loginBean.firstname} <span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">User: ${loggedinuser} <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="profile">Profile</a></li>
-							<li><a href="logout">Logout</a></li>
+							<li><a href="<c:url value="/logout" />">Logout</a></li>
 						</ul>
 					</li>
 				</ul>

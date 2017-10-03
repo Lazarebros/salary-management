@@ -20,6 +20,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author dayanlazare
@@ -27,6 +28,7 @@ import org.springframework.transaction.PlatformTransactionManager;
  */
 @Configuration
 @PropertySource("classpath:salary-db.properties")
+@EnableTransactionManagement
 @EnableJpaRepositories(
 		basePackages = "com.d2l2c.salary.management.data.dao", 
 		entityManagerFactoryRef = "salaryEntityManager", 

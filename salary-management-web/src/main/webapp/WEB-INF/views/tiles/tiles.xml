@@ -20,6 +20,12 @@
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/templates/common/footer.jsp" />
 	</definition>
 
+	<!-- Login Page -->
+	<definition name="login" extends="base-definition">
+		<put-attribute name="title" value="Login Page" />
+		<put-attribute name="body" value="/WEB-INF/views/pages/login.jsp" />
+	</definition>
+
 	<!-- Home Page -->
 	<definition name="home" extends="home-definition">
 		<put-attribute name="title" value="Home Page" />

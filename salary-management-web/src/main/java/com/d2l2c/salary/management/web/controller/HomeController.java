@@ -19,7 +19,7 @@ import com.d2l2c.salary.management.web.ui.view.HomeView;
  *
  */
 @Controller
-public class HomeController {
+public class HomeController extends BaseController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
@@ -34,7 +34,7 @@ public class HomeController {
 
 	@RequestMapping(value = { "/" ,"/home" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
-//		this.initCompanies();
+		super.addLoggedInUser(model);
 		return "home";
 	}
 

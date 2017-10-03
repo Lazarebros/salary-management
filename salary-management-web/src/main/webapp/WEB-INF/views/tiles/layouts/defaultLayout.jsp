@@ -9,6 +9,9 @@
 	    <title><tiles:getAsString name="title" /></title>
 	    <link href="<c:url value='/static/bootstrap-3.3.7/css/bootstrap.css' />"  rel="stylesheet"></link>
 	    <link href="<c:url value='/static/css/main.css' />" rel="stylesheet"></link>
+	    <link href="<c:url value='/static/css/header.css' />" rel="stylesheet"></link>
+	    <link href="<c:url value='/static/css/login.css' />" rel="stylesheet"></link>
+<%-- 	    <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link> --%>
 	</head>
 	<body>
 	        <header id="header">

@@ -14,19 +14,21 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 import com.d2l2c.salary.management.data.spring.config.SalaryJPAConfig;
 import com.d2l2c.salary.management.web.converter.RoleToUserProfileConverter;
-import com.d2l2c.user.management.sping.config.UserHibernateConfig;
+import com.d2l2c.user.management.sping.config.UserJPAConfig;
 
 /**
  * @author dayanlazare
  *
  */
 @Configuration
-@Import(value={UserHibernateConfig.class, SalaryJPAConfig.class})
+@Import(value={UserJPAConfig.class, SalaryJPAConfig.class})
 @EnableWebMvc
 @ComponentScan(basePackages = "com.d2l2c.salary.management.web")
 public class AppConfig extends WebMvcConfigurerAdapter {
@@ -36,14 +38,23 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	RoleToUserProfileConverter roleToUserProfileConverter;
 
 	/**
-	 * Configure TilesConfigurer.
-	 */
+     * Configure ViewResolvers to deliver preferred views.
+     */
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+		TilesViewResolver viewResolver = new TilesViewResolver();
+		registry.viewResolver(viewResolver);
+	}
+
+	/**
+     * Configure TilesConfigurer.
+     */
 	@Bean
-	public TilesConfigurer tilesConfigurer() {
-		TilesConfigurer tilesConfigurer = new TilesConfigurer();
-		tilesConfigurer.setDefinitions(new String[] { "/WEB-INF/views/**/tiles.xml" });
-		tilesConfigurer.setCheckRefresh(true);
-		return tilesConfigurer;
+	public TilesConfigurer tilesConfigurer(){
+	    TilesConfigurer tilesConfigurer = new TilesConfigurer();
+	    tilesConfigurer.setDefinitions(new String[] {"/WEB-INF/views/**/tiles.xml"});
+	    tilesConfigurer.setCheckRefresh(true);
+	    return tilesConfigurer;
 	}
 	
 	/**
@@ -62,7 +73,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(roleToUserProfileConverter);
     }
-	
 
     /**
      * Configure MessageSource to lookup any validation/error message in internationalized property files
