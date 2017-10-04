@@ -1,3 +1,9 @@
+@IMPORT url("../bootstrap-3.3.7/css/bootstrap.css");
+
+@IMPORT url("../font-awesome-4.7.0/css/font-awesome.css");
+
+@IMPORT url("header.css");
+
 html {
 	font-family: sans-serif;
 	-webkit-text-size-adjust: 100%;
@@ -5,9 +11,12 @@ html {
 }
 
 body {
-	margin: 0;
-	background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-    background: linear-gradient(to right, #25c481, #25b7c4);
+	margin-top: 50px;
+	/* 	background-color: #25c481; */
+	/* 	background-color: #25b7c4; */
+	background-color: #4678B2;
+	/* 	background: -webkit-linear-gradient(left, #25c481, #25b7c4); */
+	/*     background: linear-gradient(to right, #25c481, #25b7c4); */
 }
 
 .white-text {
@@ -15,11 +24,13 @@ body {
 }
 
 .common-footer {
-	padding-top: 20px;
-    color: #ffffff;
-    background-color: #323d4b;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    font-size: 12px;
+	position: fixed;
+	padding-top: 10px;
+	left: 0px;
+	bottom: 0px;
+	height: 60px;
+	color: #ffffff;
+	background-color: #323d4b;
+	width: 100%;
+	font-size: 12px;
 }

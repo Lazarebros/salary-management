@@ -1,9 +1,9 @@
-.container-login {
-	padding-top: 80px;
+.login-container {
+	padding-bottom: 100px;
 }
 
 .page-login {
-	margin: 90px auto 30px auto;
+	margin: 200px auto 30px auto;
 	width: 450px;
 }
 
@@ -20,7 +20,7 @@
 
 .login-head {
 	display: block;
-	background-color: #323d4b;
+	background-color: transparent;
 	text-align: center;
 	padding-top: 15px;
 	padding-bottom: 15px;
@@ -95,7 +95,7 @@
 
 .login-bottom {
 	display: block;
-	background-color: #323d4b;
+	background-color: transparent;
 	text-align: center;
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -114,4 +114,8 @@
 .center {
 /* 	text-align: center; */
 	margin-left: 20%;
+}
+
+.checkbox {
+/* 	color: red;  */
 }

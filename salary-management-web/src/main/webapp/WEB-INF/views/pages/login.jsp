@@ -30,7 +30,7 @@
 						<input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
 					</div>
 					<div class="input-group input-sm">
-	                 	<div class="checkbox">
+	                 	<div class="checkbox white-text">
 	                   		<label><input type="checkbox" id="rememberme" name="remember-me"> Remember Me</label>  
 	                 	</div>
 	              	</div>
@@ -40,7 +40,6 @@
 						<input type="submit" class="btn btn-block btn-primary btn-default" value="Log in">
 					</div>
 					<div class="login-bottom">
-							
 			    	</div>
 				</form>
 			</div>
