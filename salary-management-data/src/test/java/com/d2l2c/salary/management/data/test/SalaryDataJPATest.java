@@ -13,8 +13,8 @@ import java.io.FileReader;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 
@@ -36,6 +36,7 @@ import com.d2l2c.salary.management.data.bean.Paycheck;
 import com.d2l2c.salary.management.data.bean.Rate;
 import com.d2l2c.salary.management.data.service.SalaryService;
 import com.d2l2c.salary.management.data.spring.config.SalaryJPAConfig;
+import com.d2l2c.salary.management.data.util.PaycheckUtil;
 
 /**
  * @author dayanlazare
@@ -43,6 +44,7 @@ import com.d2l2c.salary.management.data.spring.config.SalaryJPAConfig;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { SalaryJPAConfig.class })
+@Transactional("salaryTransactionManager")
 public class SalaryDataJPATest {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SalaryDataJPATest.class);
@@ -72,7 +74,6 @@ public class SalaryDataJPATest {
 		});
 	}
 
-	@Transactional("salaryTransactionManager")
 	@Test
 	public void listCompaniesTest() {
 		try {
@@ -91,13 +92,11 @@ public class SalaryDataJPATest {
 		}
 	}
 
-	@Transactional("salaryTransactionManager")
 	@Test
 	public void listPaychecksTest() {
 		try {
-			List<String> companyCodes = Arrays.asList("MS3", "MMI");
-			List<Paycheck> paychecks = salaryService.getPaychecks(companyCodes);
-			assertThat(paychecks.size(), is(5));
+			List<Paycheck> paychecks = salaryService.getPaychecksByCompanyCodes("MS3", "MMI");
+			assertThat(paychecks.size(), is(6));
 			paychecks.forEach(paycheck -> {
 				if (paycheck.getId() == 1L) {
 					assertThat(paycheck.getCompany().getCode(), is("MMI"));
@@ -106,15 +105,13 @@ public class SalaryDataJPATest {
 				}
 			});
 
-			companyCodes = Arrays.asList("MS3");
-			paychecks = salaryService.getPaychecks(companyCodes);
-			assertThat(paychecks.size(), is(2));
+			paychecks = salaryService.getPaychecksByCompanyCodes("MS3");
+			assertThat(paychecks.size(), is(3));
 			paychecks.forEach(paycheck -> {
 				assertThat(paycheck.getCompany().getCode(), is("MS3"));
 			});
 
-			companyCodes = Arrays.asList("MMI");
-			paychecks = salaryService.getPaychecks(companyCodes);
+			paychecks = salaryService.getPaychecksByCompanyCodes("MMI");
 			assertThat(paychecks.size(), is(3));
 			paychecks.forEach(paycheck -> {
 				assertThat(paycheck.getCompany().getCode(), is("MMI"));
@@ -125,12 +122,10 @@ public class SalaryDataJPATest {
 		}
 	}
 
-	@Transactional("salaryTransactionManager")
 	@Test
 	public void listRatesTest() {
 		try {
-			List<String> companyCodes = Arrays.asList("MS3", "MMI");
-			List<Rate> rates = salaryService.getRates(companyCodes);
+			List<Rate> rates = salaryService.getRatesByCompanyCodes("MS3", "MMI");
 			assertThat(rates.size(), is(2));
 			rates.forEach(rate -> {
 				if (rate.getId() == 1L) {
@@ -140,21 +135,72 @@ public class SalaryDataJPATest {
 				}
 			});
 
-			companyCodes = Arrays.asList("MS3");
-			rates = salaryService.getRates(companyCodes);
+			rates = salaryService.getRatesByCompanyCodes("MS3");
 			assertThat(rates.size(), is(1));
 			rates.forEach(rate -> {
 				assertThat(rate.getCompany().getCode(), is("MS3"));
 				assertThat(rate.getHourly(), is(new BigDecimal("100.00")));
 			});
 
-			companyCodes = Arrays.asList("MMI");
-			rates = salaryService.getRates(companyCodes);
+			rates = salaryService.getRatesByCompanyCodes("MMI");
 			assertThat(rates.size(), is(1));
 			rates.forEach(rate -> {
 				assertThat(rate.getCompany().getCode(), is("MMI"));
 				assertThat(rate.getHourly(), is(new BigDecimal("81.00")));
 			});
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			fail();
+		}
+	}
+
+	@Test
+	public void getPaycheckYearsTest() {
+		try {
+			List<Integer> years = salaryService.getPaycheckYears();
+			assertThat(years.size(), is(2));
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			fail();
+		}
+	}
+
+	@Test
+	public void getPaycheckByYearsTest() {
+		try {
+			List<Paycheck> paychecks = salaryService.getPaychecksByYears(2017, 2016);
+			assertThat(paychecks.size(), is(6));
+			
+			paychecks = salaryService.getPaychecksByYears(2017);
+			assertThat(paychecks.size(), is(5));
+			
+			paychecks = salaryService.getPaychecksByYears(2016);
+			assertThat(paychecks.size(), is(1));
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			fail();
+		}
+	}
+
+	@Test
+	public void groupPaychecksByYearTest() {
+		try {
+			List<Paycheck> paychecks = salaryService.getPaychecksByYears(2017, 2016);
+			assertThat(paychecks.size(), is(6));
+			
+			Map<Integer, Paycheck> paycheckMap = PaycheckUtil.groupPaychecksByYear(paychecks);
+			assertThat(paycheckMap.size(), is(2));
+			
+			Paycheck paycheck2017 = paycheckMap.get(2017);
+			
+			assertThat(paycheck2017.getGrossAmount(), is(new BigDecimal("1000.00")));
+			assertThat(paycheck2017.getNetPay(), is(new BigDecimal("500.00")));
+			assertThat(paycheck2017.getReimbursement(), is(new BigDecimal("50.00")));
+			
+			Paycheck paycheck2016 = paycheckMap.get(2016);
+			assertThat(paycheck2016.getGrossAmount(), is(new BigDecimal("200.00")));
+			assertThat(paycheck2016.getNetPay(), is(new BigDecimal("100.00")));
+			assertThat(paycheck2016.getReimbursement(), is(new BigDecimal("10.00")));
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			fail();

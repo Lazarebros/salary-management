@@ -5,22 +5,20 @@ package com.d2l2c.salary.management.data.dao;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.d2l2c.salary.management.data.bean.Rate;
 
 /**
  * @author dayanlazare
  *
  */
-public interface RateDao extends JpaRepository<Rate, Integer> {
+public interface RateDao {
 	
-	public void saveRate(Rate rate) throws Exception;
+	public void save(Rate rate);
 	
-	public List<Rate> getRates() throws Exception;
+	public List<Rate> findAll();
 	
-	public List<Rate> getRates(List<String> companyCodes) throws Exception;
+	public List<Rate> findByCompanyCodes(String...companyCodes);
 	
-	public Rate getRate(Long id) throws Exception;
+	public Rate findById(Long id);
 
 }

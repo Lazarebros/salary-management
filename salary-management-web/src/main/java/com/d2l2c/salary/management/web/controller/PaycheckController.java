@@ -1,6 +1,5 @@
 package com.d2l2c.salary.management.web.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -62,8 +61,7 @@ public class PaycheckController {
 	
 	private void retreivePaychecks() throws Exception {
 		paycheckView.getPaycheckBeanMap().clear();
-		List<String> companyCodes = Arrays.asList("MS3", "MMI");
-		List<Paycheck> paycheckList = salaryService.getPaychecks(companyCodes);
+		List<Paycheck> paycheckList = salaryService.getPaychecksByCompanyCodes("MS3", "MMI");
 		for (Paycheck paycheck : paycheckList) {
 			paycheckView.addPaycheck(paycheck);
 		}

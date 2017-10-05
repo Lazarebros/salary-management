@@ -5,23 +5,24 @@ package com.d2l2c.salary.management.data.dao;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.d2l2c.salary.management.data.bean.Paycheck;
 
 /**
  * @author dayanlazare
  *
  */
-public interface PaycheckDao extends JpaRepository<Paycheck, Integer> {
+public interface PaycheckDao {
 	
-	public void savePaycheck(Paycheck paycheck) throws Exception;
+	public void save(Paycheck paycheck);
 	
-	public List<Paycheck> getPaychecks() throws Exception;
+	public List<Paycheck> findAll();
 	
-	public List<Paycheck> getPaychecks(List<String> companyCodes) throws Exception;
+	public List<Paycheck> findByCompanyCodes(String...companyCodes);
+
+	public List<Paycheck> findPaychecksByYears(Integer...years);
 	
-	public Paycheck getPaycheck(Long id) throws Exception;
-	
+	public Paycheck findById(Long id);
+
+	public List<Integer> getPaycheckYears();
 
 }

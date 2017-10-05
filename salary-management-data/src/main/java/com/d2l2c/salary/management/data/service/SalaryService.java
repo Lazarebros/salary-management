@@ -15,16 +15,20 @@ import com.d2l2c.salary.management.data.bean.Rate;
  */
 public interface SalaryService {
 
-	public List<Company> getCompanies() throws Exception;
+	public List<Company> getCompanies();
 
-	public List<Paycheck> getPaychecks(List<String> companyCodes) throws Exception;
+	public List<Paycheck> getPaychecksByCompanyCodes(String...companyCodes);
+
+	public List<Paycheck> getPaychecksByYears(Integer...years);
 	
-	public List<Paycheck> getPaychecks() throws Exception;
+	public List<Paycheck> getPaychecks();
 	
-	public List<Rate> getRates(List<String> companyCodes) throws Exception;
+	public List<Rate> getRatesByCompanyCodes(String...companyCodes);
 	
-	public List<Rate> getRates() throws Exception;
+	public List<Rate> getRates();
 	
-	public Rate getRate(Long id) throws Exception;
+	public Rate getRateById(Long id);
+	
+	public List<Integer> getPaycheckYears();
 
 }

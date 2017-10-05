@@ -16,7 +16,9 @@ import com.d2l2c.salary.management.data.bean.Paycheck;
  * @author dayanlazare
  *
  */
-public class PaycheckBean {
+public class PaycheckPeriodBean {
+
+	private Period period;
 
 	private List<Paycheck> paychecks = new ArrayList<Paycheck>();
 
@@ -27,11 +29,27 @@ public class PaycheckBean {
 	private BigDecimal netPay = new BigDecimal(0);
 	private BigDecimal reimbursement = new BigDecimal(0);
 
-	public PaycheckBean() {
+	public PaycheckPeriodBean(Period period) {
+		this.period = period;
+	}
+
+	public Period getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(Period period) {
+		this.period = period;
 	}
 
 	public List<Paycheck> getPaychecks() {
 		return paychecks;
+	}
+
+	public void setPaychecks(List<Paycheck> paychecks) {
+		this.paychecks = paychecks;
+		grossAmount = paychecks.stream().map(Paycheck::getGrossAmount).reduce((x, y) -> x.add(y)).get();
+		netPay = paychecks.stream().map(Paycheck::getNetPay).reduce((x, y) -> x.add(y)).get();
+		reimbursement = paychecks.stream().map(Paycheck::getReimbursement).reduce((x, y) -> x.add(y)).get();
 	}
 
 	public String getCompanyCode() {

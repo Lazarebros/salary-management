@@ -22,6 +22,7 @@ import com.d2l2c.salary.management.data.service.SalaryService;
  *
  */
 @Service("salaryService")
+@Transactional("salaryTransactionManager")
 public class SalaryServiceImpl implements SalaryService {
 
 	@Autowired
@@ -34,33 +35,43 @@ public class SalaryServiceImpl implements SalaryService {
 	private RateDao rateDao;
 
 	@Override
-	public List<Company> getCompanies() throws Exception {
-		return companyDao.getCompanies();
-	}
-
-	@Transactional("salaryTransactionManager")
-	@Override
-	public List<Paycheck> getPaychecks(List<String> companyCodes) throws Exception {
-		return paycheckDao.getPaychecks(companyCodes);
+	public List<Company> getCompanies() {
+		return companyDao.findAll();
 	}
 
 	@Override
-	public List<Paycheck> getPaychecks() throws Exception {
-		return paycheckDao.getPaychecks();
+	public List<Paycheck> getPaychecksByCompanyCodes(String...companyCodes) {
+		return paycheckDao.findByCompanyCodes(companyCodes);
 	}
 
 	@Override
-	public List<Rate> getRates(List<String> companyCodes) throws Exception {
-		return rateDao.getRates(companyCodes);
+	public List<Paycheck> getPaychecksByYears(Integer...years) {
+		return paycheckDao.findPaychecksByYears(years);
 	}
 
 	@Override
-	public List<Rate> getRates() throws Exception {
-		return rateDao.getRates();
+	public List<Paycheck> getPaychecks() {
+		return paycheckDao.findAll();
 	}
 
 	@Override
-	public Rate getRate(Long id) throws Exception {
-		return rateDao.getRate(id);
+	public List<Rate> getRatesByCompanyCodes(String...companyCodes) {
+		return rateDao.findByCompanyCodes(companyCodes);
 	}
+
+	@Override
+	public List<Rate> getRates() {
+		return rateDao.findAll();
+	}
+
+	@Override
+	public Rate getRateById(Long id) {
+		return rateDao.findById(id);
+	}
+
+	@Override
+	public List<Integer> getPaycheckYears() {
+		return paycheckDao.getPaycheckYears();
+	}
+
 }

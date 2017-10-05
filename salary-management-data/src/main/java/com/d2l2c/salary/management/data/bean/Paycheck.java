@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 /**
@@ -20,7 +21,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "paychecks")
+@Table(name = "paychecks" )
 public class Paycheck {
 
 	private Long id;
@@ -35,6 +36,11 @@ public class Paycheck {
 	private BigDecimal reimbursement;
 
 	private Company company;
+
+	@PreUpdate
+	private void preUpdate() {
+		throw new UnsupportedOperationException("Paycheck Entity is not updatable!!!");
+	}
 
 	public Paycheck() {
 		super();
@@ -129,11 +135,7 @@ public class Paycheck {
 	}
 
 	public void setReimbursement(BigDecimal reimbursement) {
-		if (this.reimbursement == null) {
-			this.reimbursement = reimbursement;
-		} else {
-			this.reimbursement = this.reimbursement.add(reimbursement);
-		}
+		this.reimbursement = reimbursement;
 	}
 
 	@ManyToOne

@@ -1,6 +1,7 @@
 package com.d2l2c.salary.management.web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.d2l2c.salary.management.data.bean.Company;
+import com.d2l2c.salary.management.data.bean.Paycheck;
 import com.d2l2c.salary.management.data.service.SalaryService;
+import com.d2l2c.salary.management.data.util.PaycheckUtil;
 import com.d2l2c.salary.management.web.ui.view.HomeView;
 
 /**
@@ -23,28 +26,54 @@ public class HomeController extends BaseController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
+	private static final String HOME_VIEW_ATTR_NAME = "homeView";
+
 	@Autowired
 	SalaryService salaryService;
 
-	private HomeView homeView;
+	private HomeView homeView = new HomeView();
 
 	public void setSalaryService(SalaryService salaryService) {
 		this.salaryService = salaryService;
 	}
 
-	@RequestMapping(value = { "/" ,"/home" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
 		super.addLoggedInUser(model);
+		this.getCompanyList();
+		this.getYearList();
+
+		model.addAttribute(HOME_VIEW_ATTR_NAME, homeView);
 		return "home";
 	}
 
-	private void initCompanies() {
+	private void getCompanyList() {
 		try {
 			List<Company> companies = salaryService.getCompanies();
-			this.homeView.setCompanies(companies);
+			homeView.setCompanies(companies);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 		}
+	}
+
+	private void getYearList() {
+		try {
+			List<Integer> years = salaryService.getPaycheckYears();
+			homeView.setYears(years);
+
+			this.getYearlyPaychecks(years);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+	}
+
+	private void getYearlyPaychecks(List<Integer> years) {
+		List<Paycheck> paychecks = salaryService.getPaychecksByYears(years.toArray(new Integer[0]));
+		Map<Integer, Paycheck> paycheckMap = PaycheckUtil.groupPaychecksByYear(paychecks);
+		homeView.getYearlyPaychecks().clear();
+		paycheckMap.forEach((year, paycheck)->{
+			homeView.addYearlyPaycheck(paycheck);
+		});
 	}
 
 }

@@ -30,10 +30,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:salary-db.properties")
 @EnableTransactionManagement
 @EnableJpaRepositories(
-		basePackages = "com.d2l2c.salary.management.data.dao", 
 		entityManagerFactoryRef = "salaryEntityManager", 
 		transactionManagerRef = "salaryTransactionManager")
-@ComponentScans(value = { @ComponentScan("com.d2l2c.salary.management.data.service") })
+@ComponentScans(value = { @ComponentScan("com.d2l2c.salary.management.data") })
 public class SalaryJPAConfig {
 
 	@Autowired
