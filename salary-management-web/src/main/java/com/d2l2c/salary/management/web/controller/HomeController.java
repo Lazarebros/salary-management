@@ -1,7 +1,7 @@
 package com.d2l2c.salary.management.web.controller;
 
 import java.util.List;
-import java.util.Map;
+import java.util.TreeMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.d2l2c.salary.management.data.bean.Company;
 import com.d2l2c.salary.management.data.bean.Paycheck;
 import com.d2l2c.salary.management.data.service.SalaryService;
-import com.d2l2c.salary.management.data.util.PaycheckUtil;
+import com.d2l2c.salary.management.web.ui.bean.PaycheckBean;
 import com.d2l2c.salary.management.web.ui.view.HomeView;
+import com.d2l2c.salary.management.web.util.SalaryWebUtil;
 
 /**
  * @author dayanlazare
@@ -69,11 +70,8 @@ public class HomeController extends BaseController {
 
 	private void getYearlyPaychecks(List<Integer> years) {
 		List<Paycheck> paychecks = salaryService.getPaychecksByYears(years.toArray(new Integer[0]));
-		Map<Integer, Paycheck> paycheckMap = PaycheckUtil.groupPaychecksByYear(paychecks);
-		homeView.getYearlyPaychecks().clear();
-		paycheckMap.forEach((year, paycheck)->{
-			homeView.addYearlyPaycheck(paycheck);
-		});
+		TreeMap<Integer, PaycheckBean> paycheckMap = SalaryWebUtil.groupPaychecksByYear(paychecks);
+		homeView.setYearlyPaycheckMap(paycheckMap);
 	}
 
 }

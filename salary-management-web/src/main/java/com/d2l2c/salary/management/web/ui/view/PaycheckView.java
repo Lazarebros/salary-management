@@ -39,7 +39,7 @@ public class PaycheckView implements Serializable {
 	
 	public List<PaycheckBean> getPaycheckBeanList() {
 		List<PaycheckBean> paycheckBeanList = new ArrayList<PaycheckBean>(paycheckBeanMap.values());
-		SalaryWebUtil.sortPaycheckViews(paycheckBeanList);
+		SalaryWebUtil.sortPaycheckViews(paycheckBeanList, false);
 		return paycheckBeanList;
 	}
 	

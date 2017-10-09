@@ -26,6 +26,10 @@
 										<small>${paycheck.netPay}</small>
 									</div>
 									<div class="span4">
+										<b>Real Net</b><br />
+										<small>${paycheck.realNetPay}</small>
+									</div>
+									<div class="span4">
 										<b>Reimbursement</b><br />
 										<small>${paycheck.reimbursement}</small>
 									</div>
@@ -36,6 +40,17 @@
 				</c:forEach>
 			</div>
 		</div>
+		<div class="charts">
+			<div id="grossAmountChart" style="width:500px;height:300px; float: left;"></div>
+			<div id="realNetPayChart" style="width:500px;height:300px;float:right;"></div>
+		</div>
 	</div>
-
+	<br/>
 </form>
+<script type="text/javascript">
+    var grossAmountChart = echarts.init(document.getElementById('grossAmountChart'));
+    grossAmountChart.setOption(${homeView.chartBean.grossAmountChart});
+
+    var realNetPayChart = echarts.init(document.getElementById('realNetPayChart'));
+    realNetPayChart.setOption(${homeView.chartBean.realNetPayChart});
+</script>

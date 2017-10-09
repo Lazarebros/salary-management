@@ -9,17 +9,11 @@
 	    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	    <title><tiles:getAsString name="title" /></title>
 	    
-	    <spring:url value="/static/css/main.css" var="mainCss" />
-	    <spring:url value="/static/css/home.css" var="homeCss" />
+	    <link href="<c:url value='/static/css/main.css' />" rel="stylesheet"></link>
+	    <link href="<c:url value='/static/css/home.css' />" rel="stylesheet"></link>
 	    
-		<spring:url value="/static/js/jquery.min.js" var="jqueryJs" />
-		<spring:url value="/static/bootstrap-3.3.7/js/bootstrap.js" var="bootstrapJs" />
-	    
-	    <link href="${mainCss}" rel="stylesheet"></link>
-	    <link href="${homeCss}" rel="stylesheet"></link>
-	    
-	    <script src="${jqueryJs}" type="text/javascript"></script>
-	    <script src="${bootstrapJs}" type="text/javascript"></script>
+	    <script src="<c:url value='/static/js/jquery.min.js' />" type="text/javascript"></script>
+	    <script src="<c:url value='/static/js/echarts-all-3.js' />" type="text/javascript"></script>
 	</head>
 	<body>
         <header id="header">

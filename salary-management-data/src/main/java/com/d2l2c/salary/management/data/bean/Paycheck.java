@@ -15,6 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.d2l2c.common.util.date.DateUtil;
 
 /**
  * @author dayanlazare
@@ -146,6 +149,11 @@ public class Paycheck {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	@Transient
+	public String getMonthName() {
+		return DateUtil.getMonth(month);
 	}
 
 }

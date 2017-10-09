@@ -6,9 +6,8 @@ package com.d2l2c.salary.management.web.ui.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.TreeMap;
 
 import com.d2l2c.common.util.chart.Axis;
 import com.d2l2c.common.util.chart.Chart;
@@ -16,6 +15,8 @@ import com.d2l2c.common.util.chart.Legend;
 import com.d2l2c.common.util.chart.Serie;
 import com.d2l2c.common.util.chart.Title;
 import com.d2l2c.common.util.chart.Tooltip;
+import com.d2l2c.salary.management.data.bean.Paycheck;
+import com.d2l2c.salary.management.web.util.SalaryWebUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -24,68 +25,88 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class EChartBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private ObjectMapper mapper = new ObjectMapper();
-	
-	private Map<String, PaycheckBean> paycheckViewMap = new HashMap<String, PaycheckBean>();
-	
-	private Chart lineChart;
-	
+
+	private TreeMap<Integer, PaycheckBean> yearlyPaycheckMap = new TreeMap<Integer, PaycheckBean>();
+
+	private Chart grossAmountLineChart;
+
+	private Chart realNetPayLineChart;
+
 	public EChartBean() {
-		this.createCharts();
 	}
-	
+
 	private void createCharts() {
-		
-		Title title = new Title("Real Net Pay");
 		Tooltip tooltip = new Tooltip(Tooltip.AXIS);
-		
-		
-//		Legend legend = this.getLegend();
-		
-		List<String> legendData = Arrays.asList("2015", "2016", "2017");
-		Legend legend = new Legend(legendData);
-		
-		List<String> xAxisData = Arrays.asList("Jan", "Fev", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-		Axis xAxis = new Axis(false, xAxisData);
-		
-		Axis yAxis = new Axis();
-		
-		List<String> data1 = Arrays.asList("1233", "2345", "3452", "1243", "1465", "5437", "1233", "2345", "3452", "1243", "1465", "5437");
-		List<String> data2 = Arrays.asList("4675", "7654", "4353", "3097", "1465", "5437", "1233", "2345", "3452", "1243", "1465", "5437");
-		List<String> data3 = Arrays.asList("5467", "3456", "1465", "3245", "6547", "2345", "1324", "7657", "2314", "6574", "3456", "2345");
 
-		Serie serie1 = new Serie("2015", Serie.LINE_TYPE, data1);
-		Serie serie2 = new Serie("2016", Serie.LINE_TYPE, data2);
-		Serie serie3 = new Serie("2017", Serie.LINE_TYPE, data3);
-		
-		lineChart = new Chart(title, legend, xAxis, yAxis);
-		lineChart.setTooltip(tooltip);
-		lineChart.addSerie(serie1);
-		lineChart.addSerie(serie2);
-		lineChart.addSerie(serie3);
-		
+		List<String> xAxisData = Arrays.asList("Jan", "Fev", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+
+		Axis xAxis = new Axis(false, xAxisData);
+		Axis yAxis = new Axis();
+
+		grossAmountLineChart = new Chart();
+		grossAmountLineChart.setTitle(new Title("Gross"));
+		grossAmountLineChart.setTooltip(tooltip);
+
+		grossAmountLineChart.setxAxis(xAxis);
+		grossAmountLineChart.setyAxis(yAxis);
+
+		realNetPayLineChart = new Chart();
+		realNetPayLineChart.setTitle(new Title("Real Net"));
+		realNetPayLineChart.setTooltip(tooltip);
+
+		realNetPayLineChart.setxAxis(xAxis);
+		realNetPayLineChart.setyAxis(yAxis);
+
+		this.intitData();
 	}
 
-	public void setPaycheckViewMap(Map<String, PaycheckBean> paycheckViewMap) {
-		if(!paycheckViewMap.isEmpty()) {
-			this.paycheckViewMap = paycheckViewMap;
+	public void setYearlyPaycheckMap(TreeMap<Integer, PaycheckBean> paycheckViewMap) {
+		if (!paycheckViewMap.isEmpty()) {
+			this.yearlyPaycheckMap = paycheckViewMap;
 			this.createCharts();
 		}
 	}
-	
 
-	public String getChart() {
-		this.createCharts();
-		return this.getJson(lineChart);
+	public String getGrossAmountChart() {
+		return this.getJson(grossAmountLineChart);
 	}
-	
-	private Legend getLegend() {
-		List<String> legendData = new ArrayList<String>(paycheckViewMap.keySet());
-		Legend legend = new Legend(legendData);
-		return legend;
+
+	public String getRealNetPayChart() {
+		return this.getJson(realNetPayLineChart);
 	}
-	
+
+	private void intitData() {
+		List<String> lengendList = new ArrayList<String>();
+		yearlyPaycheckMap.keySet().forEach(key -> {
+			lengendList.add(key.toString());
+			this.initSerie(key);
+		});
+		grossAmountLineChart.setLegend(new Legend(lengendList));
+		realNetPayLineChart.setLegend(new Legend(lengendList));
+	}
+
+	private void initSerie(Integer key) {
+		List<Paycheck> paychecks = yearlyPaycheckMap.get(key).getPaychecks();
+		TreeMap<Integer, PaycheckBean> monthlyPaycheckMap = SalaryWebUtil.groupPaychecksByMonth(paychecks);
+		List<Object> grossAmountData = new ArrayList<Object>(12);
+		List<Object> realNetPayData = new ArrayList<Object>(12);
+		for (int index = 1; index <= 12; index++) {
+			if (monthlyPaycheckMap.containsKey(index)) {
+				grossAmountData.add(monthlyPaycheckMap.get(index).getGrossAmount());
+				realNetPayData.add(monthlyPaycheckMap.get(index).getRealNetPay());
+			} else {
+				grossAmountData.add("");
+			}
+		}
+		Serie grossAmountSerie = new Serie(key.toString(), Serie.LINE_TYPE, grossAmountData);
+		grossAmountLineChart.addSerie(grossAmountSerie);
+
+		Serie realNetPaySerie = new Serie(key.toString(), Serie.LINE_TYPE, realNetPayData);
+		realNetPayLineChart.addSerie(realNetPaySerie);
+	}
+
 	private String getJson(Object obj) {
 		String json = "";
 		try {

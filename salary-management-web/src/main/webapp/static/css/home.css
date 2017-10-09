@@ -50,6 +50,12 @@
 }
 
 .site-content {
-	max-width: 1200px;
+	width: 1400px;
 /* 	max-width:  */
+}
+
+.well {
+	width: 1400px;
+	border: none;
+	margin: 0 auto;
 }
