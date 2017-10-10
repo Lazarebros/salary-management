@@ -14,6 +14,7 @@
 	    
 	    <script src="<c:url value='/static/js/jquery.min.js' />" type="text/javascript"></script>
 	    <script src="<c:url value='/static/js/echarts-all-3.js' />" type="text/javascript"></script>
+	    <script src="<c:url value='/static/bootstrap-3.3.7/js/bootstrap.js' />" type="text/javascript"></script>
 	</head>
 	<body>
         <header id="header">
