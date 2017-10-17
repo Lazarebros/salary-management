@@ -10,9 +10,11 @@
 							<h2 style="text-align: center">${paycheck.year}</h2>
 						</div>
 						<div class="modal-footer" style="text-align: left">
-							<div class="progress progress-striped active" style="background: #ddd">
-								<div class="bar bar-warning" style="width: 60%;"></div>
-							</div>
+							<div class="progress">
+							    <div class="progress-bar progress-bar-info" style="width:${paycheck.progress}%">
+							    	<span class="white-text">${paycheck.progress}% Complete</span>
+							    </div>
+  							</div>
 							<div class="row-fluid">
 								<div class="span4">
 									<b>Gross</b><br />
@@ -38,14 +40,30 @@
 		</div>
 	</div>
 	<div class="charts">
-		<div id="grossAmountChart" style="width:500px;height:300px; float: left;"></div>
-		<div id="realNetPayChart" style="width:500px;height:300px;float:right;"></div>
+		<div id="grossAmountChartDiv" class="grossAmountChart" ></div>
+		<div id="realNetPayChartDiv" class="realNetPayChart" ></div>
 	</div>
+	<br/>
+	<div class="charts">
+		<div id="grossAmountCumulativeChartDiv" class="grossAmountChart" ></div>
+		<div id="realNetPayCumulativeChartDiv" class="realNetPayChart" ></div>
+	</div>
+	<br/>
 </div>
 <script type="text/javascript">
-    var grossAmountChart = echarts.init(document.getElementById('grossAmountChart'));
-    grossAmountChart.setOption(${homeView.chartBean.grossAmountChart});
+    var grossAmountChartDiv = echarts.init(document.getElementById('grossAmountChartDiv'));
+    var grossAmountChart = ${homeView.chartBean.grossAmountChart};
+    grossAmountChartDiv.setOption(grossAmountChart);
 
-    var realNetPayChart = echarts.init(document.getElementById('realNetPayChart'));
-    realNetPayChart.setOption(${homeView.chartBean.realNetPayChart});
+    var realNetPayChartDiv = echarts.init(document.getElementById('realNetPayChartDiv'));
+    var realNetPayChart = ${homeView.chartBean.realNetPayChart};
+    realNetPayChartDiv.setOption(realNetPayChart);
+
+    var grossAmountCumulativeChartDiv = echarts.init(document.getElementById('grossAmountCumulativeChartDiv'));
+    var grossAmountCumulativeChart = ${homeView.chartBean.grossAmountCumulativeChart};
+    grossAmountCumulativeChartDiv.setOption(grossAmountCumulativeChart);
+    
+    var realNetPayCumulativeChartDiv = echarts.init(document.getElementById('realNetPayCumulativeChartDiv'));
+    var realNetPayCumulativeChart = ${homeView.chartBean.realNetPayCumulativeChart};
+    realNetPayCumulativeChartDiv.setOption(realNetPayCumulativeChart);
 </script>

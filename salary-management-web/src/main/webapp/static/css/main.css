@@ -13,13 +13,19 @@ html {
 body {
 	/* 	background-color: #25c481; */
 	/* 	background-color: #25b7c4; */
-	background-color: #4678B2;
-	/* 	background: -webkit-linear-gradient(left, #25c481, #25b7c4); */
-	/*     background: linear-gradient(to right, #25c481, #25b7c4); */
+	/* 	background-color: #4678B2; */
+	/* 	background-color: #F3F0F3; */
+/* 		background-color: #EA644A; */
+		background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+	    background: linear-gradient(to right, #25c481, #25b7c4);
 }
 
 .white-text {
 	color: #fff;
+}
+
+.black-text {
+	color: #000;
 }
 
 .common-footer {

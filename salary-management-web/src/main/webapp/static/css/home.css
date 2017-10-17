@@ -2,6 +2,16 @@
 	margin-right: 10px;
 }
 
+.side-menu-item {
+	margin-left: 10px;
+	text-align: center;
+}
+
+.panel {
+	background-color: rgba(52, 60, 74, 0.3);
+	border-color: rgba(52, 60, 74, 0.3);
+}
+
 .panel-body {
 	padding: 0px;
 }
@@ -14,6 +24,29 @@
 	margin-bottom: 0px;
 }
 
+.panel-default > .panel-heading {
+	color: #333;
+	background-color: rgba(52, 60, 74, 0.3);
+	border-color: rgba(52, 60, 74, 0.3);
+}
+
+.panel-default > .panel-heading+.panel-collapse > .panel-body {
+	border-top-color: rgba(52, 60, 74, 0.5);
+}
+
+.table > thead > tr > th, 
+.table > tbody > tr > th, 
+.table > tfoot > tr > th, 
+.table > thead > tr > td,
+.table > tbody > tr > td, 
+.table > tfoot > tr > td {
+	padding: 8px;
+	padding-left: 8px;
+	line-height: 1.42857143;
+	vertical-align: top;
+	border: 1px solid rgba(52, 60, 74, 0.5);
+}
+
 .container-home {
 	padding-top: 100px;
 	padding-right: 10px;
@@ -22,7 +55,7 @@
 
 .well {
 	padding: 10px;
-    text-align: center;
+	text-align: center;
 	background-color: transparent;
 	border: 1px solid #e3e3e3;
 	border-radius: 4px;
@@ -31,9 +64,15 @@
 	border: none;
 }
 
+.modal-footer {
+	border-top: 2px solid rgba(52, 60, 74, .5);
+}
+
 .thumbnail {
 	width: 100%;
 	border-radius: 12px;
+	border-color: rgba(52, 60, 74, 0.3);
+	background-color: rgba(52, 60, 74, 0.3);
 }
 
 .left-menu-container {
@@ -48,13 +87,40 @@
 }
 
 .row {
-    display: inline-block;
+	display: inline-block;
 }
 
 .col-md-3 {
-    width: 230px;
+	width: 230px;
 }
 
 .col-sm-9 {
-    width: 100%;
+	width: 100%;
+}
+
+.grossAmountChart {
+	width: 500px;
+	height: 300px;
+	float: left;
+	background-color: #323d4b;
+}
+
+.realNetPayChart {
+	width: 500px;
+	height: 300px;
+	float: right;
+}
+
+.progress {
+	height: 20px; margin-bottom : 20px;
+	overflow: hidden;
+	background-color: rgba(52, 60, 74, 0.6);
+	border-radius: 4px;
+	margin-bottom: 20px;
+}
+
+.progress-bar {
+	background-color: rgba(222,82,75, 0.8);
+	border-radius: 0 2px 2px 0;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25) inset;
 }

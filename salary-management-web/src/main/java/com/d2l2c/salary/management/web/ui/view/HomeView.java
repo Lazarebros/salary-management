@@ -55,6 +55,7 @@ public class HomeView implements Serializable {
 
 	public void setYearlyPaycheckMap(TreeMap<Integer, PaycheckBean> yearlyPaycheckMap) {
 		this.yearlyPaycheckMap = yearlyPaycheckMap;
+		chartBean.setYearlyPaycheckMap(yearlyPaycheckMap);
 	}
 
 	public Collection<PaycheckBean> getYearlyPaychecks() {
@@ -62,7 +63,6 @@ public class HomeView implements Serializable {
 	}
 
 	public EChartBean getChartBean() {
-		chartBean.setYearlyPaycheckMap(yearlyPaycheckMap);
 		return chartBean;
 	}
 

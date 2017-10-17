@@ -15,7 +15,7 @@
 							<tr>
 								<td>
 									<%-- <h:commandLink action="#{homeController.filterCompany(comapany.id)}" value="#{comapany.code}"/> --%>
-									<label><input type="checkbox" id="company" name="checkbox">  ${comapany.code}</label>
+									<label class="side-menu-item"><input type="checkbox" id="company" name="checkbox"><span class="side-menu-item">${comapany.code}</span></label>
 								</td>
 							</tr>
 						</c:forEach>
@@ -36,7 +36,7 @@
 						<c:forEach var="year" items="${homeView.years}">
 							<tr>
 								<td>
-									<label><input type="checkbox" id="company" name="checkbox">  ${year}</label>
+									<label class="side-menu-item"><input type="checkbox" id="company" name="checkbox"><span class="side-menu-item">${year}</span></label>
 								</td>
 							</tr>
 						</c:forEach>

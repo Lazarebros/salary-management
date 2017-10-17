@@ -90,6 +90,10 @@ public class PaycheckBean {
 		}
 	}
 
+	public String getProgress() {
+		return (getMonth() * 100) / 12 + "";
+	}
+
 	public void addPaycheck(Paycheck paycheck) {
 		this.paychecks.add(paycheck);
 
