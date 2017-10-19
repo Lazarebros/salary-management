@@ -51,14 +51,14 @@ nav.navbar-findcond button.navbar-toggle > span.icon-bar {
 
 nav.navbar-findcond ul.dropdown-menu {
 	border: 0;
-	background: #fff;
+	background: #323d4b;
 	border-radius: 4px;
 	margin: 4px 0;
 	box-shadow: 0 0 4px 0 #ccc;
 }
 
 nav.navbar-findcond ul.dropdown-menu > li > a {
-	color: #444;
+	color: #fff;
 }
 
 nav.navbar-findcond ul.dropdown-menu > li > a:hover {
