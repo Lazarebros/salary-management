@@ -20,6 +20,14 @@
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/templates/common/footer.jsp" />
 	</definition>
 
+	<!-- Base Definition -->
+	<definition name="paychecks-definition" template="/WEB-INF/views/tiles/layouts/paychecksLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/templates/common/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/templates/common/footer.jsp" />
+	</definition>
+
 	<!-- Login Page -->
 	<definition name="login" extends="base-definition">
 		<put-attribute name="title" value="Login Page" />
@@ -30,6 +38,12 @@
 	<definition name="home" extends="home-definition">
 		<put-attribute name="title" value="Home Page" />
 		<put-attribute name="body" value="/WEB-INF/views/pages/home.jsp" />
+	</definition>
+
+	<!-- Paychecks Page -->
+	<definition name="paychecks" extends="paychecks-definition">
+		<put-attribute name="title" value="Paychecks Page" />
+		<put-attribute name="body" value="/WEB-INF/views/pages/paychecks.jsp" />
 	</definition>
 
 </tiles-definitions>

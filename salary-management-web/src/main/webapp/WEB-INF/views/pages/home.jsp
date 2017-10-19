@@ -11,8 +11,8 @@
 						</div>
 						<div class="modal-footer" style="text-align: left">
 							<div class="progress">
-							    <div class="progress-bar progress-bar-info" style="width:${paycheck.progress}%">
-							    	<span class="white-text">${paycheck.progress}% Complete</span>
+							    <div class="progress-bar progress-bar-info" style="width:${paycheck.yearProgress}%">
+							    	<span class="white-text">${paycheck.yearProgress}% Complete</span>
 							    </div>
   							</div>
 							<div class="row-fluid">
@@ -31,6 +31,9 @@
 								<div class="span4">
 									<b>Reimbursement</b><br />
 									<small>${paycheck.reimbursement}</small>
+								</div>
+								<div>
+									<a href="<c:url value='/paychecks-${paycheck.year}' />" class="btn btn-danger btn-custom">Details</a>
 								</div>
 							</div>
 						</div>

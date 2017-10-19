@@ -22,11 +22,13 @@ nav.navbar-findcond ul.navbar-nav a {
 nav.navbar-findcond ul.navbar-nav a:hover, nav.navbar-findcond ul.navbar-nav a:visited,
 	nav.navbar-findcond ul.navbar-nav a:focus, nav.navbar-findcond ul.navbar-nav a:active
 	{
-	background: #f14444;
+/* 	background: #f14444; */
+	background: rgba(222,82,75, 0.8);
 }
 
 nav.navbar-findcond ul.navbar-nav a:hover {
-	border-color: #f14444;
+/* 	border-color: #f14444; */
+	background: rgba(222,82,75, 0.8);
 }
 
 nav.navbar-findcond li.divider {
@@ -34,7 +36,8 @@ nav.navbar-findcond li.divider {
 }
 
 nav.navbar-findcond button.navbar-toggle {
-	background: #f14444;
+/* 	background: #f14444; */
+	background: rgba(222,82,75, 0.8);
 	border-radius: 2px;
 }
 
@@ -59,12 +62,14 @@ nav.navbar-findcond ul.dropdown-menu > li > a {
 }
 
 nav.navbar-findcond ul.dropdown-menu > li > a:hover {
-	background: #f14444;
+/* 	background: #f14444; */
+	background: rgba(222,82,75, 0.8);
 	color: #fff;
 }
 
 nav.navbar-findcond span.badge {
-	background: #f14444;
+/* 	background: #f14444; */
+	background: rgba(222,82,75, 0.8);
 	font-weight: normal;
 	font-size: 11px;
 	margin: 0 4px;
@@ -80,5 +85,6 @@ nav.navbar-findcond span.badge.new {
 }
 
 .dropdown-toggle:active, .open .dropdown-toggle {
-	background: #f14444 !important;
+/* 	background: #f14444 !important; */
+	background: rgba(222,82,75, 0.8);
 }

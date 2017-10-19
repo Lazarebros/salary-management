@@ -1,71 +1,64 @@
 package com.d2l2c.salary.management.web.controller;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.d2l2c.salary.management.data.bean.Paycheck;
 import com.d2l2c.salary.management.data.service.SalaryService;
-import com.d2l2c.salary.management.web.ui.bean.EChartBean;
+import com.d2l2c.salary.management.web.ui.bean.PaycheckBean;
 import com.d2l2c.salary.management.web.ui.view.PaycheckView;
+import com.d2l2c.salary.management.web.util.SalaryWebUtil;
 
 /**
  * @author dayanlazare
  *
  */
-public class PaycheckController {
+@Controller
+public class PaycheckController extends BaseController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PaycheckController.class);
 
+	private static final String PAYCHECKS_VIEW_ATTR_NAME = "paychecksView";
+
 	@Autowired
 	SalaryService salaryService;
-
-	private PaycheckView paycheckView;
 	
-	private EChartBean eChartBean;
+	int year;
+
+	private PaycheckView paycheckView = new PaycheckView();
 
 	public void setSalaryService(SalaryService salaryService) {
 		this.salaryService = salaryService;
 	}
 
-	public void setPaycheckView(PaycheckView paycheckBean) {
-		this.paycheckView = paycheckBean;
-	}
-	
-	public EChartBean geteChartBean() {
-		return eChartBean;
-	}
-
-	public void seteChartBean(EChartBean eChartBean) {
-		this.eChartBean = eChartBean;
-	}
-
-	public String showPaychecks() {
-		String page = null;
-		String message = null;
+	@RequestMapping(value = {"/paychecks-{year}"}, method = RequestMethod.GET)
+	public String paychecksPage(@PathVariable int year, ModelMap model) {
+		super.addLoggedInUser(model);
 		try {
-			this.retreivePaychecks();
-			page = "paychecks";
+			paycheckView.setYear(year);
+			this.getYearlyPaychecks(year);
+			model.addAttribute(PAYCHECKS_VIEW_ATTR_NAME, paycheckView);
 		} catch (Exception e) {
-			message = "Something went wrong...";
 			LOGGER.error(e.getMessage(), e);
 		}
-		if(message != null) {
-			LOGGER.error(message);
-//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
-		}
-		return page;
+		return "paychecks";
 	}
-	
-	private void retreivePaychecks() throws Exception {
-		paycheckView.getPaycheckBeanMap().clear();
-		List<Paycheck> paycheckList = salaryService.getPaychecksByCompanyCodes("MS3", "MMI");
-		for (Paycheck paycheck : paycheckList) {
-			paycheckView.addPaycheck(paycheck);
-		}
-//		this.chartView.setPaycheckViewMap(paycheckView.getPaycheckViewMap());
+
+	private void getYearlyPaychecks(int year) {
+		List<Integer> years = Arrays.asList(year);
+		List<Paycheck> paychecks = salaryService.getPaychecksByYears(years.toArray(new Integer[0]));
+		TreeMap<Integer, PaycheckBean> paycheckMap = SalaryWebUtil.groupPaychecksByMonth(paychecks);
+		paycheckView.setPaycheckBeanMap(paycheckMap);
 	}
 
 }

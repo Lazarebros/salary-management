@@ -1,58 +1,10 @@
-body {
-	padding-top: 40px;
-	padding-bottom: 0px;
-	background: -webkit-linear-gradient(left, #d7b49c, #9ba1a2);
-	background: linear-gradient(to right, #d7b49c, #9ba1a2);
+section {
+	margin: 0px 50px 0px 50px;
 }
 
-.project-name {
-	padding-top: 10px;
-	padding-left: 20px;
-	font-size: 30px;
-	color: #fff;
-}
-
-.section {
-	margin: 50px;
-}
-
-.navbar-user-info-container {
-	position: absolute;
-	padding-top: 18px;
-	width: 400px;
-	right: 1px;
-}
-
-.navbar-user-info {
-	float: left;
-	font-size: 14px;
-	color: #fff;
-}
-
-.user-info {
-	float: right;
-}
-
-.navbar-logout {
-	float: right;
-	width: 60px;
-	padding-right: 10px;
-	font-size: 14px;
-	color: #fff;
-}
-
-.container-welcome {
+.paychecks-content {
 	padding-top: 100px;
-}
-
-.form-welcome {
-	max-width: 600px;
-	padding-left: 100px;
-	margin: 0 auto;
-}
-
-.btn-block-sized {
-	max-width: 300px;
+	font-family: 'Roboto', sans-serif;
 }
 
 h1 {
@@ -64,103 +16,58 @@ h1 {
 	margin-bottom: 15px;
 }
 
-.container-main {
-	padding-top: 50px;
+paychecks-table {
+	background-color: rgba(52, 60, 74, 0.3);
+}
+
+table {
 	width: 100%;
-	height: 100%;
+	table-layout: fixed;
+	background-color: rgba(52, 60, 74, 0.5);
 }
 
-.container-main-datatable {
-/* 	float: left; */
-	width: 100%;
+.tbl-header {
+	background-color: rgba(255, 255, 255, 0.3);
 }
 
-.container-main-form {
-	float: right;
-	width: 400px;
-	padding-top: 50px;
+.tbl-content {
+	height: 300px;
+	overflow-x: auto;
+	margin-top: 0px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.container-chart {
-/* 	padding-top: 40px; */
-/* 	width: 100%; */
-	width: 600px;
-	height:400px;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-.footer {
-	position: relative;
-	bottom: 0;
-	width: 100%;
-	/* Set the fixed height of the footer here */
-	height: 60px;
-	background-color: #f5f5f5;
-}
-
-.container-footer {
-	/* 	padding-top: 40px; */
-	/*   margin: auto; */
-	
-}
-
-.container-footer-space {
-/* 	padding-top: 100px; */
-}
-
-.footer>.container-footer {
-	text-align: center;
-	font-size: 80%;
-	color: grey;
-}
-
-.ui-selectonemenu {
-	padding-right: 0 !important;
-}
-
-.ui-datatable .ui-datatable-data tr, 
-.ui-datatable .ui-datatable-data td,
-.ui-datatable .ui-datatable-data-empty tr, 
-.ui-datatable .ui-datatable-data-empty td {
-	border-style: none;
-}
-
-.row-background {
-	background: -webkit-linear-gradient(left, #d7b49c, #9ba1a2);
-	background: linear-gradient(to right, #d7b49c, #9ba1a2);
-}
-
-.ui-datatable-header {
+th {
+	padding: 20px 15px;
 	text-align: left;
-	background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-	background: linear-gradient(to right, #25c481, #25b7c4);
+	font-weight: 500;
+	font-size: 12px;
+	color: #fff;
+	text-transform: uppercase;
 }
 
-.ui-datatable thead th, .ui-datatable tfoot td {
+tr.pay-state-less {
+	background-color: rgba(255, 0, 0, 0.7);
+}
+
+td {
+	padding: 15px;
 	text-align: left;
+	vertical-align: middle;
+	font-size: 12px;
+	color: #fff;
+	border-bottom: solid 1px rgba(255, 255, 255, 0.1);
 }
 
-.ui-widget-header .ui-state-default{
-	background: #a9bdbf;
-	border-style: none;
+/* for custom scrollbar for webkit browser*/
+::-webkit-scrollbar {
+	width: 8px;
 }
 
-.ui-datatable-footer {
-	background: #a9bdbf;
-	border-style: none;
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-.ui-widget-header tr .ui-state-default tr {
-	border-style: none;
+::-webkit-scrollbar-thumb {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
-
-.ui-datatable-odd {
-	background: none repeat scroll 0 0 #b6b7b780;
-}
-
-.ui-datatable-even {
-	background: none repeat scroll 0 0 #bfc7c8;
-}
-
-

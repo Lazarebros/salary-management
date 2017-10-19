@@ -23,9 +23,12 @@ public class PaycheckBean {
 	private DateTime startDate;
 	private DateTime endDate;
 
-	private BigDecimal grossAmount = new BigDecimal(0);
-	private BigDecimal netPay = new BigDecimal(0);
-	private BigDecimal reimbursement = new BigDecimal(0);
+	private BigDecimal grossAmount = new BigDecimal("0.00");
+	private BigDecimal netPay = new BigDecimal("0.00");
+	private BigDecimal reimbursement = new BigDecimal("0.00");
+
+	private BigDecimal expectedGross = new BigDecimal("0.00");
+	private BigDecimal expectedNetPay = new BigDecimal("0.00");
 
 	public PaycheckBean() {
 	}
@@ -78,6 +81,10 @@ public class PaycheckBean {
 		return netPay.subtract(reimbursement);
 	}
 
+	public BigDecimal getNetPayRemain() {
+		return getRealNetPay().subtract(expectedNetPay.multiply(new BigDecimal("2")));
+	}
+
 	private void setStartDate(DateTime startDate) {
 		if (this.startDate == null || this.startDate.isAfter(startDate)) {
 			this.startDate = startDate;
@@ -90,10 +97,6 @@ public class PaycheckBean {
 		}
 	}
 
-	public String getProgress() {
-		return (getMonth() * 100) / 12 + "";
-	}
-
 	public void addPaycheck(Paycheck paycheck) {
 		this.paychecks.add(paycheck);
 
@@ -103,6 +106,21 @@ public class PaycheckBean {
 		this.setGrossAmount(paycheck.getGrossAmount());
 		this.setNetPay(paycheck.getNetPay());
 		this.setReimbursement(paycheck.getReimbursement());
+		
+		this.expectedGross = paycheck.getCompany().getRates().iterator().next().getExpectedGross();
+		this.expectedNetPay = paycheck.getCompany().getRates().iterator().next().getExpectedNetPay();
+	}
+
+	public int getYearProgress() {
+		return (getMonth() * 100) / 12;
+	}
+
+	public String getMonthPayState() {
+		String state = "";
+		if(this.expectedGross.multiply(new BigDecimal("2")).doubleValue() > this.grossAmount.doubleValue()) {
+			state = "less";
+		}
+		return state;
 	}
 
 }
