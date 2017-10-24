@@ -26,20 +26,47 @@
     <div class="tbl-content">
       	<table class="paychecks-table">
 	     	<tbody>
-	          	<c:forEach var="paycheck" items="${paychecksView.paychecks}">
-		          	<tr class="pay-state-${paycheck.monthPayState}">
+	          	<c:forEach var="paycheck" items="${paychecksView.monthlyPaychecks}">
+		          	<tr>
 			            <td>${paycheck.companyCode}</td>
 			            <td>${paycheck.year}</td>
 					  	<td>${paycheck.monthName}</td>
 					  	<td>${paycheck.grossAmount}</td>
-					  	<td>Gross Remain</td>
+					  	<td class="pay-state-${paycheck.monthPayState}">${paycheck.grossRemain}</td>
 					  	<td>${paycheck.reimbursement}</td>
 					  	<td>${paycheck.netPay}</td>
 					  	<td>${paycheck.realNetPay}</td>
-					  	<td>${paycheck.netPayRemain}</td>
+					  	<td class="pay-state-${paycheck.monthPayState}">${paycheck.netPayRemain}</td>
 		          	</tr>
 		      	</c:forEach>
 	      	</tbody>
       	</table>
     </div>
+	<div class="charts">
+		<div id="grossAmountChartDiv" class="grossAmountChart" ></div>
+		<div id="realNetPayChartDiv" class="realNetPayChart" ></div>
+	</div>
+	<br/>
+	<div class="charts">
+		<div id="grossAmountCumulativeChartDiv" class="grossAmountChart" ></div>
+		<div id="realNetPayCumulativeChartDiv" class="realNetPayChart" ></div>
+	</div>
+	<br/>
 </div>
+<script type="text/javascript">
+    var grossAmountChartDiv = echarts.init(document.getElementById('grossAmountChartDiv'));
+    var grossAmountChart = ${paychecksView.chartBean.grossAmountChart};
+    grossAmountChartDiv.setOption(grossAmountChart);
+
+    var realNetPayChartDiv = echarts.init(document.getElementById('realNetPayChartDiv'));
+    var realNetPayChart = ${paychecksView.chartBean.realNetPayChart};
+    realNetPayChartDiv.setOption(realNetPayChart);
+
+    var grossAmountCumulativeChartDiv = echarts.init(document.getElementById('grossAmountCumulativeChartDiv'));
+    var grossAmountCumulativeChart = ${paychecksView.chartBean.grossAmountCumulativeChart};
+    grossAmountCumulativeChartDiv.setOption(grossAmountCumulativeChart);
+    
+    var realNetPayCumulativeChartDiv = echarts.init(document.getElementById('realNetPayCumulativeChartDiv'));
+    var realNetPayCumulativeChart = ${paychecksView.chartBean.realNetPayCumulativeChart};
+    realNetPayCumulativeChartDiv.setOption(realNetPayCumulativeChart);
+</script>

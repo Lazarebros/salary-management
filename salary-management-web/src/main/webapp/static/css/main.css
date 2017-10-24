@@ -4,6 +4,11 @@
 
 @IMPORT url("header.css");
 
+:root {
+	--main-link-color: rgba(222,82,75, 0.8);
+/* 	--main-link-color: rgba(222,82,75, 0.8); */
+}
+
 html {
 	font-family: sans-serif;
 	-webkit-text-size-adjust: 100%;
@@ -34,4 +39,21 @@ body {
 	background-color: #323d4b;
 	width: 100%;
 	font-size: 12px;
+}
+
+.charts {
+	padding-top: 20px;
+	padding-bottom: 280px;
+}
+
+.grossAmountChart {
+	width: 500px;
+	height: 300px;
+	float: left;
+}
+
+.realNetPayChart {
+	width: 500px;
+	height: 300px;
+	float: right;
 }

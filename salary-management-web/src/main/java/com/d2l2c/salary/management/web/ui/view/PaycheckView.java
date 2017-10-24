@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
+import com.d2l2c.common.util.chart.ChartConstants;
+import com.d2l2c.salary.management.web.ui.bean.EChartBean;
 import com.d2l2c.salary.management.web.ui.bean.PaycheckBean;
 import com.d2l2c.salary.management.web.util.SalaryWebUtil;
 
@@ -19,22 +21,36 @@ public class PaycheckView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private TreeMap<Integer, PaycheckBean> paycheckBeanMap = new TreeMap<Integer, PaycheckBean>();
+	TreeMap<Integer, PaycheckBean> yearlyPaycheckMap;
 
+	private TreeMap<Integer, PaycheckBean> monthlyPaycheckMap;
+	
 	private int year;
 
-	public List<PaycheckBean> getPaychecks() {
-		List<PaycheckBean> paycheckBeanList = new ArrayList<PaycheckBean>(paycheckBeanMap.values());
+	private EChartBean chartBean = new EChartBean(ChartConstants.Serie.BAR_TYPE);
+
+	public PaycheckView(String chartType) {
+		super();
+		chartBean = new EChartBean(chartType);
+	}
+
+	public List<PaycheckBean> getMonthlyPaychecks() {
+		List<PaycheckBean> paycheckBeanList = new ArrayList<PaycheckBean>(monthlyPaycheckMap.values());
 		SalaryWebUtil.sortPaycheckViews(paycheckBeanList, false);
 		return paycheckBeanList;
 	}
 
-	public TreeMap<Integer, PaycheckBean> getPaycheckBeanMap() {
-		return paycheckBeanMap;
+	public TreeMap<Integer, PaycheckBean> getMonthlyPaycheckMap() {
+		return monthlyPaycheckMap;
 	}
 
-	public void setPaycheckBeanMap(TreeMap<Integer, PaycheckBean> paycheckBeanMap) {
-		this.paycheckBeanMap = paycheckBeanMap;
+	public void setMonthlyPaycheckMap(TreeMap<Integer, PaycheckBean> paycheckBeanMap) {
+		this.monthlyPaycheckMap = paycheckBeanMap;
+	}
+
+	public void setYearlyPaycheckMap(TreeMap<Integer, PaycheckBean> yearlyPaycheckMap) {
+		this.yearlyPaycheckMap = yearlyPaycheckMap;
+		chartBean.setYearlyPaycheckMap(yearlyPaycheckMap);
 	}
 
 	public int getYear() {
@@ -43,6 +59,12 @@ public class PaycheckView implements Serializable {
 
 	public void setYear(int year) {
 		this.year = year;
+	}
+	
+	
+
+	public EChartBean getChartBean() {
+		return chartBean;
 	}
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.d2l2c.common.util.chart.ChartConstants;
 import com.d2l2c.salary.management.data.bean.Paycheck;
 import com.d2l2c.salary.management.data.service.SalaryService;
 import com.d2l2c.salary.management.web.ui.bean.PaycheckBean;
@@ -32,10 +33,10 @@ public class PaycheckController extends BaseController {
 
 	@Autowired
 	SalaryService salaryService;
-	
+
 	int year;
 
-	private PaycheckView paycheckView = new PaycheckView();
+	private PaycheckView paycheckView = new PaycheckView(ChartConstants.Serie.BAR_TYPE);
 
 	public void setSalaryService(SalaryService salaryService) {
 		this.salaryService = salaryService;
@@ -57,8 +58,11 @@ public class PaycheckController extends BaseController {
 	private void getYearlyPaychecks(int year) {
 		List<Integer> years = Arrays.asList(year);
 		List<Paycheck> paychecks = salaryService.getPaychecksByYears(years.toArray(new Integer[0]));
-		TreeMap<Integer, PaycheckBean> paycheckMap = SalaryWebUtil.groupPaychecksByMonth(paychecks);
-		paycheckView.setPaycheckBeanMap(paycheckMap);
+		TreeMap<Integer, PaycheckBean> monthlypaycheckMap = SalaryWebUtil.groupPaychecksByMonth(paychecks);
+		paycheckView.setMonthlyPaycheckMap(monthlypaycheckMap);
+
+		TreeMap<Integer, PaycheckBean> yearlyPaycheckMap = SalaryWebUtil.groupPaychecksByYear(paychecks);
+		paycheckView.setYearlyPaycheckMap(yearlyPaycheckMap);
 	}
 
 }

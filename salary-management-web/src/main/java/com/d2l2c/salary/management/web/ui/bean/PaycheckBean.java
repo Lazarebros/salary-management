@@ -85,6 +85,10 @@ public class PaycheckBean {
 		return getRealNetPay().subtract(expectedNetPay.multiply(new BigDecimal("2")));
 	}
 
+	public BigDecimal getGrossRemain() {
+		return grossAmount.subtract(expectedGross.multiply(new BigDecimal("2")));
+	}
+
 	private void setStartDate(DateTime startDate) {
 		if (this.startDate == null || this.startDate.isAfter(startDate)) {
 			this.startDate = startDate;
@@ -106,7 +110,7 @@ public class PaycheckBean {
 		this.setGrossAmount(paycheck.getGrossAmount());
 		this.setNetPay(paycheck.getNetPay());
 		this.setReimbursement(paycheck.getReimbursement());
-		
+
 		this.expectedGross = paycheck.getCompany().getRates().iterator().next().getExpectedGross();
 		this.expectedNetPay = paycheck.getCompany().getRates().iterator().next().getExpectedNetPay();
 	}
@@ -116,8 +120,13 @@ public class PaycheckBean {
 	}
 
 	public String getMonthPayState() {
+		Double monthlyExpctedGross = this.expectedGross.multiply(new BigDecimal("2")).doubleValue();
 		String state = "";
-		if(this.expectedGross.multiply(new BigDecimal("2")).doubleValue() > this.grossAmount.doubleValue()) {
+		if (this.getGrossRemain().doubleValue() >= monthlyExpctedGross) {
+			state = "double";
+		} else if (this.getGrossRemain().doubleValue() == 0.0) {
+			state = "same";
+		} else if (this.getGrossRemain().doubleValue() < 0) {
 			state = "less";
 		}
 		return state;

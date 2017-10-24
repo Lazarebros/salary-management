@@ -41,9 +41,19 @@ public class EChartBean implements Serializable {
 	private Chart realNetPayCumulativeLineChart;
 
 	private TextStyle defaultTextStyle = new TextStyle("rgba(0,0,0, 0.8)", 14);
-	
+
+	private String serieType;
+	private Integer barMaxWidth;
 
 	public EChartBean() {
+		this.serieType = ChartConstants.Serie.LINE_TYPE;
+	}
+
+	public EChartBean(String serieType) {
+		this.serieType  = serieType;
+		if(ChartConstants.Serie.BAR_TYPE.equals(serieType)) {
+			barMaxWidth = 12;
+		}
 	}
 
 	private void createCharts() {
@@ -153,14 +163,14 @@ public class EChartBean implements Serializable {
 				realNetPayCumulativeData.add("");
 			}
 		}
-		Serie grossAmountSerie = new Serie(key.toString(), ChartConstants.Serie.LINE_TYPE, grossAmountData);
+		Serie grossAmountSerie = new Serie(key.toString(), serieType, barMaxWidth, grossAmountData);
 		grossAmountLineChart.addSerie(grossAmountSerie);
-		Serie grossAmountCumulativeSerie = new Serie(key.toString(), ChartConstants.Serie.LINE_TYPE, grossAmountCumulativeData);
+		Serie grossAmountCumulativeSerie = new Serie(key.toString(), serieType, barMaxWidth, grossAmountCumulativeData);
 		grossAmountCumulativeLineChart.addSerie(grossAmountCumulativeSerie);
 
-		Serie realNetPaySerie = new Serie(key.toString(), ChartConstants.Serie.LINE_TYPE, realNetPayData);
+		Serie realNetPaySerie = new Serie(key.toString(), serieType, barMaxWidth, realNetPayData);
 		realNetPayLineChart.addSerie(realNetPaySerie);
-		Serie realNetPayCumulativeSerie = new Serie(key.toString(), ChartConstants.Serie.LINE_TYPE, realNetPayCumulativeData);
+		Serie realNetPayCumulativeSerie = new Serie(key.toString(), serieType, barMaxWidth, realNetPayCumulativeData);
 		realNetPayCumulativeLineChart.addSerie(realNetPayCumulativeSerie);
 
 	}

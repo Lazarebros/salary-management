@@ -4,6 +4,7 @@ section {
 
 .paychecks-content {
 	padding-top: 100px;
+	padding-bottom: 300px;
 	font-family: 'Roboto', sans-serif;
 }
 
@@ -46,7 +47,15 @@ th {
 	text-transform: uppercase;
 }
 
-tr.pay-state-less {
+td.pay-state-double {
+	background-color: #4499C1;
+}
+
+td.pay-state-same {
+	background-color: #B247B1;
+}
+
+td.pay-state-less {
 	background-color: rgba(255, 0, 0, 0.7);
 }
 

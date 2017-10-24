@@ -70,8 +70,8 @@ public class HomeController extends BaseController {
 
 	private void getYearlyPaychecks(List<Integer> years) {
 		List<Paycheck> paychecks = salaryService.getPaychecksByYears(years.toArray(new Integer[0]));
-		TreeMap<Integer, PaycheckBean> paycheckMap = SalaryWebUtil.groupPaychecksByYear(paychecks);
-		homeView.setYearlyPaycheckMap(paycheckMap);
+		TreeMap<Integer, PaycheckBean> yearlyPaycheckMap = SalaryWebUtil.groupPaychecksByYear(paychecks);
+		homeView.setYearlyPaycheckMap(yearlyPaycheckMap);
 	}
 
 }
