@@ -16,14 +16,16 @@
 	    <script src="<c:url value='/static/bootstrap-3.3.7/js/bootstrap.js' />" type="text/javascript"></script>
 	</head>
 	<body>
-        <header id="header">
-            <tiles:insertAttribute name="header" />
-        </header>
-             
-        <section id="site-content">
-            <tiles:insertAttribute name="body" />
-        </section>
-         
-        <tiles:insertAttribute name="footer" />
+        <div class="page-wrap">
+	        <div class="page-common-header">
+	        	<tiles:insertAttribute name="header" />
+	        </div>
+	        <div class="page-content">
+	        	<tiles:insertAttribute name="body" />
+	        </div>
+	        <div class="page-common-footer">
+	        	<tiles:insertAttribute name="footer" />
+	        </div>
+        </div>
 	</body>
 </html>

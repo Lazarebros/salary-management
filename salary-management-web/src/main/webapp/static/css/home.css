@@ -1,3 +1,7 @@
+.page-content {
+	padding-bottom: 450px;
+}
+
 .active-home {
 	border-bottom: 4px solid var(--main-link-color);
 }
@@ -52,7 +56,6 @@
 }
 
 .container-home {
-	padding-top: 100px;
 	padding-right: 10px;
 	height: 100%;
 }

@@ -17,21 +17,23 @@
 	    <script src="<c:url value='/static/bootstrap-3.3.7/js/bootstrap.js' />" type="text/javascript"></script>
 	</head>
 	<body>
-        <header id="header">
-            <tiles:insertAttribute name="header" />
-        </header>
-     	
-       	<div class="container-home">
-	        <div class="left-menu-container">
-	            <tiles:insertAttribute name="menu" />
+        <div class="page-wrap">
+	        <div class="page-common-header">
+	        	<tiles:insertAttribute name="header" />
 	        </div>
-	        <div class="site-content">
-	            <tiles:insertAttribute name="body" />
+	        <div class="page-content">
+		       	<div class="container-home">
+			        <div class="left-menu-container">
+			            <tiles:insertAttribute name="menu" />
+			        </div>
+			        <div class="site-content">
+			            <tiles:insertAttribute name="body" />
+			        </div>
+				</div>
 	        </div>
-		</div>
-		
-        <footer id="footer">
-            <tiles:insertAttribute name="footer" />
-        </footer>
+	        <div class="page-common-footer">
+	        	<tiles:insertAttribute name="footer" />
+	        </div>
+        </div>
 	</body>
 </html>

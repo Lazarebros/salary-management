@@ -11,14 +11,16 @@
 	    <link href="<c:url value='/static/css/login.css' />" rel="stylesheet"></link>
 	</head>
 	<body>
-        <header id="header">
-            <tiles:insertAttribute name="header" />
-        </header>
-             
-        <section id="site-content">
-            <tiles:insertAttribute name="body" />
-        </section>
-         
-        <tiles:insertAttribute name="footer" />
+        <div class="page-wrap">
+	        <div class="page-common-header">
+	        	<tiles:insertAttribute name="header" />
+	        </div>
+	        <div class="page-content">
+	        	<tiles:insertAttribute name="body" />
+	        </div>
+	        <div class="page-common-footer">
+	        	<tiles:insertAttribute name="footer" />
+	        </div>
+        </div>
 	</body>
 </html>

@@ -3,8 +3,8 @@
 
 <tiles-definitions>
 
-	<!-- Base Definition -->
-	<definition name="base-definition" template="/WEB-INF/views/tiles/layouts/defaultLayout.jsp">
+	<!-- Login Definition -->
+	<definition name="login-definition" template="/WEB-INF/views/tiles/layouts/loginLayout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/WEB-INF/views/tiles/templates/common/header.jsp" />
 		<put-attribute name="body" value="" />
@@ -20,7 +20,7 @@
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/templates/common/footer.jsp" />
 	</definition>
 
-	<!-- Base Definition -->
+	<!-- Paychecks Definition -->
 	<definition name="paychecks-definition" template="/WEB-INF/views/tiles/layouts/paychecksLayout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/WEB-INF/views/tiles/templates/common/header.jsp" />
@@ -29,7 +29,7 @@
 	</definition>
 
 	<!-- Login Page -->
-	<definition name="login" extends="base-definition">
+	<definition name="login" extends="login-definition">
 		<put-attribute name="title" value="Login Page" />
 		<put-attribute name="body" value="/WEB-INF/views/pages/login.jsp" />
 	</definition>

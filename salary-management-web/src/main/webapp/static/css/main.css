@@ -2,48 +2,126 @@
 
 @IMPORT url("../font-awesome-4.7.0/css/font-awesome.css");
 
-@IMPORT url("header.css");
-
 :root {
+	--header-height: 70px;
 	--main-link-color: rgba(222,82,75, 0.8);
-/* 	--main-link-color: rgba(222,82,75, 0.8); */
 }
 
-html {
-	font-family: sans-serif;
-	-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
+* {
+	margin: 0;
+	padding: 0;
 }
 
-body {
-	/* 	background-color: #25c481; */
-	/* 	background-color: #25b7c4; */
-	/* 	background-color: #4678B2; */
-	/* 	background-color: #F3F0F3; */
-/* 		background-color: #EA644A; */
-		background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-	    background: linear-gradient(to right, #25c481, #25b7c4);
+html, body {
+	height: 100%;
+	background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+	background: linear-gradient(to right, #25c481, #25b7c4);
+}
+
+.page-wrap {
+	min-height: 100%;
+	position: relative;
 }
 
 .white-text {
 	color: #fff;
 }
 
-.common-footer {
-	position: fixed;
-	padding-top: 10px;
-	left: 0px;
-	bottom: 0px;
-	height: 60px;
-	color: #ffffff;
+/** ###################################### COMMON HEADER ######################################  */
+
+.header-navbar {
+	float: right;
+	padding-right: 40px;
+	padding-top: 8px;
+}
+
+ul.navbar-nav a {
+	color: #fff;
+	border-style: solid;
+	border-width: 0 0 2px 0;
+	border: none;
+	background: transparent;
+}
+
+ul.navbar-nav a:hover {
+	background: transparent;
+	border-bottom: 4px solid var(--main-link-color);
+}
+
+ul.dropdown-menu {
+	border: 0;
+	min-width: 130px;
+	background: #323d4b;
+	border-radius: 4px;
+	margin: 4px 0;
+	box-shadow: 0 0 4px 0 #ccc;
+}
+
+ul.dropdown-menu > li > a:hover {
+	background: var(--main-link-color);
+	border: none;
+	color: #fff;
+}
+
+.dropdown-toggle:active, .open .dropdown-toggle {
+	background: var(--main-link-color);
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background: transparent;
+    border-color: var(--main-link-color);
+}
+
+.page-common-header {
+	height: var(--header-height);
 	background-color: #323d4b;
+	position: fixed;
 	width: 100%;
-	font-size: 12px;
+	z-index: 1;
+}
+
+.project-name {
+	margin-left: 30px;
+	width: 200px;
+	height: var(--header-height);
+	color: #fff;
+	font-size: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	float: left;
+}
+
+/** ###################################### COMMON PAGE CONTENT ######################################  */
+
+.page-content {
+	padding-top: 100px;
+	padding-bottom: 400px;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.page-common-footer {
+	height: var(--header-height);
+	width: 100%;
+	position: absolute;
+	left: 0;
+    bottom: 0;
+	background-color: #323d4b;
+	z-index: 1;
+}
+
+.page-common-footer-text {
+	padding-top: 8px;
 }
 
 .charts {
 	padding-top: 20px;
 	padding-bottom: 280px;
+}
+
+.grossAmountChart .realNetPayChart {
+	padding-bottom: 20px;
 }
 
 .grossAmountChart {

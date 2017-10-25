@@ -42,16 +42,15 @@
 			</c:forEach>
 		</div>
 	</div>
-	<div class="charts">
-		<div id="grossAmountChartDiv" class="grossAmountChart" ></div>
-		<div id="realNetPayChartDiv" class="realNetPayChart" ></div>
-	</div>
-	<br/>
-	<div class="charts">
-		<div id="grossAmountCumulativeChartDiv" class="grossAmountChart" ></div>
-		<div id="realNetPayCumulativeChartDiv" class="realNetPayChart" ></div>
-	</div>
-	<br/>
+</div>
+<div class="charts">
+	<div id="grossAmountChartDiv" class="grossAmountChart" ></div>
+	<div id="realNetPayChartDiv" class="realNetPayChart" ></div>
+</div>
+<br/>
+<div class="charts">
+	<div id="grossAmountCumulativeChartDiv" class="grossAmountChart" ></div>
+	<div id="realNetPayCumulativeChartDiv" class="realNetPayChart" ></div>
 </div>
 <script type="text/javascript">
     var grossAmountChartDiv = echarts.init(document.getElementById('grossAmountChartDiv'));
