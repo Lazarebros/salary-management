@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <div class="page-login">
 	<div class="page-body">
 	 	<div class="login-body">
 			<c:url var="loginUrl" value="/login" />
-			<form action="${loginUrl}" method="post" class="form-horizontal">
+			<form:form action="${loginUrl}" method="POST" class="form-horizontal">
 		    	<div class="login-head">
 		    		<p class="white-text">Welcome</p>
 		    	</div>
@@ -40,7 +41,7 @@
 				</div>
 				<div class="login-bottom">
 		    	</div>
-			</form>
+			</form:form>
 		</div>
 	</div>
 </div>

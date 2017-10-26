@@ -56,6 +56,23 @@ public class EChartBean implements Serializable {
 		}
 	}
 
+	public void setYearlyPaycheckMap(TreeMap<Integer, PaycheckBean> paycheckViewMap) {
+		this.yearlyPaycheckMap = paycheckViewMap;
+		if (!paycheckViewMap.isEmpty()) {
+			this.createCharts();
+		} else {
+			this.resetCharts();
+		}
+	}
+
+	private void resetCharts() {
+		grossAmountLineChart = null;
+		grossAmountCumulativeLineChart = null;
+		
+		realNetPayLineChart = null;
+		realNetPayCumulativeLineChart = null;
+	}
+
 	private void createCharts() {
 		Tooltip tooltip = new Tooltip(Tooltip.AXIS);
 
@@ -99,13 +116,6 @@ public class EChartBean implements Serializable {
 		realNetPayCumulativeLineChart.setyAxis(yAxis);
 
 		this.intitData();
-	}
-
-	public void setYearlyPaycheckMap(TreeMap<Integer, PaycheckBean> paycheckViewMap) {
-		if (!paycheckViewMap.isEmpty()) {
-			this.yearlyPaycheckMap = paycheckViewMap;
-			this.createCharts();
-		}
 	}
 
 	public String getGrossAmountChart() {
