@@ -124,6 +124,31 @@ h1 {
 	margin-bottom: 15px;
 }
 
+.btn-custom {
+	margin-top: 10px;
+	width: 160px;
+	height: 35px;
+	background-color: rgba(0,0,0, 0.5);
+	border-color: rgba(0,0,0, 0.5);
+}
+
+a.btn-custom:hover {
+	background-color: rgba(222,82,75, 0.8);
+	border-color: rgba(0,0,0, 0.5);
+}
+
+/* .btn-blue { */
+/*     color: #fff; */
+/*     background-color: #3C82E2; */
+/*     border-color: #3C82E2; */
+/* } */
+
+/* .btn-blue:hover { */
+/*     color: #fff; */
+/*     background-color: #265B92; */
+/*     border-color: #265B92; */
+/* } */
+
 /** ###################################### TABLE STYLE ######################################  */
 
 tbl-body {
@@ -141,7 +166,7 @@ table {
 }
 
 .tbl-content {
-	height: 300px;
+	max-height: 300px;
 	overflow-x: auto;
 	margin-top: 0px;
 	border: 1px solid rgba(255, 255, 255, 0.3);

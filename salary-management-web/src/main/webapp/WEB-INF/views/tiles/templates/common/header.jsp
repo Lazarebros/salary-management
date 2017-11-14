@@ -8,20 +8,23 @@
 <c:if test="${loggedinuser != null}">
 	<div class="header-navbar">
 		<ul class="nav navbar-nav ">
-			<li class="active-home"><a href="home">Home</a></li>
-			 <sec:authorize access="hasRole('NOT_IMPLEMENTED')">
+			<li class="active-home"><a href="<c:url value="/home" />">Home</a></li>
+			 <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Company</a></li>
-						<li><a href="#">Rate</a></li>
+						<li><a href="<c:url value="/users" />">Users</a></li>
+						<sec:authorize access="hasRole('NOT_IMPLEMENTED')">
+							<li><a href="#">Company</a></li>
+							<li><a href="#">Rate</a></li>
+						</sec:authorize>
 					</ul>
 				</li>
 			</sec:authorize>
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">User: ${loggedinuser} <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
-					 <sec:authorize access="hasRole('NOT_IMPLEMENTED')">
+					<sec:authorize access="hasRole('NOT_IMPLEMENTED')">
 						<li><a href="profile">Profile</a></li>
 					</sec:authorize>
 					<li><a href="<c:url value="/logout" />">Logout</a></li>

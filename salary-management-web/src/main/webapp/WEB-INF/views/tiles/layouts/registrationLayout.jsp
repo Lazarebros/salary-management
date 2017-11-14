@@ -9,7 +9,10 @@
 	    <title><tiles:getAsString name="title" /></title>
 	    
 	    <link href="<c:url value='/static/css/main.css' />" rel="stylesheet"></link>
-	    <link href="<c:url value='/static/css/login.css' />" rel="stylesheet"></link>
+	    <link href="<c:url value='/static/css/registration.css' />" rel="stylesheet"></link>
+	    
+	    <script src="<c:url value='/static/js/jquery.min.js' />" type="text/javascript"></script>
+	    <script src="<c:url value='/static/bootstrap-3.3.7/js/bootstrap.js' />" type="text/javascript"></script>
 	</head>
 	<body>
         <div class="page-wrap">

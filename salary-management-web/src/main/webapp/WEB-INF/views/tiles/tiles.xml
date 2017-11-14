@@ -28,22 +28,50 @@
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/templates/common/footer.jsp" />
 	</definition>
 
+	<!-- Users Definition -->
+	<definition name="users-definition" template="/WEB-INF/views/tiles/layouts/usersLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/templates/common/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/templates/common/footer.jsp" />
+	</definition>
+
+	<!-- Registration Definition -->
+	<definition name="registration-definition" template="/WEB-INF/views/tiles/layouts/registrationLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/templates/common/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/templates/common/footer.jsp" />
+	</definition>
+
 	<!-- Login Page -->
 	<definition name="login" extends="login-definition">
-		<put-attribute name="title" value="Login Page" />
+		<put-attribute name="title" value="Login" />
 		<put-attribute name="body" value="/WEB-INF/views/pages/login.jsp" />
 	</definition>
 
 	<!-- Home Page -->
 	<definition name="home" extends="home-definition">
-		<put-attribute name="title" value="Home Page" />
+		<put-attribute name="title" value="Home" />
 		<put-attribute name="body" value="/WEB-INF/views/pages/home.jsp" />
 	</definition>
 
 	<!-- Paychecks Page -->
 	<definition name="paychecks" extends="paychecks-definition">
-		<put-attribute name="title" value="Paychecks Page" />
+		<put-attribute name="title" value="Paychecks" />
 		<put-attribute name="body" value="/WEB-INF/views/pages/paychecks.jsp" />
+	</definition>
+
+	<!-- Users Page -->
+	<definition name="users" extends="users-definition">
+		<put-attribute name="title" value="Users" />
+		<put-attribute name="body" value="/WEB-INF/views/pages/users.jsp" />
+	</definition>
+
+	<!-- Registration Page -->
+	<definition name="registration" extends="registration-definition">
+		<put-attribute name="title" value="Registration" />
+		<put-attribute name="body" value="/WEB-INF/views/pages/registration.jsp" />
 	</definition>
 
 </tiles-definitions>

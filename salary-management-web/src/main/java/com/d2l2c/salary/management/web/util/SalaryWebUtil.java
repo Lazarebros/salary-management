@@ -10,6 +10,7 @@ import java.util.TreeMap;
 
 import com.d2l2c.salary.management.data.bean.Paycheck;
 import com.d2l2c.salary.management.web.ui.bean.PaycheckBean;
+import com.d2l2c.user.management.bean.User;
 
 /**
  * @author dayanlazare
@@ -23,7 +24,7 @@ public class SalaryWebUtil {
 			public int compare(PaycheckBean p1, PaycheckBean p2) {
 				int result = compareInt(p1.getYear(), p2.getYear());
 				if(result == 0) {
-					result = compareInt(p1.getMonth(), p2.getMonth());
+					result = compareInt(p1.getMonthOfPay(), p2.getMonthOfPay());
 				}
 				return result;
 			}
@@ -35,7 +36,33 @@ public class SalaryWebUtil {
 		}
 	}
 
+	public static void sortUsers(List<User> users, boolean reverse) {
+		Comparator<User> comparator = new Comparator<User>() {
+			@Override
+			public int compare(User p1, User p2) {
+				return compareLong(p1.getId(), p2.getId());
+			}
+		};
+		if (reverse) {
+			Collections.sort(users, comparator.reversed());
+		} else {
+			Collections.sort(users, comparator);
+		}
+	}
+
 	public static int compareInt(int value1, int value2) {
+		int result = 0;
+		if(value1 > value2) {
+			result = 1;
+		} else if(value1 < value2) {
+			result = -1;
+		} else {
+			result = 0;
+		}
+		return result;
+	}
+
+	public static int compareLong(Long value1, Long value2) {
 		int result = 0;
 		if(value1 > value2) {
 			result = 1;

@@ -103,6 +103,7 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
 			<db:in-param name="netPay" value="#[payload.netPay]" />
 			<db:in-param name="reimbursement" value="#[payload.reimbursement]" />
         </db:insert>
+        <logger message="Done Inserting into Database..." level="INFO" doc:name="Logger"/>
     </sub-flow>
     
     <flow name="mule-salary-management-exportFlow">

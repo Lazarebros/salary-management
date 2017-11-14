@@ -22,6 +22,8 @@ public class PaycheckBean {
 
 	private DateTime startDate;
 	private DateTime endDate;
+	
+	private int monthOfPay;
 
 	private BigDecimal grossAmount = new BigDecimal("0.00");
 	private BigDecimal netPay = new BigDecimal("0.00");
@@ -69,12 +71,8 @@ public class PaycheckBean {
 		return startDate.getYear();
 	}
 
-	public int getMonth() {
-		return startDate.getMonthOfYear();
-	}
-
 	public String getMonthName() {
-		return DateUtil.getMonth(startDate.getMonthOfYear());
+		return DateUtil.getMonth(monthOfPay);
 	}
 
 	public BigDecimal getRealNetPay() {
@@ -101,11 +99,21 @@ public class PaycheckBean {
 		}
 	}
 
+	public int getMonthOfPay() {
+		return monthOfPay;
+	}
+
+	public void setMonthOfPay(int monthOfPay) {
+		this.monthOfPay = monthOfPay;
+	}
+
 	public void addPaycheck(Paycheck paycheck) {
 		this.paychecks.add(paycheck);
 
 		this.setStartDate(new DateTime(paycheck.getStartDate()));
 		this.setEndDate(new DateTime(paycheck.getEndDate()));
+		
+		this.setMonthOfPay(paycheck.getMonth());
 
 		this.setGrossAmount(paycheck.getGrossAmount());
 		this.setNetPay(paycheck.getNetPay());
@@ -116,7 +124,7 @@ public class PaycheckBean {
 	}
 
 	public int getYearProgress() {
-		return (getMonth() * 100) / 12;
+		return (getMonthOfPay() * 100) / 12;
 	}
 
 	public String getMonthPayState() {
