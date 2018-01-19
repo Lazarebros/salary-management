@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd ">
 
-    <http:listener-config name="httpListenerConfig" host="0.0.0.0" port="${http.port}"/>
+    <http:listener-config name="httpListenerConfig" host="${http.host}" port="${http.port}"/>
     <apikit:config name="apiConfig" raml="api.raml" consoleEnabled="false" />
 
     <context:property-placeholder location="api.properties" />

@@ -8,16 +8,6 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
     
-    <flow name="test-flow">
-        <file:inbound-endpoint path="/Users/dayanlazare/Documents/HPE/input" connector-ref="File" responseTimeout="10000" doc:name="File"/>
-		<object-to-string-transformer />
-		<async>
-			<flow-ref name="mule-salary-management-exportFlow" doc:name="Flow Reference"/>
-		</async>
-		
-		<logger message="Process Finished!!!!!!!" level="INFO" doc:name="Logger"/>
-    </flow>
-    
     <flow name="mule-salary-management-import-flow" processingStrategy="synchronous">
         <file:inbound-endpoint path="${paycheck.file.input}" connector-ref="File" comparator="com.d2l2c.mule.salary.management.comparator.FilenameComparator" responseTimeout="10000" doc:name="File">
         	<file:filename-wildcard-filter pattern="*.pdf" />
@@ -32,7 +22,7 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
     </flow>
     
     <flow name="mule-salary-management-select-company-flow">
-        <db:select config-ref="MySQL_Configuration" target="#[flowVars.companySelectResultSet]" doc:name="Database">
+        <db:select config-ref="Salary_Database_Configuration" target="#[flowVars.companySelectResultSet]" doc:name="Database">
             <db:parameterized-query><![CDATA[SELECT company_id FROM companies WHERE code = :companyCode]]></db:parameterized-query>
             <db:in-param name="companyCode" value="#[payload.companyCode]" />
         </db:select>
@@ -49,7 +39,7 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
     </flow>
     
     <flow name="mule-salary-management-insert-company-flow">
-        <db:select config-ref="MySQL_Configuration" target="#[flowVars.companyInsertResultSet]" doc:name="Database">
+        <db:select config-ref="Salary_Database_Configuration" target="#[flowVars.companyInsertResultSet]" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	INSERT INTO companies (
 	            	code,
@@ -66,7 +56,7 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
     
     <sub-flow name="mule-salary-management-insert-paycheck-flow">
         <logger message="Inserting into Database..." level="INFO" doc:name="Logger"/>
-        <db:insert config-ref="MySQL_Configuration" doc:name="Database">
+        <db:insert config-ref="Salary_Database_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	INSERT INTO paychecks (
 	            	company_id,
@@ -96,8 +86,8 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
 			<db:in-param name="year" value="#[payload.year]" />
 			<db:in-param name="month" value="#[payload.month]" />
 			<db:in-param name="bi_week" value="#[payload.biWeek]" />
-			<db:in-param name="startDate" value="#[payload.startDate]" />
-			<db:in-param name="endDate" value="#[payload.endDate]" />
+			<db:in-param name="startDate" value="#[payload.startDate]" type="DATE" />
+			<db:in-param name="endDate" value="#[payload.endDate]" type="DATE" />
 			<db:in-param name="numberOfHours" value="#[payload.numberOfHours]" />
 			<db:in-param name="grossAmount" value="#[payload.grossAmount]" />
 			<db:in-param name="netPay" value="#[payload.netPay]" />
@@ -112,14 +102,14 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
 <!--             <logger message="Starting..." level="INFO" doc:name="Logger"/> -->
 <!--         </poll> -->
         
-        <db:select config-ref="MySQL_Configuration" doc:name="Database">
-            <db:parameterized-query><![CDATA[SELECT paycheck_id, company_code, year, month, start_date, end_date, number_of_hours, hourly_rate, gross_amount, net_pay, reimbursement FROM paychecks]]></db:parameterized-query>
+        <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
+            <db:parameterized-query><![CDATA[SELECT * FROM companies]]></db:parameterized-query>
         </db:select>
         
-        <dw:transform-message doc:name="Transform Message">
-            <dw:input-payload mimeType="application/java" />
-            <dw:set-payload resource="dw_mappings/paychecks_export.dwl" />
-        </dw:transform-message>
+<!--         <dw:transform-message doc:name="Transform Message"> -->
+<!--             <dw:input-payload mimeType="application/java" /> -->
+<!--             <dw:set-payload resource="dw_mappings/paychecks_export.dwl" /> -->
+<!--         </dw:transform-message> -->
         
         <logger message="#[payload]" level="INFO" doc:name="Logger"/>
     </flow>

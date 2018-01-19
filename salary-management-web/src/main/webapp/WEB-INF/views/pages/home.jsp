@@ -17,20 +17,19 @@
   							</div>
 							<div class="row-fluid">
 								<div class="span4">
-									<b>Gross</b><br />
-									<small>${paycheck.grossAmount}</small>
+									<b>Gross: </b><small>${paycheck.grossAmount}</small>
 								</div>
 								<div class="span4">
-									<b>Net</b><br />
-									<small>${paycheck.netPay}</small>
+									<b>Net: </b><small>${paycheck.netPay}</small>
 								</div>
 								<div class="span4">
-									<b>Real Net</b><br />
-									<small>${paycheck.realNetPay}</small>
+									<b>Reimb.: </b><small>${paycheck.reimbursement}</small>
 								</div>
 								<div class="span4">
-									<b>Reimbursement</b><br />
-									<small>${paycheck.reimbursement}</small>
+									<b>Real Net: </b><small>${paycheck.realNetPay}</small>
+								</div>
+								<div class="span4">
+									<b>Real Net Mean: </b><small>${paycheck.realNetPayMean}</small>
 								</div>
 								<div>
 									<a href="<c:url value='/paychecks-${paycheck.year}' />" class="btn btn-danger btn-custom">Details</a>

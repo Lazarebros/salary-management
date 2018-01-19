@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:file="http://www.mulesoft.org/schema/mule/file"
+<mule xmlns:context="http://www.springframework.org/schema/context" xmlns:file="http://www.mulesoft.org/schema/mule/file"
 	xmlns:db="http://www.mulesoft.org/schema/mule/db"
 	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.8.4"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
+	xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd 
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd 
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
+	<context:property-placeholder location="file:${esb.conf.path}/${esb.env}-mule-salary-management.properties" />
+	
 	<file:connector name="File" moveToDirectory="${paycheck.file.archive}" streaming="true" validateConnections="true" doc:name="File" />
 	
-	<db:mysql-config 
-		name="MySQL_Configuration"
-		driverClassName="${salary.db.driverClassName}" 
-		host="${salary.db.host}" 
-		port="${salary.db.port}" 
-		database="${salary.db.database}" 
-		user="${salary.db.user}" 
-		password="${salary.db.password}" 
-		doc:name="MySQL Configuration"/>
+	<db:generic-config 
+		name="Salary_Database_Configuration" 
+		driverClassName="${salary.db.driver}" 
+		url="${salary.db.url}" 
+		doc:name="Generic Database Configuration">
+    </db:generic-config>
 
 </mule>

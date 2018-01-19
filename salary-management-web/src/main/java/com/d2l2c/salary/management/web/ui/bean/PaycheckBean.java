@@ -4,6 +4,7 @@
 package com.d2l2c.salary.management.web.ui.bean;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class PaycheckBean {
 
 	private DateTime startDate;
 	private DateTime endDate;
+	private int year;
 	
 	private int monthOfPay;
 
@@ -68,7 +70,11 @@ public class PaycheckBean {
 	}
 
 	public int getYear() {
-		return startDate.getYear();
+		return this.year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
 	}
 
 	public String getMonthName() {
@@ -77,6 +83,10 @@ public class PaycheckBean {
 
 	public BigDecimal getRealNetPay() {
 		return netPay.subtract(reimbursement);
+	}
+
+	public BigDecimal getRealNetPayMean() {
+		return getRealNetPay().divide(new BigDecimal(getMonthOfPay()), RoundingMode.HALF_UP);
 	}
 
 	public BigDecimal getNetPayRemain() {
@@ -112,6 +122,7 @@ public class PaycheckBean {
 
 		this.setStartDate(new DateTime(paycheck.getStartDate()));
 		this.setEndDate(new DateTime(paycheck.getEndDate()));
+		this.setYear(paycheck.getYear());
 		
 		this.setMonthOfPay(paycheck.getMonth());
 
