@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import com.d2l2c.user.management.bean.UserProfile;
-import com.d2l2c.user.management.service.UserProfileService;
+import com.d2l2c.salary.management.data.bean.user.UserProfile;
+import com.d2l2c.salary.management.data.service.UserProfileService;
 
 /**
  * A converter class used in views to map id's to actual userProfile objects.

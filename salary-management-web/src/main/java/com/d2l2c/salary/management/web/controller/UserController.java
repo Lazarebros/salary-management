@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.d2l2c.salary.management.data.bean.user.User;
+import com.d2l2c.salary.management.data.service.UserService;
 import com.d2l2c.salary.management.web.ui.view.UserView;
-import com.d2l2c.user.management.bean.User;
-import com.d2l2c.user.management.service.UserService;
 
 /**
  * @author dayanlazare

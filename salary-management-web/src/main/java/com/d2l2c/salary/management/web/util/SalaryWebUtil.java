@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.TreeMap;
 
 import com.d2l2c.salary.management.data.bean.Paycheck;
+import com.d2l2c.salary.management.data.bean.user.User;
 import com.d2l2c.salary.management.web.ui.bean.PaycheckBean;
-import com.d2l2c.user.management.bean.User;
 
 /**
  * @author dayanlazare

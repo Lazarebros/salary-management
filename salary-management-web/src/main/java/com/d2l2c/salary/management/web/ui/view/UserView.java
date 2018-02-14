@@ -7,8 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.d2l2c.salary.management.data.bean.user.User;
 import com.d2l2c.salary.management.web.util.SalaryWebUtil;
-import com.d2l2c.user.management.bean.User;
 
 /**
  * @author dayanlazare

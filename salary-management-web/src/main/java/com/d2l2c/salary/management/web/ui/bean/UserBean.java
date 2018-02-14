@@ -6,7 +6,7 @@ package com.d2l2c.salary.management.web.ui.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.d2l2c.user.management.bean.User;
+import com.d2l2c.salary.management.data.bean.user.User;
 
 /**
  * @author dayanlazare
