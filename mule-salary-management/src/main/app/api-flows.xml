@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core" 
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	version="EE-3.8.4"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd 
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd 
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		">
+
+    <flow name="paychechs-flow">
+        <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
+            <db:parameterized-query><![CDATA[
+            	SELECT * 
+            	FROM paychecks
+            	]]>
+            </db:parameterized-query>
+        </db:select>
+       	<dw:transform-message doc:name="Transform Message">
+            <dw:input-payload mimeType="application/java" />
+            <dw:set-payload resource="dw_mappings/paychecks_export.dwl" />
+        </dw:transform-message>
+    </flow>
+    
+    <flow name="paychechs-year-flow">
+        <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
+            <db:parameterized-query><![CDATA[
+            	SELECT * 
+            	FROM paychecks
+            	WHERE year = :year
+            	]]>
+            </db:parameterized-query>
+            <db:in-param name="year" value="#[flowVars.year]" />
+        </db:select>
+       	<dw:transform-message doc:name="Transform Message">
+            <dw:input-payload mimeType="application/java" />
+            <dw:set-payload resource="dw_mappings/paychecks_export.dwl" />
+        </dw:transform-message>
+    </flow>
+    
+    <flow name="paychechs-year-month-flow">
+        <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
+            <db:parameterized-query><![CDATA[
+            	SELECT * 
+            	FROM paychecks
+            	WHERE year = :year AND month = :month
+            	]]>
+            </db:parameterized-query>
+            <db:in-param name="year" value="#[flowVars.year]" />
+            <db:in-param name="month" value="#[flowVars.month]" />
+        </db:select>
+       	<dw:transform-message doc:name="Transform Message">
+            <dw:input-payload mimeType="application/java" />
+            <dw:set-payload resource="dw_mappings/paychecks_export.dwl" />
+        </dw:transform-message>
+    </flow>
+
+</mule>

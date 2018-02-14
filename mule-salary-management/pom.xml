@@ -19,6 +19,8 @@
 
 		<mule.version>3.8.4</mule.version>
 		<mule.tools.version>1.2</mule.tools.version>
+		
+		<h2.database.version>1.4.196</h2.database.version>
 	</properties>
 
 	<build>
@@ -169,6 +171,13 @@
 			<artifactId>tika-parsers</artifactId>
 			<version>1.16</version>
 		</dependency>
+        
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <version>${h2.database.version}</version>
+		</dependency>
+		
 		<!-- for testing -->
 		<dependency>
 			<groupId>org.mule.tests</groupId>
