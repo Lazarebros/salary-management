@@ -4,14 +4,13 @@
 	xmlns:mule-ss="http://www.mulesoft.org/schema/mule/spring-security"
 	xmlns:ss="http://www.springframework.org/schema/security"
 	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.8.4"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-	http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
-	http://www.mulesoft.org/schema/mule/spring-security http://www.mulesoft.org/schema/mule/spring-security/current/mule-spring-security.xsd
-	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd 
-	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-	http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/spring-security http://www.mulesoft.org/schema/mule/spring-security/current/mule-spring-security.xsd
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
 	<spring:beans>
     	
@@ -30,7 +29,7 @@
     	
   	</spring:beans>
   
-	<mule-ss:security-manager name="securityManager">
+	<mule-ss:security-manager name="securityManager" doc:name="Spring Security Provider">
 		<mule-ss:delegate-security-provider name="jdbc-provider" delegate-ref="jdbc-authenticationManager" />
 	</mule-ss:security-manager>
 

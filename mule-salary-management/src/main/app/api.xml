@@ -7,8 +7,7 @@
 	xmlns:http="http://www.mulesoft.org/schema/mule/http" 
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="
-http://www.mulesoft.org/schema/mule/spring-security http://www.mulesoft.org/schema/mule/spring-security/current/mule-spring-security.xsd 
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/spring-security http://www.mulesoft.org/schema/mule/spring-security/current/mule-spring-security.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
@@ -25,9 +24,9 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         <http:listener config-ref="httpListenerConfig" path="/api/*" doc:name="HTTP"/>
         
         <http:basic-security-filter realm="mule-realm" securityProviders="jdbc-provider"/>
-        <mule-ss:authorization-filter requiredAuthorities="#{ {'ADMIN', 'USER'} }" />
+        <mule-ss:authorization-filter requiredAuthorities="ADMIN, USER" />
         
-        <logger level="INFO" />
+        <logger level="INFO" doc:name="Logger"/>
         
         <apikit:router config-ref="Router" doc:name="APIkit Router" />
         <exception-strategy ref="apiKitGlobalExceptionMapping" doc:name="Reference Exception Strategy"/>

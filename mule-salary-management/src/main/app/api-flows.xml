@@ -5,14 +5,12 @@
 	xmlns="http://www.mulesoft.org/schema/mule/core" 
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
-	version="EE-3.8.4"
+	
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd 
-http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd 
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-		">
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
     <flow name="paychechs-flow">
         <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
@@ -29,8 +27,8 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
             	pay.net_pay, 
             	pay.reimbursement, 
             	rate.hourly_rate, 
-            	rate.expected_gross, 
-            	rate.expected_net_pay
+            	rate.expected_number_of_hours, 
+            	rate.net_percentage_of_gross
             	FROM paychecks AS pay
             	LEFT JOIN rates AS rate ON pay.company_id = rate.company_id
             		AND rate.start_date <= pay.start_date 
@@ -59,8 +57,8 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
             	pay.net_pay, 
             	pay.reimbursement, 
             	rate.hourly_rate, 
-            	rate.expected_gross, 
-            	rate.expected_net_pay
+            	rate.expected_number_of_hours, 
+            	rate.net_percentage_of_gross
             	FROM paychecks AS pay
             	LEFT JOIN rates AS rate ON pay.company_id = rate.company_id
             		AND rate.start_date <= pay.start_date 
@@ -91,8 +89,8 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
             	pay.net_pay, 
             	pay.reimbursement, 
             	rate.hourly_rate, 
-            	rate.expected_gross, 
-            	rate.expected_net_pay
+            	rate.expected_number_of_hours, 
+            	rate.net_percentage_of_gross
             	FROM paychecks AS pay
             	LEFT JOIN rates AS rate ON pay.company_id = rate.company_id
             		AND rate.start_date <= pay.start_date 

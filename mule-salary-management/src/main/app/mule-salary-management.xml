@@ -19,7 +19,7 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         
         <flow-ref name="mule-salary-management-create-company-flow" doc:name="mule-salary-management-create-company-flow"/>
         
-        <choice>
+        <choice doc:name="Choice">
         	<when expression="#[flowVars.?companyId != empty]">
         		<flow-ref name="mule-salary-management-insert-paycheck-flow" doc:name="mule-salary-management-insert-paycheck-flow"/>
         	</when>
@@ -33,13 +33,13 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
     <flow name="mule-salary-management-create-company-flow">
         <flow-ref name="mule-salary-management-select-company-flow" doc:name="mule-salary-management-select-company-flow"/>
         
-        <choice>
+        <choice doc:name="Choice">
         	<when expression="#[flowVars.companySelectResultSet.size() == 0]">
         		<logger message="No Company Found for Company Code: #[payload.companyCode] - Will Create New One" level="INFO" doc:name="Logger"/>
         		
         		<flow-ref name="mule-salary-management-insert-company-flow" doc:name="mule-salary-management-insert-company-flow"/>
         		<flow-ref name="mule-salary-management-select-company-flow" doc:name="mule-salary-management-select-company-flow"/>
-        		<choice>
+        		<choice doc:name="Choice">
 		        	<when expression="#[flowVars.companySelectResultSet.size() == 0]">
 		        		<logger message="Could Not Create Company With Company Code: #[payload.companyCode]" level="ERROR" doc:name="Logger"/>
 		        	</when>
@@ -55,7 +55,7 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         	</otherwise>
         </choice>
         
-        <choice>
+        <choice doc:name="Choice">
         	<when expression="#[flowVars.?companyId != empty]">
         		<flow-ref name="mule-salary-management-create-rate-flow" doc:name="mule-salary-management-create-rate-flow"/>
         	</when>
@@ -68,13 +68,13 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
     <flow name="mule-salary-management-create-rate-flow">
         <flow-ref name="mule-salary-management-select-rate-flow" doc:name="mule-salary-management-select-rate-flow"/>
         
-        <choice>
+        <choice doc:name="Choice">
         	<when expression="#[flowVars.rateSelectResultSet.size() == 0]">
         		<logger message="No Rate Found for Company Code: #[payload.companyCode] - Will Create New One" level="INFO" doc:name="Logger"/>
         		
         		<flow-ref name="mule-salary-management-insert-rate-flow" doc:name="mule-salary-management-insert-rate-flow"/>
         		<flow-ref name="mule-salary-management-select-rate-flow" doc:name="mule-salary-management-select-rate-flow"/>
-        		<choice>
+        		<choice doc:name="Choice">
 		        	<when expression="#[flowVars.rateSelectResultSet.size() == 0]">
 		        		<logger message="Could Not Create Rate With Company Code: #[payload.companyCode]" level="ERROR" doc:name="Logger"/>
 		        	</when>
@@ -140,23 +140,23 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
 	            	company_id, 
 	            	hourly_rate, 
 	            	start_date,
-	            	expected_gross, 
-	            	expected_net_pay
+	            	expected_number_of_hours,
+	            	net_percentage_of_gross
 	            ) 
 	            VALUES (
             		:companyId,
             		:hourlyRate,
             		:startDate,
-            		:expectedGross,
-            		:expectedNetPay
+            		:expectedNumberOfHours,
+            		:netPercentageOfGross
             	)
             	]]>
             </db:parameterized-query>
 			<db:in-param name="companyId" value="#[flowVars.companyId]" />
 			<db:in-param name="hourlyRate" value="#[payload.hourlyRate]" />
 			<db:in-param name="startDate" value="#[payload.startDate]" type="DATE" />
-			<db:in-param name="expectedGross" value="#[payload.expectedGross]" />
-			<db:in-param name="expectedNetPay" value="#[payload.expectedNetPay]" />
+			<db:in-param name="expectedNumberOfHours" value="#[payload.expectedNumberOfHours]" />
+			<db:in-param name="netPercentageOfGross" value="#[payload.netPercentageOfGross]" />
         </db:insert>
     </flow>
     
