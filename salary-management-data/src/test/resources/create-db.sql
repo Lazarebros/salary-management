@@ -2,14 +2,6 @@
 -- Table structure for tables
 --
 
---SET SCHEMA SALARY;
-
-
-
---
--- PAYCHECK RELATED TABLES
---
-
 DROP TABLE IF EXISTS paychecks;
 DROP TABLE IF EXISTS rates;
 DROP TABLE IF EXISTS companies;

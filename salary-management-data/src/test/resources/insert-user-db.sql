@@ -4,11 +4,11 @@ DELETE FROM user_profiles;
 DELETE FROM persistent_logins;
 
 /* Populate users Table */
-INSERT INTO users (user_id, user_name, password, first_name, last_name) VALUES
-(1, 'Sunil', 'Bora', 'Sunil', 'Bora'),
-(2, 'David', 'Miller', 'David', 'Miller'),
-(3, 'Sameer', 'Singh', 'Sameer', 'Singh'),
-(4, 'Paul', 'Smith', 'Paul', 'Smith');
+INSERT INTO users (user_id, user_name, password, first_name, last_name, enabled) VALUES
+(1, 'Sunil', 'Bora', 'Sunil', 'Bora', 1),
+(2, 'David', 'Miller', 'David', 'Miller', 1),
+(3, 'Sameer', 'Singh', 'Sameer', 'Singh', 0),
+(4, 'Paul', 'Smith', 'Paul', 'Smith', 0);
 
 /* Populate user_profiles Table */
 INSERT INTO user_profiles (type) VALUES 
