@@ -17,8 +17,24 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
     <flow name="paychechs-flow">
         <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
-            	SELECT * 
-            	FROM paychecks
+            	SELECT 
+            	pay.paycheck_id, 
+            	pay.company_id, 
+            	pay.year, 
+            	pay.month, 
+            	pay.start_date, 
+            	pay.end_date, 
+            	pay.number_of_hours, 
+            	pay.gross_amount, 
+            	pay.net_pay, 
+            	pay.reimbursement, 
+            	rate.hourly_rate, 
+            	rate.expected_gross, 
+            	rate.expected_net_pay
+            	FROM paychecks AS pay
+            	LEFT JOIN rates AS rate ON pay.company_id = rate.company_id
+            		AND rate.start_date <= pay.start_date 
+            		AND (rate.end_date IS NULL OR rate.end_date > pay.end_date)
             	]]>
             </db:parameterized-query>
         </db:select>
@@ -31,9 +47,25 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
     <flow name="paychechs-year-flow">
         <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
-            	SELECT * 
-            	FROM paychecks
-            	WHERE year = :year
+            	SELECT 
+            	pay.paycheck_id, 
+            	pay.company_id, 
+            	pay.year, 
+            	pay.month, 
+            	pay.start_date, 
+            	pay.end_date, 
+            	pay.number_of_hours, 
+            	pay.gross_amount, 
+            	pay.net_pay, 
+            	pay.reimbursement, 
+            	rate.hourly_rate, 
+            	rate.expected_gross, 
+            	rate.expected_net_pay
+            	FROM paychecks AS pay
+            	LEFT JOIN rates AS rate ON pay.company_id = rate.company_id
+            		AND rate.start_date <= pay.start_date 
+            		AND (rate.end_date IS NULL OR rate.end_date > pay.end_date)
+            	WHERE pay.year = :year
             	]]>
             </db:parameterized-query>
             <db:in-param name="year" value="#[flowVars.year]" />
@@ -47,9 +79,25 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
     <flow name="paychechs-year-month-flow">
         <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
-            	SELECT * 
-            	FROM paychecks
-            	WHERE year = :year AND month = :month
+            	SELECT 
+            	pay.paycheck_id, 
+            	pay.company_id, 
+            	pay.year, 
+            	pay.month, 
+            	pay.start_date, 
+            	pay.end_date, 
+            	pay.number_of_hours, 
+            	pay.gross_amount, 
+            	pay.net_pay, 
+            	pay.reimbursement, 
+            	rate.hourly_rate, 
+            	rate.expected_gross, 
+            	rate.expected_net_pay
+            	FROM paychecks AS pay
+            	LEFT JOIN rates AS rate ON pay.company_id = rate.company_id
+            		AND rate.start_date <= pay.start_date 
+            		AND (rate.end_date IS NULL OR rate.end_date > pay.end_date)
+            	WHERE pay.year = :year AND pay.month = :month
             	]]>
             </db:parameterized-query>
             <db:in-param name="year" value="#[flowVars.year]" />

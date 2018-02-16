@@ -17,45 +17,165 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         <custom-transformer class="com.d2l2c.mule.salary.management.transformer.ExtractFileContentTransformer" doc:name="Java"/>
         <custom-transformer class="com.d2l2c.mule.salary.management.transformer.ContentToPaycheckTransformer" doc:name="Java"/>
         
-        <flow-ref name="mule-salary-management-select-company-flow" doc:name="mule-salary-management-select-company-flow Reference"/>
-        <flow-ref name="mule-salary-management-insert-paycheck-flow" doc:name="mule-salary-management-insert-paycheck-flow"/>
-    </flow>
-    
-    <flow name="mule-salary-management-select-company-flow">
-        <db:select config-ref="Salary_Database_Configuration" target="#[flowVars.companySelectResultSet]" doc:name="Database">
-            <db:parameterized-query><![CDATA[SELECT company_id FROM companies WHERE code = :companyCode]]></db:parameterized-query>
-            <db:in-param name="companyCode" value="#[payload.companyCode]" />
-        </db:select>
-		<set-variable variableName="companyId" value="#[flowVars.companySelectResultSet.get(0).company_id]" doc:name="Variable" />
+        <flow-ref name="mule-salary-management-create-company-flow" doc:name="mule-salary-management-create-company-flow"/>
+        
         <choice>
-        	<when expression="#[flowVars.?companyId == empty]">
-<!--         		<flow-ref name="mule-salary-management-insert-flow" doc:name="mule-salary-management-insert-flow"/> -->
-        		<logger message="No Company for Company Code: #[payload.companyCode]" level="INFO" doc:name="Logger"/>
+        	<when expression="#[flowVars.?companyId != empty]">
+        		<flow-ref name="mule-salary-management-insert-paycheck-flow" doc:name="mule-salary-management-insert-paycheck-flow"/>
         	</when>
         	<otherwise>
-		        <logger message="Company Id: #[flowVars.companyId] for Company Code: #[payload.companyCode]" level="INFO" doc:name="Logger"/>
+		        <logger message="Paycheck Will Not Be Created!!!" level="ERROR" doc:name="Logger"/>
+        	</otherwise>
+        </choice>
+        
+    </flow>
+    
+    <flow name="mule-salary-management-create-company-flow">
+        <flow-ref name="mule-salary-management-select-company-flow" doc:name="mule-salary-management-select-company-flow"/>
+        
+        <choice>
+        	<when expression="#[flowVars.companySelectResultSet.size() == 0]">
+        		<logger message="No Company Found for Company Code: #[payload.companyCode] - Will Create New One" level="INFO" doc:name="Logger"/>
+        		
+        		<flow-ref name="mule-salary-management-insert-company-flow" doc:name="mule-salary-management-insert-company-flow"/>
+        		<flow-ref name="mule-salary-management-select-company-flow" doc:name="mule-salary-management-select-company-flow"/>
+        		<choice>
+		        	<when expression="#[flowVars.companySelectResultSet.size() == 0]">
+		        		<logger message="Could Not Create Company With Company Code: #[payload.companyCode]" level="ERROR" doc:name="Logger"/>
+		        	</when>
+		        	<otherwise>
+        				<set-variable variableName="companyId" value="#[flowVars.companySelectResultSet.?get(0).company_id]" doc:name="Variable" />
+				        <logger message="Company Id: #[flowVars.companyId] for Company Code: #[payload.companyCode]" level="INFO" doc:name="Logger"/>
+		        	</otherwise>
+		        </choice>
+        	</when>
+        	<otherwise>
+		        <set-variable variableName="companyId" value="#[flowVars.companySelectResultSet.?get(0).company_id]" doc:name="Variable" />
+		        <logger message="Found Company Id: #[flowVars.companyId] for Company Code: #[payload.companyCode]" level="INFO" doc:name="Logger"/>
+        	</otherwise>
+        </choice>
+        
+        <choice>
+        	<when expression="#[flowVars.?companyId != empty]">
+        		<flow-ref name="mule-salary-management-create-rate-flow" doc:name="mule-salary-management-create-rate-flow"/>
+        	</when>
+        	<otherwise>
+		        <logger message="Rate Will Not Be Created!!!" level="ERROR" doc:name="Logger"/>
         	</otherwise>
         </choice>
     </flow>
     
-    <flow name="mule-salary-management-insert-company-flow">
-        <db:select config-ref="Salary_Database_Configuration" target="#[flowVars.companyInsertResultSet]" doc:name="Database">
+    <flow name="mule-salary-management-create-rate-flow">
+        <flow-ref name="mule-salary-management-select-rate-flow" doc:name="mule-salary-management-select-rate-flow"/>
+        
+        <choice>
+        	<when expression="#[flowVars.rateSelectResultSet.size() == 0]">
+        		<logger message="No Rate Found for Company Code: #[payload.companyCode] - Will Create New One" level="INFO" doc:name="Logger"/>
+        		
+        		<flow-ref name="mule-salary-management-insert-rate-flow" doc:name="mule-salary-management-insert-rate-flow"/>
+        		<flow-ref name="mule-salary-management-select-rate-flow" doc:name="mule-salary-management-select-rate-flow"/>
+        		<choice>
+		        	<when expression="#[flowVars.rateSelectResultSet.size() == 0]">
+		        		<logger message="Could Not Create Rate With Company Code: #[payload.companyCode]" level="ERROR" doc:name="Logger"/>
+		        	</when>
+		        	<otherwise>
+				        <logger message="New Rate Created for Company Code: #[payload.companyCode] - Disabling Old Rates..." level="INFO" doc:name="Logger"/>
+				        <flow-ref name="mule-salary-management-disable-old-rates-flow" doc:name="mule-salary-management-disable-old-rates-flow" />
+		        	</otherwise>
+		        </choice>
+        	</when>
+        	<otherwise>
+		        <logger message="Found Rate Id: #[flowVars.rateSelectResultSet.get(0).rate_id] for Company Code: #[payload.companyCode]" level="INFO" doc:name="Logger"/>
+        	</otherwise>
+        </choice>
+    </flow>
+    
+    <flow name="mule-salary-management-select-company-flow">
+        <db:select config-ref="Salary_Database_Configuration" target="#[flowVars.companySelectResultSet]" doc:name="Database">
             <db:parameterized-query><![CDATA[
-            	INSERT INTO companies (
-	            	code,
-	            	name) 
-	            VALUES (
-            		:code,
-            		:name)
+            	SELECT company_id 
+            	FROM companies 
+            	WHERE code = :companyCode
             	]]>
             </db:parameterized-query>
-            <db:in-param name="code" value="#[payload.companyCode]" />
-            <db:in-param name="name" value="Needs to be updated" />
+            <db:in-param name="companyCode" value="#[payload.companyCode]" />
         </db:select>
     </flow>
     
+    <flow name="mule-salary-management-select-rate-flow">
+        <db:select config-ref="Salary_Database_Configuration" target="#[flowVars.rateSelectResultSet]" doc:name="Database">
+            <db:parameterized-query><![CDATA[
+            	SELECT rate_id 
+            	FROM rates 
+            	WHERE company_id = :companyId AND hourly_rate = :hourlyRate
+            	]]>
+            </db:parameterized-query>
+            <db:in-param name="companyId" value="#[flowVars.companyId]" />
+            <db:in-param name="hourlyRate" value="#[payload.hourlyRate]" />
+        </db:select>
+    </flow>
+    
+    <flow name="mule-salary-management-insert-company-flow">
+        <db:insert config-ref="Salary_Database_Configuration" target="#[flowVars.companyInsertResultSet]" doc:name="Database">
+            <db:parameterized-query><![CDATA[
+            	INSERT INTO companies (
+	            	code,
+	            	name
+	            ) 
+	            VALUES (
+            		:code,
+            		:name
+            	)
+            	]]>
+            </db:parameterized-query>
+            <db:in-param name="code" value="#[payload.companyCode]" />
+            <db:in-param name="name" value="#[payload.companyName]" />
+        </db:insert>
+    </flow>
+    
+    <flow name="mule-salary-management-insert-rate-flow">
+        <db:insert config-ref="Salary_Database_Configuration" target="#[flowVars.rateInsertResultSet]" doc:name="Database">
+            <db:parameterized-query><![CDATA[
+            	INSERT INTO rates (
+	            	company_id, 
+	            	hourly_rate, 
+	            	start_date,
+	            	expected_gross, 
+	            	expected_net_pay
+	            ) 
+	            VALUES (
+            		:companyId,
+            		:hourlyRate,
+            		:startDate,
+            		:expectedGross,
+            		:expectedNetPay
+            	)
+            	]]>
+            </db:parameterized-query>
+			<db:in-param name="companyId" value="#[flowVars.companyId]" />
+			<db:in-param name="hourlyRate" value="#[payload.hourlyRate]" />
+			<db:in-param name="startDate" value="#[payload.startDate]" type="DATE" />
+			<db:in-param name="expectedGross" value="#[payload.expectedGross]" />
+			<db:in-param name="expectedNetPay" value="#[payload.expectedNetPay]" />
+        </db:insert>
+    </flow>
+    
+    <flow name="mule-salary-management-disable-old-rates-flow">
+        <db:update config-ref="Salary_Database_Configuration" target="#[flowVars.rateInsertResultSet]" doc:name="Database">
+            <db:parameterized-query><![CDATA[
+            	UPDATE rates 
+            	SET end_date = :endDate
+            	WHERE end_date IS NULL AND company_id = :companyId AND hourly_rate <> :hourlyRate
+            	]]>
+            </db:parameterized-query>
+            <db:in-param name="companyId" value="#[flowVars.companyId]" />
+            <db:in-param name="hourlyRate" value="#[payload.hourlyRate]" />
+            <db:in-param name="endDate" value="#[payload.startDate]" />
+        </db:update>
+    </flow>
+    
     <sub-flow name="mule-salary-management-insert-paycheck-flow">
-        <logger message="Inserting into Database..." level="INFO" doc:name="Logger"/>
+        <logger message="Inserting into Database Paycheck..." level="INFO" doc:name="Logger"/>
         <db:insert config-ref="Salary_Database_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	INSERT INTO paychecks (
@@ -68,7 +188,8 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
 	            	number_of_hours, 
 	            	gross_amount, 
 	            	net_pay, 
-	            	reimbursement) 
+	            	reimbursement
+	            ) 
 	            VALUES (
             		:companyId,
             		:year,
@@ -79,7 +200,8 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
 					:numberOfHours, 
 					:grossAmount, 
 					:netPay, 
-					:reimbursement)
+					:reimbursement
+				)
 				]]>
 			</db:parameterized-query>
 			<db:in-param name="companyId" value="#[flowVars.companyId]" />
@@ -93,25 +215,7 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
 			<db:in-param name="netPay" value="#[payload.netPay]" />
 			<db:in-param name="reimbursement" value="#[payload.reimbursement]" />
         </db:insert>
-        <logger message="Done Inserting into Database..." level="INFO" doc:name="Logger"/>
+        <logger message="Done Inserting Paycheck into Database..." level="INFO" doc:name="Logger"/>
     </sub-flow>
-    
-    <flow name="mule-salary-management-exportFlow">
-<!--         <poll doc:name="Poll"> -->
-<!--             <fixed-frequency-scheduler frequency="10" timeUnit="SECONDS"/> -->
-<!--             <logger message="Starting..." level="INFO" doc:name="Logger"/> -->
-<!--         </poll> -->
-        
-        <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
-            <db:parameterized-query><![CDATA[SELECT * FROM companies]]></db:parameterized-query>
-        </db:select>
-        
-<!--         <dw:transform-message doc:name="Transform Message"> -->
-<!--             <dw:input-payload mimeType="application/java" /> -->
-<!--             <dw:set-payload resource="dw_mappings/paychecks_export.dwl" /> -->
-<!--         </dw:transform-message> -->
-        
-        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
-    </flow>
     
 </mule>
