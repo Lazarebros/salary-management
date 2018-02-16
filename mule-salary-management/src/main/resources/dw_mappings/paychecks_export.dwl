@@ -15,7 +15,7 @@
 ---
 payload groupBy $.year map ((paychecks, index) -> {
 	year: paychecks[0].year,
-	numnerOfMonths: sizeOf paychecks,
+	numnerOfPaychecks: sizeOf paychecks,
 	expectedGrossAmount: getExpectedGross(paychecks),
 	grossAmount: sum paychecks.*gross_amount,
 	grossRemain: (sum paychecks.*gross_amount) - getExpectedGross(paychecks),
