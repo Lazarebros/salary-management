@@ -26,7 +26,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         <http:basic-security-filter realm="mule-realm" securityProviders="jdbc-provider"/>
         <mule-ss:authorization-filter requiredAuthorities="ADMIN, USER" />
         
-        <logger level="INFO" doc:name="Logger"/>
+        <component class="com.d2l2c.mule.salary.management.component.GetSecurityPrincipalComponent" />
         
         <apikit:router config-ref="Router" doc:name="APIkit Router" />
         <exception-strategy ref="apiKitGlobalExceptionMapping" doc:name="Reference Exception Strategy"/>
