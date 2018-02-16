@@ -24,7 +24,7 @@ import javax.persistence.Table;
 public class Rate {
 
 	private Long id;
-	private BigDecimal hourly;
+	private BigDecimal hourlyRate;
 	private Date startDate;
 	private Date endDate;
 	private BigDecimal expectedGross;
@@ -43,13 +43,13 @@ public class Rate {
 		this.id = id;
 	}
 
-	@Column(name = "hourly")
-	public BigDecimal getHourly() {
-		return hourly;
+	@Column(name = "hourly_rate")
+	public BigDecimal getHourlyRate() {
+		return hourlyRate;
 	}
 
-	public void setHourly(BigDecimal hourly) {
-		this.hourly = hourly;
+	public void setHourlyRate(BigDecimal hourly) {
+		this.hourlyRate = hourly;
 	}
 
 	@Column(name = "start_date")

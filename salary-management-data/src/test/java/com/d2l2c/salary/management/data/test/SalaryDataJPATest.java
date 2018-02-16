@@ -139,14 +139,14 @@ public class SalaryDataJPATest {
 			assertThat(rates.size(), is(1));
 			rates.forEach(rate -> {
 				assertThat(rate.getCompany().getCode(), is("MS3"));
-				assertThat(rate.getHourly(), is(new BigDecimal("100.00")));
+				assertThat(rate.getHourlyRate(), is(new BigDecimal("100.00")));
 			});
 
 			rates = salaryService.getRatesByCompanyCodes("MMI");
 			assertThat(rates.size(), is(1));
 			rates.forEach(rate -> {
 				assertThat(rate.getCompany().getCode(), is("MMI"));
-				assertThat(rate.getHourly(), is(new BigDecimal("81.00")));
+				assertThat(rate.getHourlyRate(), is(new BigDecimal("81.00")));
 			});
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());

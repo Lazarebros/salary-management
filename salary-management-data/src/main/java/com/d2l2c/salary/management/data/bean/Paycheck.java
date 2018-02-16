@@ -28,15 +28,12 @@ import com.d2l2c.common.util.date.DateUtil;
 public class Paycheck {
 
 	private Long id;
-	private String companyCode;
-	private String companyName;
 	private int year;
 	private int month;
 	private int biWeek;
 	private Date startDate;
 	private Date endDate;
 	private Long numberOfHours;
-	private BigDecimal hourlyRate;
 	private BigDecimal grossAmount;
 	private BigDecimal netPay;
 	private BigDecimal reimbursement;
@@ -61,24 +58,6 @@ public class Paycheck {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	@Column(name = "company_code")
-	public String getCompanyCode() {
-		return companyCode;
-	}
-
-	public void setCompanyCode(String companyCode) {
-		this.companyCode = companyCode;
-	}
-
-	@Column(name = "company_name")
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
 	}
 
 	@Column(name = "year")
@@ -133,15 +112,6 @@ public class Paycheck {
 
 	public void setNumberOfHours(Long numberOfHours) {
 		this.numberOfHours = numberOfHours;
-	}
-
-	@Column(name = "hourly_rate")
-	public BigDecimal getHourlyRate() {
-		return hourlyRate;
-	}
-
-	public void setHourlyRate(BigDecimal rate) {
-		this.hourlyRate = rate;
 	}
 
 	@Column(name = "gross_amount")

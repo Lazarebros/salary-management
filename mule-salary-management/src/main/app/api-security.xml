@@ -21,7 +21,7 @@
 				<ss:jdbc-user-service 
 					data-source-ref="Salary_Data_Source" 
 					users-by-username-query="select user_name, password, enabled, user_id from users where user_name = ?"
-              		authorities-by-username-query="SELECT u.user_name, up.authority FROM users as u JOIN users_user_roles AS uup ON u.user_id = uup.user_id JOIN user_roles AS up ON uup.role_id = up.role_id where u.user_name = ?" 
+              		authorities-by-username-query="SELECT u.user_name, up.type FROM users as u JOIN users_user_profiles AS uup ON u.user_id = uup.user_id JOIN user_profiles AS up ON uup.profile_id = up.profile_id where u.user_name = ?" 
               	/>
 			</ss:authentication-provider>
     	</ss:authentication-manager>

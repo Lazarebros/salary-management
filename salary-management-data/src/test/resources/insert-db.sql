@@ -26,5 +26,5 @@ INSERT INTO paychecks (paycheck_id, company_id, year, month, bi_week, start_date
 VALUES (6, 2, 2016, 02, 2, parsedatetime('2016-02-16', 'yyyy-MM-dd'), parsedatetime('2016-02-28', 'yyyy-MM-dd'), 4, 200.00, 100.00, 10.00);
 
 /* RATES */
-INSERT INTO rates (rate_id, company_id, hourly, start_date, end_date, expected_gross, expected_net_pay) VALUES (1, 1, 81.00, parsedatetime('2015-02-16', 'yyyy-MM-dd'), NULL, 6390.00, 4415.00);
-INSERT INTO rates (rate_id, company_id, hourly, start_date, end_date, expected_gross, expected_net_pay) VALUES (2, 2, 100.00, parsedatetime('2015-02-16', 'yyyy-MM-dd'), NULL, 8000.00, 5600.00);
+INSERT INTO rates (rate_id, company_id, hourly_rate, start_date, end_date, expected_gross, expected_net_pay) VALUES (1, 1, 81.00, parsedatetime('2015-02-16', 'yyyy-MM-dd'), NULL, 6390.00, 4415.00);
+INSERT INTO rates (rate_id, company_id, hourly_rate, start_date, end_date, expected_gross, expected_net_pay) VALUES (2, 2, 100.00, parsedatetime('2015-02-16', 'yyyy-MM-dd'), NULL, 8000.00, 5600.00);
