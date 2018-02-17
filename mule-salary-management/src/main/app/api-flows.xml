@@ -13,6 +13,8 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
     <flow name="paychechs-flow">
+        <logger message="******** #[flowVars.userName]" level="INFO" doc:name="Logger"/>
+        
         <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	SELECT 
@@ -75,6 +77,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
     </flow>
     
     <flow name="paychechs-year-month-flow">
+        <logger message="******** #[flowVars.userName]" level="INFO" doc:name="Logger"/>
         <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	SELECT 
