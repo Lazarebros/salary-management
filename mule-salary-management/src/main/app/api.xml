@@ -18,6 +18,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         <apikit:flow-mapping resource="/paychechs" action="get" flow-ref="paychechs-flow"/>
         <apikit:flow-mapping resource="/paychechs/{year}" action="get" flow-ref="paychechs-year-flow"/>
         <apikit:flow-mapping resource="/paychechs/{year}/{month}" action="get" flow-ref="paychechs-year-month-flow"/>
+        <apikit:flow-mapping resource="/paychechs/import" action="post" flow-ref="mule-salary-management-import-paycheck-flow"/>
     </apikit:config>
     
     <flow name="api-main">

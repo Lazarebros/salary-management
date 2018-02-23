@@ -26,6 +26,10 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 	
 	<http:listener-config name="httpListenerConfig" host="${http.host}" port="${http.port}" doc:name="HTTP Listener Configuration"/>
 	
+	<http:request-config name="HTTP_Request_Paycheck_API_Configuration" protocol="HTTP" host="localhost" basePath="/api" port="8081" doc:name="HTTP Request Configuration">
+        <http:basic-authentication username="test" password="test1234" preemptive="true"/>
+	</http:request-config>
+	
 	<db:generic-config name="Salary_Database_Configuration" dataSource-ref="Salary_Data_Source" doc:name="Generic Database Configuration">
     	<reconnect-forever />
     </db:generic-config>

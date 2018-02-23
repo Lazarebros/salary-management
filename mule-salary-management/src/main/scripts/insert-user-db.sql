@@ -1,14 +1,17 @@
-DELETE FROM users_user_profiles;
-DELETE FROM users;
-DELETE FROM user_profiles;
-DELETE FROM persistent_logins;
+SET SCHEMA salary;
+
+--DELETE FROM users_user_profiles;
+--DELETE FROM users;
+--DELETE FROM user_profiles;
+--DELETE FROM persistent_logins;
 
 /* Populate users Table */
 INSERT INTO users (user_id, user_name, password, first_name, last_name, enabled) VALUES
 (1, 'test', 'test', 'test', 'test', 1),
-(4, 'test1', 'test1', 'test1', 'test1', 1);
+(2, 'test1', 'test1', 'test1', 'test1', 1);
 
 update users set password = '$2a$10$NS7rmMeQ9OFQIzDy0daPVu8vjRryl85Nvsy.cAURz6/DNiOqgpdNi' where user_id = 1;
+update users set password = '$2a$10$NS7rmMeQ9OFQIzDy0daPVu8vjRryl85Nvsy.cAURz6/DNiOqgpdNi' where user_id = 2;
 
 /* Populate user_profiles Table */
 INSERT INTO user_profiles (profile_id, type) VALUES
