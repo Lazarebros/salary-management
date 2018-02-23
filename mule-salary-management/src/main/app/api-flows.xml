@@ -42,7 +42,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
         </db:select>
        	<dw:transform-message doc:name="Transform Message">
             <dw:input-payload mimeType="application/java" />
-            <dw:set-payload resource="dw_mappings/paychecks_export.dwl" />
+            <dw:set-payload resource="dw_mappings/paychecks_export_summarized.dwl" />
         </dw:transform-message>
     </flow>
     

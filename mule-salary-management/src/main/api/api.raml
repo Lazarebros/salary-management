@@ -16,13 +16,14 @@ documentation:
 
 
 /paychechs:
-  get:
-    description: return the paychecks
-    responses:
-      200:
-        body:
-          application/json:
-            type: paycheck[]
+  /summarized:
+    get:
+      description: return the paychecks
+      responses:
+        200:
+          body:
+            application/json:
+              type: paycheck[]
   /{year}:
     get:
       description: return the paychecks
