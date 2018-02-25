@@ -57,10 +57,10 @@ CREATE TABLE IF NOT EXISTS persistent_logins (
 -- PAYCHECK RELATED TABLES
 --
 
-DROP TABLE IF EXISTS paychecks;
-DROP TABLE IF EXISTS paycheck_configs;
-DROP TABLE IF EXISTS companies;
-DROP TABLE IF EXISTS users_companies;
+--DROP TABLE IF EXISTS paychecks;
+--DROP TABLE IF EXISTS paycheck_configs;
+--DROP TABLE IF EXISTS companies;
+--DROP TABLE IF EXISTS users_companies;
 
 CREATE TABLE IF NOT EXISTS companies (
   company_id bigint(20) NOT NULL AUTO_INCREMENT,
