@@ -19,6 +19,7 @@
 	grossAmount: sum paychecks.*gross_amount,
 	grossRemain: (sum paychecks.*gross_amount) - getExpectedGross(paychecks),
 	reimbursement: sum paychecks.*reimbursement,
+	expectedNet: getExpectedNet(paychecks),
 	netPay: sum paychecks.*net_pay,
 	realNet: getRealNet(paychecks),
 	netRemain: (getRealNet(paychecks) - getExpectedNet(paychecks)) as :currency as :number
