@@ -10,25 +10,28 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
     
-    <flow name="mule-salary-management-import-paycheck-flow" processingStrategy="synchronous">
+    <flow name="mule-paychecks-import-paycheck-flow" processingStrategy="synchronous">
         <object-to-byte-array-transformer doc:name="Object to Byte Array"/>
-        <custom-transformer class="com.d2l2c.mule.salary.management.transformer.ExtractFileContentTransformer" doc:name="Java"/>
-        <custom-transformer class="com.d2l2c.mule.salary.management.transformer.ContentToPaycheckTransformer" doc:name="Java"/>
+        <custom-transformer class="com.d2l2c.mule.paychecks.transformer.ExtractFileContentTransformer" doc:name="Java"/>
         
-        <flow-ref name="mule-salary-management-process-flow" doc:name="mule-salary-management-process-flow"/>
+        <logger message="#[payload]" level="INFO" />
+        
+<!--         <custom-transformer class="com.d2l2c.mule.paychecks.transformer.ContentToPaycheckTransformer" doc:name="Java"/> -->
+        
+<!--         <flow-ref name="mule-paychecks-process-flow" doc:name="mule-paychecks-process-flow"/> -->
     </flow>
     
-    <flow name="mule-salary-management-process-flow">
-        <flow-ref name="mule-salary-management-check-user-flow" doc:name="mule-salary-management-check-user-flow"/>
-        <flow-ref name="mule-salary-management-check-company-flow" doc:name="mule-salary-management-check-company-flow"/>
-        <flow-ref name="mule-salary-management-check-paycheck-config-flow" doc:name="mule-salary-management-check-paycheck-config-flow"/>
-        <flow-ref name="mule-salary-management-insert-paycheck-flow" doc:name="mule-salary-management-insert-paycheck-flow"/>
+    <flow name="mule-paychecks-process-flow">
+        <flow-ref name="mule-paychecks-check-user-flow" doc:name="mule-paychecks-check-user-flow"/>
+        <flow-ref name="mule-paychecks-check-company-flow" doc:name="mule-paychecks-check-company-flow"/>
+        <flow-ref name="mule-paychecks-check-paycheck-config-flow" doc:name="mule-paychecks-check-paycheck-config-flow"/>
+        <flow-ref name="mule-paychecks-insert-paycheck-flow" doc:name="mule-paychecks-insert-paycheck-flow"/>
     </flow>
 
-    <sub-flow name="mule-salary-management-check-user-flow">
+    <sub-flow name="mule-paychecks-check-user-flow">
         <choice doc:name="Choice User Name">
         	<when expression="#[flowVars.?userName != empty]">
-        		<flow-ref name="mule-salary-management-select-user-flow" doc:name="mule-salary-management-select-user-flow"/>
+        		<flow-ref name="mule-paychecks-select-user-flow" doc:name="mule-paychecks-select-user-flow"/>
         	</when>
         	<otherwise>
         		<scripting:component doc:name="Groovy">
@@ -38,25 +41,25 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         </choice>
     </sub-flow>
 
-    <sub-flow name="mule-salary-management-check-company-flow">
-        <flow-ref name="mule-salary-management-select-company-flow" doc:name="mule-salary-management-select-company-flow"/>
+    <sub-flow name="mule-paychecks-check-company-flow">
+        <flow-ref name="mule-paychecks-select-company-flow" doc:name="mule-paychecks-select-company-flow"/>
         <choice doc:name="Choice">
         	<when expression="#[flowVars.?companyId == empty]">
-        		<flow-ref name="mule-salary-management-insert-company-flow" doc:name="mule-salary-management-insert-company-flow"/>
-        		<flow-ref name="mule-salary-management-select-company-flow" doc:name="mule-salary-management-select-company-flow"/>
-        		<flow-ref name="mule-salary-management-insert-user-company-flow" doc:name="mule-salary-management-insert-user-company-flow"/>
+        		<flow-ref name="mule-paychecks-insert-company-flow" doc:name="mule-paychecks-insert-company-flow"/>
+        		<flow-ref name="mule-paychecks-select-company-flow" doc:name="mule-paychecks-select-company-flow"/>
+        		<flow-ref name="mule-paychecks-insert-user-company-flow" doc:name="mule-paychecks-insert-user-company-flow"/>
         	</when>
         	<otherwise>
-        		<flow-ref name="mule-salary-management-check-user-company-flow" doc:name="mule-salary-management-check-user-company-flow"/>
+        		<flow-ref name="mule-paychecks-check-user-company-flow" doc:name="mule-paychecks-check-user-company-flow"/>
         	</otherwise>
         </choice>
     </sub-flow>
 
-    <sub-flow name="mule-salary-management-check-user-company-flow">
-        <flow-ref name="mule-salary-management-select-user-company-flow" doc:name="mule-salary-management-select-user-company-flow"/>
+    <sub-flow name="mule-paychecks-check-user-company-flow">
+        <flow-ref name="mule-paychecks-select-user-company-flow" doc:name="mule-paychecks-select-user-company-flow"/>
         <choice doc:name="Choice">
         	<when expression="#[flowVars.?userIdCompanyId == empty]">
-        		<flow-ref name="mule-salary-management-insert-user-company-flow" doc:name="mule-salary-management-insert-user-company-flow"/>
+        		<flow-ref name="mule-paychecks-insert-user-company-flow" doc:name="mule-paychecks-insert-user-company-flow"/>
         	</when>
         	<otherwise>
 		        <logger message="Continue..." level="DEBUG" doc:name="Logger"/>
@@ -64,12 +67,12 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         </choice>
     </sub-flow>
 
-    <sub-flow name="mule-salary-management-check-paycheck-config-flow">
-        <flow-ref name="mule-salary-management-select-paycheck_config-flow" doc:name="mule-salary-management-select-paycheck_config-flow"/>
+    <sub-flow name="mule-paychecks-check-paycheck-config-flow">
+        <flow-ref name="mule-paychecks-select-paycheck_config-flow" doc:name="mule-paychecks-select-paycheck_config-flow"/>
         <choice doc:name="Choice">
         	<when expression="#[flowVars.?configId == empty]">
-        		<flow-ref name="mule-salary-management-insert-paycheck_config-flow" doc:name="mule-salary-management-insert-paycheck_config-flow"/>
-        		<flow-ref name="mule-salary-management-select-paycheck_config-flow" doc:name="mule-salary-management-select-paycheck_config-flow"/>
+        		<flow-ref name="mule-paychecks-insert-paycheck_config-flow" doc:name="mule-paychecks-insert-paycheck_config-flow"/>
+        		<flow-ref name="mule-paychecks-select-paycheck_config-flow" doc:name="mule-paychecks-select-paycheck_config-flow"/>
         	</when>
         	<otherwise>
 		        <logger message="Continue..." level="DEBUG" doc:name="Logger"/>
@@ -79,8 +82,8 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
     
     <!-- ################################ SELECT QUERIES ################################ -->
     
-    <sub-flow name="mule-salary-management-select-user-flow">
-        <db:select config-ref="Salary_Database_Configuration" target="#[flowVars.selectResultSet]" doc:name="Database">
+    <sub-flow name="mule-paychecks-select-user-flow">
+        <db:select config-ref="Paychecks_Database_Configuration" target="#[flowVars.selectResultSet]" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	SELECT user_id 
             	FROM users 
@@ -103,8 +106,8 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         </choice>
     </sub-flow>
 
-    <sub-flow name="mule-salary-management-select-company-flow">
-        <db:select config-ref="Salary_Database_Configuration" target="#[flowVars.selectResultSet]" doc:name="Database">
+    <sub-flow name="mule-paychecks-select-company-flow">
+        <db:select config-ref="Paychecks_Database_Configuration" target="#[flowVars.selectResultSet]" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	SELECT company_id
             	FROM companies
@@ -124,8 +127,8 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         </choice>
     </sub-flow>
 
-    <sub-flow name="mule-salary-management-select-user-company-flow">
-        <db:select config-ref="Salary_Database_Configuration" target="#[flowVars.selectResultSet]" doc:name="Database">
+    <sub-flow name="mule-paychecks-select-user-company-flow">
+        <db:select config-ref="Paychecks_Database_Configuration" target="#[flowVars.selectResultSet]" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	SELECT company_id
             	FROM users_companies
@@ -147,8 +150,8 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         </choice>
     </sub-flow>
 
-    <sub-flow name="mule-salary-management-select-paycheck_config-flow">
-        <db:select config-ref="Salary_Database_Configuration" target="#[flowVars.selectResultSet]" doc:name="Database">
+    <sub-flow name="mule-paychecks-select-paycheck_config-flow">
+        <db:select config-ref="Paychecks_Database_Configuration" target="#[flowVars.selectResultSet]" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	SELECT config_id
             	FROM paycheck_configs
@@ -172,8 +175,8 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
 
     <!-- ################################ INSERT QUERIES ################################ -->
     
-    <sub-flow name="mule-salary-management-insert-company-flow">
-        <db:insert config-ref="Salary_Database_Configuration" target="#[flowVars.insertResultSet]" doc:name="Database">
+    <sub-flow name="mule-paychecks-insert-company-flow">
+        <db:insert config-ref="Paychecks_Database_Configuration" target="#[flowVars.insertResultSet]" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	INSERT INTO companies (
 	            	code,
@@ -190,8 +193,8 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         </db:insert>
     </sub-flow>
 
-    <sub-flow name="mule-salary-management-insert-user-company-flow">
-        <db:insert config-ref="Salary_Database_Configuration" target="#[flowVars.insertResultSet]" doc:name="Database">
+    <sub-flow name="mule-paychecks-insert-user-company-flow">
+        <db:insert config-ref="Paychecks_Database_Configuration" target="#[flowVars.insertResultSet]" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	INSERT INTO users_companies (
 	            	user_id,
@@ -208,8 +211,8 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         </db:insert>
     </sub-flow>
 
-    <sub-flow name="mule-salary-management-insert-paycheck_config-flow">
-        <db:insert config-ref="Salary_Database_Configuration" target="#[flowVars.insertResultSet]" doc:name="Database">
+    <sub-flow name="mule-paychecks-insert-paycheck_config-flow">
+        <db:insert config-ref="Paychecks_Database_Configuration" target="#[flowVars.insertResultSet]" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	INSERT INTO paycheck_configs (
 	            	expected_number_of_hours,
@@ -226,9 +229,9 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
         </db:insert>
     </sub-flow>
 
-    <sub-flow name="mule-salary-management-insert-paycheck-flow">
+    <sub-flow name="mule-paychecks-insert-paycheck-flow">
         <logger message="Inserting into Database Paycheck..." level="INFO" doc:name="Logger"/>
-        <db:insert config-ref="Salary_Database_Configuration" doc:name="Database">
+        <db:insert config-ref="Paychecks_Database_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	INSERT INTO paychecks (
 	            	user_id,
@@ -281,8 +284,8 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
 
     <!-- ################################ UPDATE QUERIES ################################ -->
 
-    <sub-flow name="mule-salary-management-disable-old-paycheck_configs-flow">
-        <db:update config-ref="Salary_Database_Configuration" target="#[flowVars.rateInsertResultSet]" doc:name="Database">
+    <sub-flow name="mule-paychecks-disable-old-paycheck_configs-flow">
+        <db:update config-ref="Paychecks_Database_Configuration" target="#[flowVars.rateInsertResultSet]" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	UPDATE paycheck_configs
             	SET end_date = :endDate

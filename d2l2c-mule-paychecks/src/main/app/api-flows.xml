@@ -15,9 +15,9 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
     <flow name="paychechs-flow">
-        <flow-ref name="mule-salary-management-check-user-flow" doc:name="mule-salary-management-check-user-flow"/>
+        <flow-ref name="mule-paychecks-check-user-flow" doc:name="mule-paychecks-check-user-flow"/>
         
-        <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
+        <db:select config-ref="Paychecks_Database_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	SELECT 
             	pay.paycheck_id, 
@@ -42,26 +42,29 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
             </db:parameterized-query>
             <db:in-param name="userId" value="#[flowVars.userId]" />
         </db:select>
-        <choice doc:name="Choice">
-        	<when expression="#[payload.size() != 0]">
-		       	<dw:transform-message doc:name="Transform Message">
-		            <dw:input-payload mimeType="application/java" />
-		            <dw:set-payload resource="dw_mappings/paychecks_export_summarized.dwl" />
-		        </dw:transform-message>
-        	</when>
-        	<otherwise>
-        		<dw:transform-message doc:name="Transform Message">
-		            <dw:input-payload mimeType="application/java" />
-		            <dw:set-payload resource="dw_mappings/no_records.dwl" />
-		        </dw:transform-message>
-        	</otherwise>
-        </choice>
+        
+        <custom-transformer class="com.d2l2c.mule.paychecks.transformer.JavaToJsonTransformer" doc:name="Java"/>
+        
+<!--         <choice doc:name="Choice"> -->
+<!--         	<when expression="#[payload.size() != 0]"> -->
+<!-- 		       	<dw:transform-message doc:name="Transform Message"> -->
+<!-- 		            <dw:input-payload mimeType="application/java" /> -->
+<!-- 		            <dw:set-payload resource="dw_mappings/paychecks_export_summarized.dwl" /> -->
+<!-- 		        </dw:transform-message> -->
+<!--         	</when> -->
+<!--         	<otherwise> -->
+<!--         		<dw:transform-message doc:name="Transform Message"> -->
+<!-- 		            <dw:input-payload mimeType="application/java" /> -->
+<!-- 		            <dw:set-payload resource="dw_mappings/no_records.dwl" /> -->
+<!-- 		        </dw:transform-message> -->
+<!--         	</otherwise> -->
+<!--         </choice> -->
     </flow>
     
     <flow name="paychechs-year-flow">
-        <flow-ref name="mule-salary-management-check-user-flow" doc:name="mule-salary-management-check-user-flow"/>
+        <flow-ref name="mule-paychecks-check-user-flow" doc:name="mule-paychecks-check-user-flow"/>
         
-        <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
+        <db:select config-ref="Paychecks_Database_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	SELECT 
             	pay.paycheck_id, 
@@ -89,13 +92,15 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
             <db:in-param name="year" value="#[flowVars.year]" />
         </db:select>
         
-        <flow-ref name="paychechs-transform-flow" doc:name="paychechs-transform-flow"/>
+        <custom-transformer class="com.d2l2c.mule.paychecks.transformer.JavaToJsonTransformer" doc:name="Java"/>
+        
+<!--         <flow-ref name="paychechs-transform-flow" doc:name="paychechs-transform-flow"/> -->
     </flow>
     
     <flow name="paychechs-year-month-flow">
-        <flow-ref name="mule-salary-management-check-user-flow" doc:name="mule-salary-management-check-user-flow"/>
+        <flow-ref name="mule-paychecks-check-user-flow" doc:name="mule-paychecks-check-user-flow"/>
         
-        <db:select config-ref="Salary_Database_Configuration" doc:name="Database">
+        <db:select config-ref="Paychecks_Database_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	SELECT 
             	pay.paycheck_id, 

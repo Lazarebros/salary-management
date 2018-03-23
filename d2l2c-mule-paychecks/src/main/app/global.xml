@@ -13,12 +13,12 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd">
 
-	<context:property-placeholder location="file:${esb.conf.path}/${esb.env}-mule-salary-management.properties" />
+	<context:property-placeholder location="file:${esb.conf.path}/${esb.env}-mule-paychecks.properties" />
 	
 	<spring:beans>
-		<spring:bean id="Salary_Data_Source" class="org.enhydra.jdbc.standard.StandardDataSource">
-			<spring:property name="url" value="${salary.db.url}"/>
-			<spring:property name="driverName" value="${salary.db.driver}"/>
+		<spring:bean id="Paychecks_Data_Source" class="org.enhydra.jdbc.standard.StandardDataSource">
+			<spring:property name="url" value="${paychecks.db.url}"/>
+			<spring:property name="driverName" value="${paychecks.db.driver}"/>
 		</spring:bean>
 	</spring:beans>
 	
@@ -30,7 +30,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         <http:basic-authentication username="test" password="test1234" preemptive="true"/>
 	</http:request-config>
 	
-	<db:generic-config name="Salary_Database_Configuration" dataSource-ref="Salary_Data_Source" doc:name="Generic Database Configuration">
+	<db:generic-config name="Paychecks_Database_Configuration" dataSource-ref="Paychecks_Data_Source" doc:name="Generic Database Configuration">
     	<reconnect-forever />
     </db:generic-config>
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.d2l2c.mule.salary.management.transformer;
+package com.d2l2c.mule.paychecks.transformer;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

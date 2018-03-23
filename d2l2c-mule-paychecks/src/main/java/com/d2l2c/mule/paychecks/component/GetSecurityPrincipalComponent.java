@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.d2l2c.mule.salary.management.component;
+package com.d2l2c.mule.paychecks.component;
 
 import org.mule.api.MuleEventContext;
 import org.mule.api.lifecycle.Callable;

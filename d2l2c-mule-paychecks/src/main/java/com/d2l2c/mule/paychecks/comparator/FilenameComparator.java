@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.d2l2c.mule.salary.management.comparator;
+package com.d2l2c.mule.paychecks.comparator;
 
 import java.io.File;
 import java.util.Comparator;

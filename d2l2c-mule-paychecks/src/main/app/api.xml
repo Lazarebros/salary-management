@@ -18,7 +18,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         <apikit:flow-mapping resource="/paychecks/summary" action="get" flow-ref="paychechs-flow"/>
         <apikit:flow-mapping resource="/paychecks/{year}" action="get" flow-ref="paychechs-year-flow"/>
         <apikit:flow-mapping resource="/paychecks/{year}/{month}" action="get" flow-ref="paychechs-year-month-flow"/>
-        <apikit:flow-mapping resource="/paychecks/import" action="post" flow-ref="mule-salary-management-import-paycheck-flow"/>
+        <apikit:flow-mapping resource="/paychecks/import" action="post" flow-ref="mule-paychecks-import-paycheck-flow"/>
     </apikit:config>
     
     <flow name="api-main">
@@ -27,7 +27,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         <http:basic-security-filter realm="mule-realm" securityProviders="jdbc-provider"/>
         <mule-ss:authorization-filter requiredAuthorities="ADMIN, USER" />
         
-        <component class="com.d2l2c.mule.salary.management.component.GetSecurityPrincipalComponent" />
+        <component class="com.d2l2c.mule.paychecks.component.GetSecurityPrincipalComponent" />
         
         <apikit:router config-ref="Router" doc:name="APIkit Router" />
         <exception-strategy ref="apiKitGlobalExceptionMapping" doc:name="Reference Exception Strategy"/>
