@@ -45,20 +45,20 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
         
         <custom-transformer class="com.d2l2c.mule.paychecks.transformer.JavaToJsonTransformer" doc:name="Java"/>
         
-<!--         <choice doc:name="Choice"> -->
-<!--         	<when expression="#[payload.size() != 0]"> -->
-<!-- 		       	<dw:transform-message doc:name="Transform Message"> -->
-<!-- 		            <dw:input-payload mimeType="application/java" /> -->
-<!-- 		            <dw:set-payload resource="dw_mappings/paychecks_export_summarized.dwl" /> -->
-<!-- 		        </dw:transform-message> -->
-<!--         	</when> -->
-<!--         	<otherwise> -->
-<!--         		<dw:transform-message doc:name="Transform Message"> -->
-<!-- 		            <dw:input-payload mimeType="application/java" /> -->
-<!-- 		            <dw:set-payload resource="dw_mappings/no_records.dwl" /> -->
-<!-- 		        </dw:transform-message> -->
-<!--         	</otherwise> -->
-<!--         </choice> -->
+        <choice doc:name="Choice">
+        	<when expression="#[payload.size() != 0]">
+		       	<dw:transform-message doc:name="Transform Message">
+		            <dw:input-payload mimeType="application/java" />
+		            <dw:set-payload resource="dw_mappings/paychecks_export_summarized.dwl" />
+		        </dw:transform-message>
+        	</when>
+        	<otherwise>
+        		<dw:transform-message doc:name="Transform Message">
+		            <dw:input-payload mimeType="application/java" />
+		            <dw:set-payload resource="dw_mappings/no_records.dwl" />
+		        </dw:transform-message>
+        	</otherwise>
+        </choice>
     </flow>
     
     <flow name="paychechs-year-flow">
@@ -92,9 +92,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
             <db:in-param name="year" value="#[flowVars.year]" />
         </db:select>
         
-        <custom-transformer class="com.d2l2c.mule.paychecks.transformer.JavaToJsonTransformer" doc:name="Java"/>
-        
-<!--         <flow-ref name="paychechs-transform-flow" doc:name="paychechs-transform-flow"/> -->
+        <flow-ref name="paychechs-transform-flow" doc:name="paychechs-transform-flow"/>
     </flow>
     
     <flow name="paychechs-year-month-flow">
