@@ -33,5 +33,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 	<db:generic-config name="Paychecks_Database_Configuration" dataSource-ref="Paychecks_Data_Source" doc:name="Generic Database Configuration">
     	<reconnect-forever />
     </db:generic-config>
+    
+    <custom-transformer name="JavaToJsonTransformer" class="com.d2l2c.mule.paychecks.transformer.JavaToJsonTransformer" doc:name="Java"/>
 
 </mule>

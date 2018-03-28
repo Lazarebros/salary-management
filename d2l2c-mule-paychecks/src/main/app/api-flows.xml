@@ -6,7 +6,6 @@
 	xmlns="http://www.mulesoft.org/schema/mule/core" 
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
-	
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
@@ -20,19 +19,19 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
         <db:select config-ref="Paychecks_Database_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[
             	SELECT 
-            	pay.paycheck_id, 
-            	pay.year, 
-            	pay.month, 
-            	pay.start_date, 
-            	pay.end_date, 
-            	pay.number_of_hours, 
-            	pay.gross_amount, 
-            	pay.net_pay, 
-            	pay.reimbursement, 
-            	pay.hourly_rate, 
-            	comp.code AS company_code, 
-            	conf.expected_number_of_hours, 
-            	conf.net_percentage_of_gross
+            	pay.paycheck_id AS id, 
+            	pay.year AS year, 
+            	pay.month AS month, 
+            	pay.start_date AS startDate, 
+            	pay.end_date AS endDate, 
+            	pay.number_of_hours AS numberOfHours, 
+            	pay.gross_amount AS grossAmount, 
+            	pay.net_pay AS netPay, 
+            	pay.reimbursement AS reimbursement, 
+            	pay.hourly_rate AS hourlyRate, 
+            	comp.code AS companyCode, 
+            	conf.expected_number_of_hours AS expectedNumberOfHours, 
+            	conf.net_percentage_of_gross AS netPercentageOfGross
             	FROM paychecks AS pay
             	JOIN users AS user ON pay.user_id = user.user_id
             	JOIN companies AS comp ON pay.company_id = comp.company_id
@@ -43,13 +42,13 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
             <db:in-param name="userId" value="#[flowVars.userId]" />
         </db:select>
         
-        <custom-transformer class="com.d2l2c.mule.paychecks.transformer.JavaToJsonTransformer" doc:name="Java"/>
+<!--         <transformer ref="JavaToJsonTransformer" /> -->
         
         <choice doc:name="Choice">
         	<when expression="#[payload.size() != 0]">
 		       	<dw:transform-message doc:name="Transform Message">
 		            <dw:input-payload mimeType="application/java" />
-		            <dw:set-payload resource="dw_mappings/paychecks_export_summarized.dwl" />
+		           	<dw:set-payload resource="dw_mappings/paychecks_export_summarized.dwl" />
 		        </dw:transform-message>
         	</when>
         	<otherwise>

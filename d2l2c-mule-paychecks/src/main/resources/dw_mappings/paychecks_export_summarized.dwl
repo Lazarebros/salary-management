@@ -1,13 +1,13 @@
 %dw 1.0
 %output application/json
-%function getRealNet(paychecks) (sum paychecks.*net_pay) - (sum paychecks.*reimbursement)
+%function getRealNet(paychecks) (sum paychecks.*netPay) - (sum paychecks.*reimbursement)
 %function getExpectedGross(paychecks) (sum (paychecks map {
-		expected_gross: $.expected_number_of_hours * $.hourly_rate
-	}).*expected_gross
+		expectedGross: $.expectedNumberOfHours * $.hourlyRate
+	}).*expectedGross
 )
 %function getExpectedNet(paychecks) (sum (paychecks map {
-	expected_net: $.expected_number_of_hours * $.hourly_rate * $.net_percentage_of_gross
-	}).*expected_net
+	expectedNetPay: $.expectedNumberOfHours * $.hourlyRate * $.netPercentageOfGross
+	}).*expectedNetPay
 )
 
 %type currency = :string {format: ".00"}
@@ -16,11 +16,11 @@
 	year: paychecks[0].year,
 	numnerOfPaychecks: sizeOf paychecks,
 	expectedGrossAmount: getExpectedGross(paychecks),
-	grossAmount: sum paychecks.*gross_amount,
-	grossRemain: (sum paychecks.*gross_amount) - getExpectedGross(paychecks),
+	grossAmount: sum paychecks.*grossAmount,
+	grossRemain: (sum paychecks.*grossAmount) - getExpectedGross(paychecks),
 	reimbursement: sum paychecks.*reimbursement,
 	expectedNet: getExpectedNet(paychecks),
-	netPay: sum paychecks.*net_pay,
+	netPay: sum paychecks.*netPay,
 	realNet: getRealNet(paychecks),
 	netRemain: (getRealNet(paychecks) - getExpectedNet(paychecks)) as :currency as :number
 }) orderBy $.year)[-1 to 0]
