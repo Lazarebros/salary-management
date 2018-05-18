@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+<mule xmlns:core="http://www.mulesoft.org/schema/mule/core" 
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:file="http://www.mulesoft.org/schema/mule/file"
 	xmlns:db="http://www.mulesoft.org/schema/mule/db"
-	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns="http://www.mulesoft.org/schema/mule/core" 
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd
-http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
-http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd">
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd
+		http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+		http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd">
 
 	<context:property-placeholder location="file:${esb.conf.path}/${esb.env}-mule-paychecks.properties" />
 	
@@ -34,6 +38,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     	<reconnect-forever />
     </db:generic-config>
     
-    <custom-transformer name="JavaToJsonTransformer" class="com.d2l2c.mule.paychecks.transformer.JavaToJsonTransformer" doc:name="Java"/>
+    <custom-transformer name="JavaToJsonSummaryTransformer" class="com.d2l2c.mule.paychecks.transformer.JavaToJsonSummaryTransformer" doc:name="Java"/>
+    <custom-transformer name="JavaToJsonDetailsTransformer" class="com.d2l2c.mule.paychecks.transformer.JavaToJsonDetailsTransformer" doc:name="Java"/>
 
 </mule>
